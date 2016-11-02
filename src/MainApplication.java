@@ -36,22 +36,21 @@ public class MainApplication extends GraphicsApplication {
 	}
 	
 	public void switchBack() {
-//		switch(count % 3) {
-//			case 0: stopSound("", "RexhaTreasure.mp3"); break;
-//			case 1: stopSound("", "r2d2.mp3"); break;
-//			case 2: stopSound("", "somethinlikethis.mp3"); break;
-//		}
+		AudioPlayer audio = AudioPlayer.getInstance();
+		switch(count % 2) {
+			case 0: audio.stopSound("sounds", "r2d2.mp3"); break;
+			case 1: audio.stopSound("sounds", "somethinlikethis.mp3"); break;
+		}
 		count++;
 		switchToScreen(menu);
 	}
 	
 	public void switchToSome() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-//		switch(count % 3) {
-//			case 0: audio.playSound("", "RexhaTreasure.mp3"); break;
-//			case 1: audio.playSound("sounds", "r2d2.mp3"); break;
-//			case 2: audio.playSound("", "somethinlikethis.mp3"); break;
-//		}
+		switch(count % 2) {
+			case 0: audio.playSound("sounds", "r2d2.mp3"); break;
+			case 1: audio.playSound("sounds", "somethinlikethis.mp3"); break;
+		}
 		switchToScreen(somePane);
 	}
 }
