@@ -26,7 +26,7 @@ public class SomePane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if(obj == img) {
-			program.switchBack();
+			program.switchToMenu();
 		}
 	}
 
