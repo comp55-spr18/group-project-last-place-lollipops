@@ -27,6 +27,19 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 	
 	public GraphicsApplication() {
 		super();
+		setupInteractions();
+	}
+	
+	/* Method: setupInteractions
+	 * -------------------------
+	 * must be called before switching to another
+	 * pane to make sure that interactivity
+	 * is setup and ready to go.
+	 */
+	private void setupInteractions() {
+		requestFocus();
+		addKeyListeners();
+		addMouseListeners();
 	}
 	
 	/* switchToScreen(newGraphicsPane)

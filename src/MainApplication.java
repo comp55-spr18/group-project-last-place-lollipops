@@ -19,23 +19,10 @@ public class MainApplication extends GraphicsApplication {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
 		menu = new MenuPane(this);
-		setupInteractions();
-		switchToSome();
+		switchToMenu();
 	}
 	
-	/* Method: setupInteractions
-	 * -------------------------
-	 * must be called before switching to another
-	 * pane to make sure that interactivity
-	 * is setup and ready to go.
-	 */
-	private void setupInteractions() {
-		requestFocus();
-		addKeyListeners();
-		addMouseListeners();
-	}
-	
-	public void switchBack() {
+	public void switchToMenu() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		switch(count % 2) {
 			case 0: audio.stopSound("sounds", "r2d2.mp3"); break;
