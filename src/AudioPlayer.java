@@ -49,9 +49,17 @@ public class AudioPlayer {
 			String result = resource.toString();
 			return result;
 		}catch(NullPointerException ex) {
-			ex.printStackTrace();
-			System.out.println("MEDIA FILE NOT FOUND: " + folder+filename + "...Exiting");
-			System.exit(0);
+			try {
+				final URL newResource = getClass().getResource("../"+folder+filename);
+				String result = newResource.toString();
+				return result;
+			}catch(NullPointerException ex1) {
+				ex.printStackTrace();
+				System.out.println("MEDIA FILE NOT FOUND: " + folder+filename);
+				System.out.println("Also tried: ../" + folder+filename + "...Exiting");
+				System.exit(0);
+			}
+
 		}
 		return resource.toString();
 	}
