@@ -1,5 +1,7 @@
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
@@ -7,14 +9,21 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 public class AudioPlayer {
-	private ArrayList<MediaPlayer> players;
+	private HashMap<String, MediaPlayer> players;
 	private static AudioPlayer somePlayer;
 	
 	private AudioPlayer() {
 		JFXPanel fxPanel = new JFXPanel();
-		players = new ArrayList<MediaPlayer>();
+		players = new HashMap<String, MediaPlayer>();
 	}
 	
+	/**
+	 * Think of this like the constructor for getting the audioplayer
+	 * Usage:
+	 * AudioPlayer myPlayer = AudioPlayer.getInstance();
+	 * 
+	 * @return instance of the AudioPlayer
+	 */
 	public static AudioPlayer getInstance() {
 		if(somePlayer == null) {
 			somePlayer = new AudioPlayer();
@@ -22,35 +31,56 @@ public class AudioPlayer {
 		return somePlayer;
 	}
 	
+	/**
+	 * Plays a sound based on the foldername and filename given in the parameters 
+	 * Will only play the sound once.
+	 * 
+	 * @param folder folder where the sound is inside of media, leave as empty string if in the main media folder
+	 * @param filename filename for the sound, make sure to include the extension
+	 */
 	public void playSound(String folder, String filename) {
+		playSound(folder, filename, false);
+	}
+	
+	/**
+	 * same as the original play sound, but has the option to loop the sound 
+	 * 
+	 * @param folder folder where the sound is inside of media, leave as empty string if in the main media folder
+	 * @param filename filename for the sound, make sure to include the extension
+	 * @param shouldLoop true will loop the sound.  
+	 */
+	public void playSound(String folder, String filename, boolean shouldLoop) {
 		MediaPlayer mPlayer = findSound(folder, filename);
-		if(mPlayer == null) {
+		if(mPlayer == null || mPlayer.getCycleDuration().lessThanOrEqualTo(mPlayer.getCurrentTime())) {
 			mPlayer = createMediaPlayer(folder, filename);
 		}
-		if(mPlayer.getCycleDuration().lessThanOrEqualTo(mPlayer.getCurrentTime())) {
-			mPlayer.seek(Duration.ZERO);
-		}
 		mPlayer.play();
+		if(shouldLoop) {
+			mPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		}
 	}
 	
 	private MediaPlayer createMediaPlayer(String folder, String filename) {
-		Media sound = new Media(buildResourcePath(folder, filename));
+		String key = buildResourcePath(folder, filename);
+		Media sound = new Media(key);
 		MediaPlayer mPlayer = new MediaPlayer(sound);
-		players.add(mPlayer);
+		players.put(folder+filename, mPlayer);
 		return mPlayer;
 	}
 	
+	//TODO change so that you get the sub directory
+	//TODO add javadoc support for folks
 	private String buildResourcePath(String folder, String filename) {
 		if(folder != null && folder.length() > 0) {
 			folder += "/";
 		}
-		final URL resource = getClass().getResource(folder+filename);
+		final URL resource = getClass().getClassLoader().getResource(folder+filename);
 		try {
 			String result = resource.toString();
 			return result;
 		}catch(NullPointerException ex) {
 			try {
-				final URL newResource = getClass().getResource("../"+folder+filename);
+				final URL newResource = getClass().getClassLoader().getResource("../"+folder+filename);
 				String result = newResource.toString();
 				return result;
 			}catch(NullPointerException ex1) {
@@ -65,15 +95,16 @@ public class AudioPlayer {
 	}
 	
 	private MediaPlayer findSound(String folder, String filename) {
-		String path = buildResourcePath(folder, filename);
-		for(MediaPlayer mP : players) {
-			if(mP.getMedia().getSource().equals(path)) {
-				return mP;
-			}
-		}
-		return null;
+		return players.get(folder+filename);
 	}
 	
+	/**
+	 * Stops the sound when the media is playing, does nothing otherwise
+	 * Calling playSound after stopping the sound will cause the sound to start from the beginning
+	 * 
+	 * @param folder folder where the sound is inside of media, leave as empty string if in the main media folder
+	 * @param filename filename for the sound, make sure to include the extension
+	 */
 	public void stopSound(String folder, String filename) {
 		MediaPlayer mp = findSound(folder, filename);
 		if(mp != null) {
@@ -81,6 +112,13 @@ public class AudioPlayer {
 		}
 	}
 	
+	/**
+	 * Pauses the sound when the media is playing, does nothing otherwise
+	 * Calling playSound after pausing the sound will cause the sound to play where it left off
+	 * 
+	 * @param folder folder where the sound is inside of media, leave as empty string if in the main media folder
+	 * @param filename filename for the sound, make sure to include the extension
+	 */
 	public void pauseSound(String folder, String filename) {
 		MediaPlayer mp = findSound(folder, filename);
 		if(mp != null) {
