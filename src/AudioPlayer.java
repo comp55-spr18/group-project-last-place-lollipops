@@ -1,3 +1,12 @@
+/*
+ * Typical usage of the AudioPlayer.java
+ * ----------------------------------
+ * AudioPlayer myAudio = AudioPlayer.getInstance()
+ * myAudio.playSound("music", "funk.mp3")
+ * 
+ * AudioPlayer supports mp3 files and is based on the javafx MediaPlayer class
+ * Questions can be sent to ojimenez@pacific.edu
+ */
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,7 +42,8 @@ public class AudioPlayer {
 	
 	/**
 	 * Plays a sound based on the foldername and filename given in the parameters 
-	 * Will only play the sound once.
+	 * Will only play the sound once.  If the sound isn't finished and the exact same
+	 * sound is played again, playSound will restart the sound.
 	 * 
 	 * @param folder folder where the sound is inside of media, leave as empty string if in the main media folder
 	 * @param filename filename for the sound, make sure to include the extension
@@ -68,8 +78,10 @@ public class AudioPlayer {
 		return mPlayer;
 	}
 	
-	//TODO change so that you get the sub directory
-	//TODO add javadoc support for folks
+	/*
+	 * Currently only supports default package or one sub-package, have not updated the code
+	 * for the latest package
+	 */
 	private String buildResourcePath(String folder, String filename) {
 		if(folder != null && folder.length() > 0) {
 			folder += "/";
