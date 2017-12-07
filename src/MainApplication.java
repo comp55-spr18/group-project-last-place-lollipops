@@ -6,10 +6,13 @@ import acm.program.*;
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
+	public static final String MUSIC_FOLDER = "sounds";
+	private final String[] SOUND_FILES = {"r2d2.mp3", "somethinlikethis.mp3"};
 	
 	private SomePane somePane;
 	private MenuPane menu;
 	private int count = 0;
+	
 	
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -23,21 +26,18 @@ public class MainApplication extends GraphicsApplication {
 	}
 	
 	public void switchToMenu() {
-		AudioPlayer audio = AudioPlayer.getInstance();
-		switch(count % 2) {
-			case 0: audio.stopSound("sounds", "r2d2.mp3"); break;
-			case 1: audio.stopSound("sounds", "somethinlikethis.mp3"); break;
-		}
+		playRandomSound();
 		count++;
 		switchToScreen(menu);
 	}
 	
 	public void switchToSome() {
-		AudioPlayer audio = AudioPlayer.getInstance();
-		switch(count % 2) {
-			case 0: audio.playSound("sounds", "r2d2.mp3"); break;
-			case 1: audio.playSound("sounds", "somethinlikethis.mp3"); break;
-		}
+		playRandomSound();
 		switchToScreen(somePane);
+	}
+	
+	private void playRandomSound() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
 	}
 }

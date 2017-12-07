@@ -13,14 +13,8 @@
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.net.URL;
-import java.util.ArrayList;
 
 import acm.program.GraphicsProgram;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 public abstract class GraphicsApplication extends GraphicsProgram {
 	private GraphicsPane curScreen;

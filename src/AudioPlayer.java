@@ -32,9 +32,11 @@ public final class AudioPlayer {
 	 * 
 	 * @return instance of the AudioPlayer
 	 */
-	public static synchronized AudioPlayer getInstance() {
-		if(somePlayer == null) {
-			somePlayer = new AudioPlayer();
+	public static AudioPlayer getInstance() {
+		synchronized(somePlayer) {
+			if(somePlayer == null) {
+				somePlayer = new AudioPlayer();
+			}
 		}
 		return somePlayer;
 	}
