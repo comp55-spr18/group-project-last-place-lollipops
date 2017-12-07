@@ -16,6 +16,7 @@ public class GButton extends GCompound {
 	}
 	
 	public GButton(String label, double x, double y, double width, double height, int r, int g, int b) {
+		this(label, x, y, width, height, new Color(r, g, b));
 	}
 	
 	public GButton(String label, double x, double y, double width, double height, Color col) {
