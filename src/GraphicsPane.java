@@ -1,3 +1,4 @@
+
 /* File: GraphicsPane.java
  * -----------------------
  * Like you did with your own graphics programs, simply
@@ -21,48 +22,43 @@ public abstract class GraphicsPane implements Interfaceable {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-	
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-	
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
-	
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+		// TODO Auto-generated method stub
 	}
 
 }
