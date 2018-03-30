@@ -9,12 +9,13 @@ private int level;
 //check size
 // if hit
 // if touch rock die
-boolean checkLose(){
-	if(person.size())
-	return false;
+//boolean checkLose(){
+//	if(person.size())
+//	return false;
 	
-}
+//}
 //when the player wants to pause the game
+//https://gamedev.stackexchange.com/questions/25177/implementing-pausing-functionality
 void pause() {
 	
 }
