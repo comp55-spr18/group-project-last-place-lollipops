@@ -50,10 +50,10 @@ public class MenuPane extends GraphicsPane {
 			program.switchToSettings();
 		}
 		if (obj == instructions) {
-			program.switchToSome();
+			program.switchToInstructions();
 		}
 		if (obj == leaderboards) {
-			program.switchToSome();
+			program.switchToLeaderboards();
 		}
 	}
 }

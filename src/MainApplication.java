@@ -7,6 +7,8 @@ public class MainApplication extends GraphicsApplication {
 	private SomePane somePane;
 	private MenuPane menu;
 	private SettingsPane settings;
+	private InstructionsPane instructions;
+	private LeaderboardsPane leaderboards;
 	private int count;
 
 	public void init() {
@@ -16,6 +18,9 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
+		settings = new SettingsPane(this);
+		instructions = new InstructionsPane(this);
+		leaderboards = new LeaderboardsPane(this);
 		menu = new MenuPane(this);
 		switchToMenu();
 	}
@@ -35,12 +40,12 @@ public class MainApplication extends GraphicsApplication {
 		switchToScreen(settings);
 	}
 	
-	public void switchToinstructions() {
-		switchToScreen(settings);
+	public void switchToInstructions() {
+		switchToScreen(instructions);
 	}
 	
 	public void switchToLeaderboards() {
-		switchToScreen(settings);
+		switchToScreen(leaderboards);
 	}
 
 	private void playRandomSound() {

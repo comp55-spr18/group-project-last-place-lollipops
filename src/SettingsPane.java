@@ -10,7 +10,7 @@ public class SettingsPane extends GraphicsPane {
 
 	public SettingsPane(MainApplication app) {
 		this.program = app;
-		sound = new GButton("Sound on/off", 200, 200, 200, 100);
+		sound = new GButton("Sound on", 200, 200, 200, 100);
 		back = new GButton("Back", 200, 400, 200, 100);
 	}
 
@@ -33,7 +33,7 @@ public class SettingsPane extends GraphicsPane {
 			program.switchToMenu();
 		}
 		if (obj == sound) {
-			
+			sound.setLabel("sound off");
 		}
 	}
 
