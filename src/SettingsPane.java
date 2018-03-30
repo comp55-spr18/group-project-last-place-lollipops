@@ -4,8 +4,9 @@ import acm.graphics.GObject;
 
 public class SettingsPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
-										// all of the GraphicsProgram calls
+	// all of the GraphicsProgram calls
 	private GButton sound;
+
 	private GButton back;
 
 	public SettingsPane(MainApplication app) {
@@ -32,8 +33,18 @@ public class SettingsPane extends GraphicsPane {
 		if (obj == back) {
 			program.switchToMenu();
 		}
-		if (obj == sound) {
-			sound.setLabel("sound off");
+		if (obj == sound) {	
+			if (program.volume) {
+				sound.setLabel("sound off");
+				program.volume = false;
+				program.pauseMenuMusic();
+				program.pauseGameMusic();
+				}
+			else {
+				program.volume = true;
+				sound.setLabel("sound on");
+				program.playMenuMusic();
+			}
 		}
 	}
 
