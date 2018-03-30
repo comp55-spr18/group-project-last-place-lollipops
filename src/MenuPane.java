@@ -47,7 +47,7 @@ public class MenuPane extends GraphicsPane {
 			program.switchToSome();
 		}
 		if (obj == settings) {
-			program.switchToSome();
+			program.switchToSettings();
 		}
 		if (obj == instructions) {
 			program.switchToSome();

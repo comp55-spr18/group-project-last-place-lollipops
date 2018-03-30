@@ -34,6 +34,14 @@ public class MainApplication extends GraphicsApplication {
 	public void switchToSettings() {
 		switchToScreen(settings);
 	}
+	
+	public void switchToinstructions() {
+		switchToScreen(settings);
+	}
+	
+	public void switchToLeaderboards() {
+		switchToScreen(settings);
+	}
 
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
