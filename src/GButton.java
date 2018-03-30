@@ -65,4 +65,8 @@ public class GButton extends GCompound {
 	public void setColor(Color col) {
 		message.setColor(col);
 	}
+	
+	public void setLabel(String label) {
+		message.setLabel(label);
+	}
 }
