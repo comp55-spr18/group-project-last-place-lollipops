@@ -1,4 +1,4 @@
-
+//kevin
 public class Entity {
 	private EntityType eType;
 	private double speed;
