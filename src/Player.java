@@ -4,7 +4,7 @@ public class Player {
 	private Entity p; //player fish p
 	//moves player fish
 
-	
+	//**Needs a function to determine what key was pressed then passes amount to move.
 	public void move(int xPosition, int yPosition)
 	{
 		p.setxPosition(p.getxPosition()+xPosition);
@@ -15,11 +15,11 @@ public class Player {
 		double xWidth = p.getxPosition() + p.getWidth() + 1; // x coordinate & width of fish
 		double yHeight = p.getyPosition() + p.getHeight()/2; // y coordinate & height of fish
 
-		//if(getElementAt(xWidth, yHeight) != null) { // if fish ran into something, return true
-			return true;
-		}
+		//implement pixel-perfect collision detection
 		
-	//	return false; // else return false
+		return true;
+		}
+
 //	}
 
 	public void collision() {

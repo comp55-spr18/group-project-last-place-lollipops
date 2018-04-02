@@ -37,5 +37,4 @@ public class SomePane extends GraphicsPane {
 			program.pauseGameMusic();
 		}
 	}
-
 }
