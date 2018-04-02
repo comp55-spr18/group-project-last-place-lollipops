@@ -8,7 +8,7 @@ public class MainApplication extends GraphicsApplication {
 	private MenuPane menu;
 
 	private PausePane pause;
-
+	private GamePane game;
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
@@ -24,7 +24,7 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
-
+		game = new GamePane(this);
 		pause = new PausePane(this);
 		settings = new SettingsPane(this);
 		instructions = new InstructionsPane(this);
@@ -49,6 +49,11 @@ public class MainApplication extends GraphicsApplication {
 		playGameMusic();
 		
 	}
+	public void switchToGame() {
+		switchToScreen(game);
+		pauseMenuMusic();
+		playGameMusic();
+	}
 	
 	public void switchToSettings() {
 		switchToScreen(settings);
@@ -60,6 +65,9 @@ public class MainApplication extends GraphicsApplication {
 	
 	public void switchToLeaderboards() {
 		switchToScreen(leaderboards);
+	}
+	public void switchToPause() {
+		switchToScreen(pause);
 	}
 
 	private void playRandomSound() {
