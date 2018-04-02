@@ -8,24 +8,58 @@ public class Entity {
 	private double height;
 	private int size;
 	private String color;
-	
+
 	public Entity() {
-			eType = EntityType.FISH;
-			speed = 0.0;
-			xPosition = 0;
-			yPosition = 0;
-			width = 2;
-			height = 2;
-			size = 1;
-			color = "BLUE";
+		eType = EntityType.FISH;
+		speed = 0.0;
+		xPosition = 0;
+		yPosition = 0;
+		size = 1;
+		color = "RED";
 	}
+
+
 	public Entity(EntityType eType, double speed, int size, double xPos, double yPos, String color) {
 		this.eType = eType;
-		this.speed = speed;
-		this.xPosition = xPos;
-		this.yPosition = yPos;
-		this.size = size;
-		this.color = color;
+
+		switch(eType) {
+		case FISH:{
+			this.color = color;
+			this.speed = speed;
+			this.xPosition = xPos;
+			this.yPosition = yPos;
+			this.size = size;
+
+		}
+		case ROCK:{
+			this.color = "BROWN";
+			this.speed = 0;
+			this.xPosition = xPos;
+			this.yPosition = yPos;
+			this.size = size;
+		}
+		case KELP:{
+			this.color = "GREEN";
+			this.speed = 0;
+			this.xPosition = xPos;
+			this.yPosition = yPos;
+			this.size = size;
+		}
+		case HOOK:{
+			this.color = "GREY";
+			this.speed = speed;
+			this.xPosition = xPos;
+			this.yPosition = yPos;
+			this.size = size;
+		}
+		case SPEEDBUFF:{
+			this.color = "GOLD";
+			this.speed = speed;
+			this.xPosition = xPos;
+			this.yPosition = yPos;
+			this.size = size;
+		}
+		}
 	}
 	public EntityType geteType() {
 		return eType;
@@ -75,7 +109,7 @@ public class Entity {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
-	
-	
+
+
+
 }
