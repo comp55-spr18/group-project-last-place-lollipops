@@ -5,24 +5,24 @@ import acm.graphics.GObject;
 public class InstructionsPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
-	private GButton sound;
+	private GParagraph instructions;
 	private GButton back;
 
 	public InstructionsPane(MainApplication app) {
 		this.program = app;
-		sound = new GButton("Sound on/off", 200, 200, 200, 100);
+		instructions = new GParagraph("Just do it.", 200, 200);
 		back = new GButton("Back", 200, 400, 200, 100);
 	}
 
 	@Override
 	public void showContents() {
-		program.add(sound);
+		program.add(instructions);
 		program.add(back);
 	}
 
 	@Override
 	public void hideContents() {
-		program.remove(sound);
+		program.remove(instructions);
 		program.remove(back);
 	}
 
@@ -32,9 +32,7 @@ public class InstructionsPane extends GraphicsPane {
 		if (obj == back) {
 			program.switchToMenu();
 		}
-		if (obj == sound) {
-			
-		}
+		
 	}
 
 }
