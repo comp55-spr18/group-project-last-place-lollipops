@@ -9,18 +9,18 @@ public class GamePane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
 	// all of the GraphicsProgram calls
 	private GButton pause;
+	
 	private GRect p1;
 	private Player p;
+	
 	public GamePane(MainApplication app) {
 		this.program = app;
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 		
 		p = new Player();
-		
 		p1 = new GRect(program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2, p.p.getSize()*5,p.p.getSize()*5);
 		p1.setFillColor((p.p.getColor()));
-		
 		p1.setFilled(true);
 		
 	}
