@@ -1,31 +1,30 @@
 import java.awt.Color;
 
-public class Player extends Entity{
-	// type Entity allows access to fish
-	public Entity p; //player fish p
-	//moves player fish
-	public Player() {
-		p = new Entity(EntityType.FISH, 1, 3, 0, 0, Color.red );
+//silvana & kevin
+public class Player extends Fish { //implements actionListener ???
+	//constructor
+	public Player(double speed, int size, double x, double y, Color color) { 
+		color = Color.blue; // temporary
 		
+		setSpeed(speed);
+		setSize(size);
+		setxPosition(x);
+		setyPosition(y);
+		setColor(color);
 	}
+	
+	//functions
 	//**Needs a function to determine what key was pressed then passes amount to move.
 	public void move(int xPosition, int yPosition)
 	{
-		p.setxPosition(p.getxPosition()+xPosition);
-		p.setyPosition(p.getyPosition() + yPosition);
+		setxPosition(getxPosition()+ xPosition);
+		setyPosition(getyPosition() + yPosition);
 	}
 	//checks if player fish has collided with anything
 	public boolean checkCollision() {
-		double xWidth = p.getxPosition() + p.getWidth() + 1; // x coordinate & width of fish
-		double yHeight = p.getyPosition() + p.getHeight() + 1; // y coordinate & height of fish
-
-		//implement pixel-perfect collision detection
-		//get fish size (rectangle)
-		/*if((xWidth != null) || (yHeight != null)) {
-			return true;
-		}*/
-		
-	return false;
+		//get GImage
+	
+		return false;
 	}
 	
 	public void collision() {
