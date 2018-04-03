@@ -1,4 +1,4 @@
-
+//kevin
 public enum EntityType {
 	KELP, HOOK, FISH, ROCK, SPEEDBUFF;
 	public String toString() {

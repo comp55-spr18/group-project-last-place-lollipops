@@ -1,9 +1,13 @@
+import java.awt.Color;
 
 public class Player extends Entity{
 	// type Entity allows access to fish
-	private Entity p; //player fish p
+	public Entity p; //player fish p
 	//moves player fish
-
+	public Player() {
+		p = new Entity(EntityType.FISH, 1, 3, 0, 0, Color.red );
+		
+	}
 	//**Needs a function to determine what key was pressed then passes amount to move.
 	public void move(int xPosition, int yPosition)
 	{
