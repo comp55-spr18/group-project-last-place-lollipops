@@ -1,5 +1,5 @@
 
-public class Player {
+public class Player extends Entity{
 	// type Entity allows access to fish
 	private Entity p; //player fish p
 	//moves player fish
@@ -17,9 +17,9 @@ public class Player {
 
 		//implement pixel-perfect collision detection
 		//get fish size (rectangle)
-		if((xWidth != null) || (yHeight != null)) {
+		/*if((xWidth != null) || (yHeight != null)) {
 			return true;
-		}
+		}*/
 		
 	return false;
 	}
