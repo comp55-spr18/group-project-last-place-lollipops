@@ -1,4 +1,5 @@
 //kevin
+import java.awt.*;
 public class Entity {
 	private EntityType eType;
 	private double speed;
@@ -7,7 +8,7 @@ public class Entity {
 	private double width;
 	private double height;
 	private int size;
-	private String color;
+	private Color color;
 
 	public Entity() {
 		eType = EntityType.FISH;
@@ -15,11 +16,11 @@ public class Entity {
 		xPosition = 0;
 		yPosition = 0;
 		size = 1;
-		color = "RED";
+		color = Color.red;
 	}
 
 
-	public Entity(EntityType eType, double speed, int size, double xPos, double yPos, String color) {
+	public Entity(EntityType eType, double speed, int size, double xPos, double yPos, Color color) {
 		this.eType = eType;
 
 		switch(eType) {
@@ -29,35 +30,39 @@ public class Entity {
 			this.xPosition = xPos;
 			this.yPosition = yPos;
 			this.size = size;
-
+			break;
 		}
-		case ROCK:{
-			this.color = "BROWN";
+		case ROCK:{//102- 51- 0
+			this.color = new Color(102, 51, 0);
 			this.speed = 0;
 			this.xPosition = xPos;
 			this.yPosition = yPos;
 			this.size = size;
+			break;
 		}
 		case KELP:{
-			this.color = "GREEN";
+			this.color = Color.green;
 			this.speed = 0;
 			this.xPosition = xPos;
 			this.yPosition = yPos;
 			this.size = size;
+			break;
 		}
 		case HOOK:{
-			this.color = "GREY";
+			this.color = Color.gray;
 			this.speed = speed;
 			this.xPosition = xPos;
 			this.yPosition = yPos;
 			this.size = size;
+			break;
 		}
-		case SPEEDBUFF:{
-			this.color = "GOLD";
+		case SPEEDBUFF:{//255-204- 51
+			this.color = new Color(255,204,51);
 			this.speed = speed;
 			this.xPosition = xPos;
 			this.yPosition = yPos;
 			this.size = size;
+			break;
 		}
 		}
 	}
@@ -82,7 +87,7 @@ public class Entity {
 	public int getSize() {
 		return size;
 	}
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 	public void seteType(EntityType eType) {
@@ -106,7 +111,7 @@ public class Entity {
 	public void setSize(int size) {
 		this.size = size;
 	}
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

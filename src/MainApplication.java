@@ -1,3 +1,5 @@
+import javax.swing.Timer;
+
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
@@ -14,7 +16,6 @@ public class MainApplication extends GraphicsApplication {
 	private LeaderboardsPane leaderboards;
 
 	private int count;
-	
 	public boolean volume = true;
 
 	public void init() {
@@ -22,7 +23,6 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void run() {
-		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
 		game = new GamePane(this);
 		pause = new PausePane(this);
