@@ -1,11 +1,15 @@
 //kevin
 import java.awt.*;
+
+import acm.graphics.GImage;
 public class Entity {
 	private double speed;
 	private double xPosition;
 	private double yPosition;
 	private int size;
 	private Color color;
+	private GImage image; // for sprites ("image name.png", x, y)
+
 	//private double width; // *** instead of doing collision like in DodgeBall.java
 	//private double height; // maybe get GImage?? ***
 
