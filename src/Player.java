@@ -13,19 +13,21 @@ public class Player {
 	//checks if player fish has collided with anything
 	public boolean checkCollision() {
 		double xWidth = p.getxPosition() + p.getWidth() + 1; // x coordinate & width of fish
-		double yHeight = p.getyPosition() + p.getHeight()/2; // y coordinate & height of fish
+		double yHeight = p.getyPosition() + p.getHeight() + 1; // y coordinate & height of fish
 
 		//implement pixel-perfect collision detection
-		
-		return true;
+		//get fish size (rectangle)
+		if((xWidth != null) || (yHeight != null)) {
+			return true;
 		}
-
-//	}
-
+		
+	return false;
+	}
+	
 	public void collision() {
 		if(checkCollision()) {
 		
-		//call function of whatever [type] it collided with  */
+		//call function of whatever [type] it collided with 
 		//check player size and coordinates
 		
 		//did the player collide with anything?
