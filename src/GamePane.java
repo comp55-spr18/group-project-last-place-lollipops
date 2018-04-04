@@ -12,28 +12,32 @@ public class GamePane extends GraphicsPane {
 	private GButton pause;
 	
 	private GRect p1;
-	//private GImage p2;
+	private GImage p2;
 	private Player p;
 	
-	//private GImage img;
+	private GImage img;
 	private GParagraph para;
 	
 	public GamePane(MainApplication app) {
 		this.program = app;
 		
-		//img = new GImage("GamePane.jpg", 100, 100);
+		
 		para = new GParagraph("Something Smells Fishy", 50, 30);
 		para.setFont("Forte-30");
 		para.setColor(Color.pink);
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 		pause.setFillColor(Color.RED);
-		p = new Player(2, 8, 50, 40, Color.blue);
+		p = new Player(2, 8, 50, 40, Color.green);
 		
 		//p2 = new GImage("fish.gif", program.WINDOW_WIDTH/2,program.WINDOW_HEIGHT/2);
 		p1 = new GRect(program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2, p.getSize()*5,p.getSize()*5);
 		p1.setFillColor((p.getColor()));
 		p1.setFilled(true);
+		
+				
+		img = new GImage("GamePane.jpg", 100, 100);
+		img.sendToBack();
 		
 	}
 
@@ -42,7 +46,7 @@ public class GamePane extends GraphicsPane {
 		program.add(pause);
 		program.add(p1);
 		//program.add(p2);
-		//program.add(img);
+		program.add(img);
 		program.add(para);
 	}
 
@@ -51,7 +55,7 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(p1);
 		//program.remove(p2);
-	//	program.remove(img);
+		program.remove(img);
 		program.remove(para);
 	}
 
