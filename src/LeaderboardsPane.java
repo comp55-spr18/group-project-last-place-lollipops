@@ -1,6 +1,8 @@
 import java.awt.event.MouseEvent;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -31,7 +33,7 @@ public class LeaderboardsPane extends GraphicsPane {
 			System.out.println("Could not open leaderboards.");
 			ex.printStackTrace();
 		}
-		for(int i=0;i<11;i++) {
+		for(int i=0;i<10;i++) {
 			try {
 				line = reader.readLine();
 			} catch (IOException e) {
@@ -43,10 +45,18 @@ public class LeaderboardsPane extends GraphicsPane {
 				leaderboards[i].setName(splitline[0]);
 				leaderboards[i].setScore(Integer.valueOf(splitline[1]));
 			}catch(NullPointerException ex) {
-				System.out.println("less than 11 scores.");
+				System.out.println("less than 10 scores.");
 			}
 			
 		}
+		
+		
+		//leaderboards[11] = playerScore;
+		
+		
+		//sort leaderboards by (int)Score highest -> lowest
+		//Arrays.sort(leaderboards, Collections.reverseOrder()); << needs a way to directly compare Score objects
+		
 		for(int i=0;i<10;i++) {
 			topTen.addText(leaderboards[i].getName() + " " + Integer.toString(leaderboards[i].getScore()) + "\n");
 		}
