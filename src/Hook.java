@@ -1,9 +1,9 @@
 import java.awt.Color;
 
 public class Hook extends Entity{
-	public Hook(double speed, int size, double x, double y, Color color) { 		
+	public Hook(double speed, double x, double y, Color color) { 		
 		setSpeed(speed);
-		setSize(size);
+		//setSize(size);
 		setxPosition(x);
 		setyPosition(y);
 		setColor(Color.gray);

@@ -6,7 +6,6 @@ public class Entity {
 	private double speed;
 	private double xPosition;
 	private double yPosition;
-	private int size;
 	private Color color;
 	private GImage image; // for sprites ("image name.png", x, y)
 
@@ -41,9 +40,6 @@ public class Entity {
 	}
 	public void setyPosition(double yPosition) {
 		this.yPosition = yPosition;
-	}
-	public void setSize(int size) {
-		this.size = size;
 	}
 	public void setColor(Color color) {
 		this.color = color;
