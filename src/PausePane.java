@@ -2,8 +2,11 @@
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
+import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+
+
 
 
 public class PausePane extends GraphicsPane {
@@ -14,10 +17,12 @@ public class PausePane extends GraphicsPane {
 	private GButton quit;
 	private GButton back;
 	private GLabel pauselabel;
+
 	
 	public PausePane(MainApplication app) {
 		this.program = app;
-		pauselabel = new GLabel( "Pause", 50 , 30);
+		pauselabel = new GLabel( "Pause", 200 , 50);
+		pauselabel.setFont("Forte-70");
 		sound = new GButton ("Sound on",200,100,200,50 );
 		sound.setFillColor(Color.RED);
 		resume = new GButton("Resume", 200,200,200,50);
@@ -26,6 +31,8 @@ public class PausePane extends GraphicsPane {
 		quit.setFillColor(Color.RED);
 		back = new GButton("Back to Menu",200,400,200,50);
 		back.setFillColor(Color.RED);
+		this.program.setBackground(Color.CYAN);
+
 	}
 	
 	@Override
@@ -74,5 +81,7 @@ public class PausePane extends GraphicsPane {
 			System.exit(0);
 		}
 	
-	}
+	}	
+	
+	
 }
