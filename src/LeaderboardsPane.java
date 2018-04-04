@@ -1,32 +1,55 @@
 import java.awt.event.MouseEvent;
 
 import java.io.*;
-
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import acm.graphics.GObject;
 
 public class LeaderboardsPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
 										// all of the GraphicsProgram calls
-	private Score[] leaderboards;
+	//private Score[] leaderboards;
 	private GParagraph topTen;
 	private GButton back;
-	/*private FileReader in = null;
+	private FileReader in = null;
 	private FileOutputStream out = null;
 	private BufferedReader reader;
-	*/
-	public LeaderboardsPane(MainApplication app) /*throws IOException*/ {
+	private String line;
+	private String[] splitline;
+	
+	public LeaderboardsPane(MainApplication app) {
 		this.program = app;
-		topTen = new GParagraph("THIS" + " IS\n" + "WHERE" + " THE\n" + "SCORES" + " GO\n", 200, 200);
+		topTen = new GParagraph("", 200, 200);
 		back = new GButton("Back", 200, 400, 200, 100);
-		leaderboards = new Score[11];
-		/*File f = new File("leaders.txt");
-		if(!f.exists()) {
-			f.createNewFile();
+		//leaderboards = new Score[11];
+		Score[] leaderboards = Stream.generate(() -> new Score()).limit(11).toArray(Score[]::new);
+		try {
+			in = new FileReader("leaders.txt");
+			reader = new BufferedReader(in);
+		}catch(FileNotFoundException ex) {
+			System.out.println("Could not open leaderboards.");
+			ex.printStackTrace();
 		}
-		in = new FileReader("leaders.txt");
-		reader = new BufferedReader(in);
-		*/
+		for(int i=0;i<11;i++) {
+			try {
+				line = reader.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				splitline = line.split(" ");
+				leaderboards[i].setName(splitline[0]);
+				leaderboards[i].setScore(Integer.valueOf(splitline[1]));
+			}catch(NullPointerException ex) {
+				System.out.println("less than 11 scores.");
+			}
+			
+		}
+		for(int i=0;i<10;i++) {
+			topTen.addText(leaderboards[i].getName() + " " + Integer.toString(leaderboards[i].getScore()) + "\n");
+		}
 	}
 
 	@Override

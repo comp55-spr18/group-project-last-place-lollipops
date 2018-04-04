@@ -47,6 +47,11 @@ public class GParagraph extends GCompound {
 		allText = text;
 		processLabels();
 	}
+	
+	public void addText(String text) {
+		allText = allText + text;
+		processLabels();
+	}
 
 	public void setFont(Font f) {
 		labels.get(0).setFont(f);

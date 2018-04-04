@@ -6,9 +6,7 @@ public class MainApplication extends GraphicsApplication {
 
 	private SomePane somePane;
 	private MenuPane menu;
-
 	private PausePane pause;
-
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
