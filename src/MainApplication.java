@@ -1,3 +1,5 @@
+import javax.swing.Timer;
+
 public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
@@ -7,12 +9,12 @@ public class MainApplication extends GraphicsApplication {
 	private SomePane somePane;
 	private MenuPane menu;
 	private PausePane pause;
+	private GamePane game;
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 
 	private int count;
-	
 	public boolean volume = true;
 
 	public void init() {
@@ -20,9 +22,8 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void run() {
-		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
-
+		game = new GamePane(this);
 		pause = new PausePane(this);
 		settings = new SettingsPane(this);
 		instructions = new InstructionsPane(this);
@@ -47,6 +48,11 @@ public class MainApplication extends GraphicsApplication {
 		playGameMusic();
 		
 	}
+	public void switchToGame() {
+		switchToScreen(game);
+		pauseMenuMusic();
+		playGameMusic();
+	}
 	
 	public void switchToSettings() {
 		switchToScreen(settings);
@@ -58,6 +64,9 @@ public class MainApplication extends GraphicsApplication {
 	
 	public void switchToLeaderboards() {
 		switchToScreen(leaderboards);
+	}
+	public void switchToPause() {
+		switchToScreen(pause);
 	}
 
 	private void playRandomSound() {

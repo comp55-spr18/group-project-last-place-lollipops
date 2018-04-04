@@ -10,6 +10,7 @@ public class MenuPane extends GraphicsPane {
 	private GButton settings;
 	private GButton instructions;
 	private GButton leaderboards;
+	private GButton quit;
 
 	public MenuPane(MainApplication app) {
 		super();
@@ -22,6 +23,8 @@ public class MenuPane extends GraphicsPane {
 		instructions.setFillColor(Color.RED);
 		leaderboards = new GButton("Leaderboards", 200, 400, 200, 50);
 		leaderboards.setFillColor(Color.RED);
+		quit = new GButton("Quit",200, 500, 200, 50);
+		quit.setFillColor(Color.red);
 	}
 
 	@Override
@@ -30,6 +33,7 @@ public class MenuPane extends GraphicsPane {
 		program.add(settings);
 		program.add(instructions);
 		program.add(leaderboards);
+		program.add(quit);
 	}
 
 	@Override
@@ -38,13 +42,15 @@ public class MenuPane extends GraphicsPane {
 		program.remove(settings);
 		program.remove(instructions);
 		program.remove(leaderboards);
+		program.remove(quit);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == play) {
-			program.switchToSome();
+			//program.switchToSome();
+			program.switchToGame();
 		}
 		if (obj == settings) {
 			program.switchToSettings();
@@ -55,5 +61,8 @@ public class MenuPane extends GraphicsPane {
 		if (obj == leaderboards) {
 			program.switchToLeaderboards();
 		}
+		if (obj == quit) {
+			System.exit(0);
+			}
 	}
 }
