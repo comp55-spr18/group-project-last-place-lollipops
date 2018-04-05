@@ -10,8 +10,7 @@ public class EnemyFish extends Fish {
 	public EnemyFish(GImage g, double speed, int size, double x, double y, Color color) {
 		setSpeed(speed);
 		setSize(size);
-		setxPosition(x);
-		setyPosition(y);
+		g.setLocation(x,y);
 		setColor(Color.red);
 	}
 	

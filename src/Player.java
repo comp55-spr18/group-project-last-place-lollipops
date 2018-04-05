@@ -8,8 +8,8 @@ public class Player extends Fish { //implements actionListener ???
 		
 		setSpeed(speed);
 		setSize(size);
-		setxPosition(x);
-		setyPosition(y);
+//		setxPosition(x);
+//		setyPosition(y);
 		setColor(color);
 	}
 	
@@ -17,8 +17,8 @@ public class Player extends Fish { //implements actionListener ???
 	//*** Needs a function to determine what key was pressed then passes amount to move. ***
 	public void move(int xPosition, int yPosition)
 	{
-		setxPosition(getxPosition()+ xPosition);
-		setyPosition(getyPosition() + yPosition);
+//		setxPosition(getxPosition()+ xPosition);
+//		setyPosition(getyPosition() + yPosition);
 	}
 	//checks if player fish has collided with anything
 	public boolean checkCollision() {
