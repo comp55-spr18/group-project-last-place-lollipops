@@ -6,8 +6,8 @@ public class Buff extends Entity{
 	public Buff(double speed, double x, double y, Color color) { 		
 		setSpeed(speed);
 		//setSize(size);
-		setxPosition(x);
-		setyPosition(y);
+//		setxPosition(x);
+//		setyPosition(y);
 		color = new Color(255, 204, 51);
 		setColor(color);
 	}
