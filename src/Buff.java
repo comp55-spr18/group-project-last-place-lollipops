@@ -13,4 +13,7 @@ public class Buff extends Entity{
 	}
 	
 	//functions of what speedbuff does
+	public void getBuff() {
+		
+	}
 }

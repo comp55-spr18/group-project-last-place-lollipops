@@ -38,7 +38,7 @@ public class Player extends Fish { //implements actionListener ???
 		} 
 		
 	}
-	
+	//should this be in Player or Entity?
 /*	public void collidedWith(EntityType e, int s) { // object entity e, size s
 		switch(e) { // ***print statements are only for testing***
 			case KELP: 

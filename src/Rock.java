@@ -12,4 +12,7 @@ public class Rock extends Entity {
 	}
 	
 	//function for what rock is gonna do
+	public void hitRock() {
+		
+	}
 }
