@@ -1,4 +1,0 @@
-//dmitrij
-public class Settings {
-
-}
