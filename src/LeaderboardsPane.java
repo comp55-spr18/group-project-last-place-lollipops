@@ -55,7 +55,7 @@ public class LeaderboardsPane extends GraphicsPane {
 		
 		
 		//sort leaderboards by (int)Score highest -> lowest
-		//Arrays.sort(leaderboards, Collections.reverseOrder()); << needs a way to directly compare Score objects
+		Arrays.sort(leaderboards, Collections.reverseOrder());
 		
 		for(int i=0;i<10;i++) {
 			topTen.addText(leaderboards[i].getName() + " " + Integer.toString(leaderboards[i].getScore()) + "\n");

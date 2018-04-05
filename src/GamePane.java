@@ -18,11 +18,11 @@ public class GamePane extends GraphicsPane {
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 		
-		p = new Player();
+		/*p = new Player();
 		p1 = new GRect(program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2, p.p.getSize()*5,p.p.getSize()*5);
 		p1.setFillColor((p.p.getColor()));
 		p1.setFilled(true);
-		
+		*/
 	}
 
 	@Override
