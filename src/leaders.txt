@@ -1,4 +1,5 @@
-James 5
-Kevin 12
-:SLDKF 90000
-Osvaldo 99999
+Kyla 12
+Kevin 20
+Silvana 18
+Dmitrij 5
+Osvaldo 9001

@@ -15,7 +15,7 @@ public class LeaderboardsPane extends GraphicsPane {
 	private GParagraph topTen;
 	private GButton back;
 	private FileReader in = null;
-	private FileOutputStream out = null;
+	private FileWriter out = null;
 	private BufferedReader reader;
 	private String line;
 	private String[] splitline;
@@ -25,7 +25,48 @@ public class LeaderboardsPane extends GraphicsPane {
 		topTen = new GParagraph("", 200, 200);
 		back = new GButton("Back", 200, 400, 200, 100);
 		//leaderboards = new Score[11];
-		Score[] leaderboards = Stream.generate(() -> new Score()).limit(11).toArray(Score[]::new);
+		Score[] leaderboards;
+		leaderboards = getLeaders();
+		
+		//leaderboards[11] = playerScore;
+		
+		Arrays.sort(leaderboards, Collections.reverseOrder());
+		displayLeaders(leaderboards);
+		writeLeaders(leaderboards);
+	}
+	
+	public void writeLeaders(Score[] l) {
+		try {
+			out = new FileWriter("leaders.txt"); //Update relative filepath to write to same file instead of creating new one
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		for(int i=0;i<10;i++) {
+			try {
+				out.write(l[i].getName() + " " + l[i].getScore() + "\n");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		try {
+			out.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		System.out.println("file written");
+	}
+	
+	public void displayLeaders(Score[] l) {
+		for(int i=0;i<10;i++) {
+			topTen.addText(l[i].getName() + " " + Integer.toString(l[i].getScore()) + "\n");
+		}
+	}
+	
+	
+	public Score[] getLeaders() {
+		Score[] scores = new Score[11];
+		scores = Stream.generate(() -> new Score()).limit(11).toArray(Score[]::new);
 		try {
 			in = new FileReader("leaders.txt");
 			reader = new BufferedReader(in);
@@ -42,26 +83,22 @@ public class LeaderboardsPane extends GraphicsPane {
 			}
 			try {
 				splitline = line.split(" ");
-				leaderboards[i].setName(splitline[0]);
-				leaderboards[i].setScore(Integer.valueOf(splitline[1]));
+				scores[i].setName(splitline[0]);
+				scores[i].setScore(Integer.valueOf(splitline[1]));
 			}catch(NullPointerException ex) {
 				System.out.println("less than 10 scores.");
 			}
 			
 		}
-		
-		
-		//leaderboards[11] = playerScore;
-		
-		
-		//sort leaderboards by (int)Score highest -> lowest
-		Arrays.sort(leaderboards, Collections.reverseOrder());
-		
-		for(int i=0;i<10;i++) {
-			topTen.addText(leaderboards[i].getName() + " " + Integer.toString(leaderboards[i].getScore()) + "\n");
+		try {
+			reader.close();
+			in.close();
+		}catch(IOException e) {
+			e.printStackTrace();
 		}
+		return scores;
 	}
-
+	
 	@Override
 	public void showContents() {
 		program.add(topTen);
