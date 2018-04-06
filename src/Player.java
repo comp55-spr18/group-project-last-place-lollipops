@@ -5,13 +5,10 @@ public class Player extends Fish { //implements actionListener ???
 	//constructor
 	public Fish f;
 	
-	public Player(double speed, int size, double x, double y, Color color) { 
-		f = new Fish();
-		f.color = color; 
-		
+	public Player(double speed, int size, double x, double y) { 
+		f = new Fish();		
 		setSpeed(speed);
 		setSize(size);
-		setColor(color);
 	}
 	
 

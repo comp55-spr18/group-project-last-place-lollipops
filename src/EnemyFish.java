@@ -5,10 +5,9 @@ public class EnemyFish extends Fish{
 	private ArrayList<Fish> enemies =  new ArrayList<Fish>();
 
 	//constructor
-	public EnemyFish(double speed, int size, double x, double y, Color color) {
+	public EnemyFish(double speed, int size, double x, double y) {
 		setSpeed(speed);
 		setSize(size);
-		setColor(Color.red);
 	}
 	
 	//functions

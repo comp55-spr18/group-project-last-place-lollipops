@@ -14,7 +14,6 @@ public class GamePane extends GraphicsPane  {
 	
 	private GButton pause;
 	private GImage player;
-	private Player p;
 	private GImage gameBackground;
 	private GParagraph title;
 
@@ -38,16 +37,13 @@ public class GamePane extends GraphicsPane  {
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 
 		pause.setFillColor(Color.RED);
-		p = new Player(2, 8, 50, 40, Color.green);
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png",program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
 
-
 		for(int i =0; i < program.MAX_ENEMY; i++) {
 			makeFish();
 		}
-
 		System.out.println(fishLtoR.size() +", "+fishRtoL.size());
 
 	}
@@ -121,16 +117,14 @@ public class GamePane extends GraphicsPane  {
 	}
 
 
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == pause) {
 			program.switchToPause();
 		}
-
 	}
-	
+
 	public void playerMovement() {
 		switch(keyPress) {
 		case KeyEvent.VK_UP:{
@@ -163,7 +157,5 @@ public class GamePane extends GraphicsPane  {
 	public void keyReleased(KeyEvent e) {
 		playerMove = false;
 	}
-
-
 
 }
