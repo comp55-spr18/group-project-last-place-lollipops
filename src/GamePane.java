@@ -1,5 +1,7 @@
 //kyla
 import java.awt.event.MouseEvent;
+import acm.graphics.GObject;
+
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import acm.graphics.GImage;
@@ -9,7 +11,7 @@ import java.util.*;
 
 public class GamePane extends GraphicsPane  {
 	private MainApplication program; 
-
+	
 	private GButton pause;
 	private GImage player;
 	private Player p;
@@ -21,18 +23,20 @@ public class GamePane extends GraphicsPane  {
 
 	public boolean playerMove;
 	public int keyPress;
-
+	
 	public GamePane(MainApplication app) {
 		this.program = app;
-
+		
 		fishLtoR = new ArrayList<Fish>();
 		fishRtoL = new ArrayList<Fish>();
 
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
+		
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
+
 		pause.setFillColor(Color.RED);
 		p = new Player(2, 8, 50, 40, Color.green);
 		gameBackground = new GImage("GamePane.jpg", 100, 100);
@@ -88,7 +92,8 @@ public class GamePane extends GraphicsPane  {
 		for (Fish f: fishRtoL) {
 			if (f.fish.getX() < 0) {
 				f.fish.setLocation(program.WINDOW_WIDTH, f.fish.getY());
-			}else {
+			}
+			else {
 				f.fish.move(-2, 0);
 			}
 		}
@@ -98,7 +103,6 @@ public class GamePane extends GraphicsPane  {
 	public void showContents() {
 		program.add(gameBackground);
 		program.add(pause);
-		//program.add(p2);
 		program.add(title);
 		addAllFish();
 		program.add(player);
@@ -109,7 +113,6 @@ public class GamePane extends GraphicsPane  {
 	public void hideContents() {
 		program.remove(gameBackground);
 		program.remove(pause);
-		//program.remove(p2);
 		program.remove(title);
 		removeAllFish();
 		program.remove(player);
@@ -126,6 +129,7 @@ public class GamePane extends GraphicsPane  {
 		}
 
 	}
+	
 	public void playerMovement() {
 		switch(keyPress) {
 		case KeyEvent.VK_UP:{
@@ -146,13 +150,14 @@ public class GamePane extends GraphicsPane  {
 		}
 		}
 	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
+
 		player.sendToFront();
 		gameBackground.sendToBack();
 		keyPress = e.getKeyCode();
 		playerMove = true;
-
 	}
 	public void keyReleased(KeyEvent e) {
 		playerMove = false;

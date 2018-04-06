@@ -40,6 +40,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		settings = new SettingsPane(this);
 		instructions = new InstructionsPane(this);
 		leaderboards = new LeaderboardsPane(this);
+
 		menu = new MenuPane(this);
 		switchToMenu();
 	}

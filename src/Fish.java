@@ -2,7 +2,6 @@ import java.awt.*;
 import acm.graphics.GImage;
 
 public class Fish extends Entity{ // EnemyFish & Player inherit from this class
-	
 	private int size; 
 	public GImage fish;
 	

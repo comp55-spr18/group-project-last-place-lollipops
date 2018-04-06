@@ -1,5 +1,5 @@
 //kevin&silvana
-public class Score {
+public class Score implements Comparable<Score>{
 	private String name;
 	private int score;
 	
@@ -22,6 +22,16 @@ public class Score {
 	}
 	public void setScore(int score) {
 		this.score = score;
+	}
+	@Override
+	public int compareTo(Score other) {
+		if(this.getScore()>other.getScore()) {
+			return 1;
+		}
+		if(this.getScore()==other.getScore()) {
+			return 0;
+		}
+		return -1;
 	}
 	
 }
