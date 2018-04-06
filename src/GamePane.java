@@ -107,6 +107,7 @@ public class GamePane extends GraphicsPane  {
 	}
 
 	@Override
+
 	public void hideContents() {
 		program.remove(gameBackground);
 		program.remove(pause);
@@ -148,7 +149,6 @@ public class GamePane extends GraphicsPane  {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
 		player.sendToFront();
 		gameBackground.sendToBack();
 		keyPress = e.getKeyCode();

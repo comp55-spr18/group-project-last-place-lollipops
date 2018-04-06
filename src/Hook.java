@@ -6,5 +6,8 @@ public class Hook extends Entity{
 	}
 	
 	// function for what Hook is going to do
+	public void hitHook() {
+		
+	}
 }
 

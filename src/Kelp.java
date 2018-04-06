@@ -6,5 +6,8 @@ public class Kelp extends Entity{
 		}
 	
 	//function for what kelp does
+	public void hitKelp() {
+		
+	}
 }
 

@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GObject;
@@ -10,8 +11,10 @@ public class InstructionsPane extends GraphicsPane {
 
 	public InstructionsPane(MainApplication app) {
 		this.program = app;
-		instructions = new GParagraph("Just do it.", 200, 200);
+		instructions = new GParagraph("Use arrow keys to move your fish\n \nTry to eat smaller fish\n \nAvoid getting eaten by bigger fish\n \nThings that aren't fish\nmay do something special", 200, 50);
 		back = new GButton("Back", 200, 400, 200, 100);
+		instructions.setFont("Forte-30");
+		instructions.setColor(Color.pink);
 	}
 
 	@Override
