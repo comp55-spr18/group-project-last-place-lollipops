@@ -39,7 +39,8 @@ public class GamePane extends GraphicsPane  {
 
 		pause.setFillColor(Color.RED);
 		p = new Player(2, 8, 50, 40, Color.green);
-		gameBackground = new GImage("GamePane.jpg", 100, 100);
+		gameBackground = new GImage("GamePane.jpg", 0, 0);
+		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png",program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
 
 
