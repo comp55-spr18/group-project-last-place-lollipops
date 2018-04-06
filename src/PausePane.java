@@ -1,28 +1,38 @@
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-
+import acm.graphics.*;
 import acm.graphics.GObject;
 
 
 public class PausePane extends GraphicsPane {
 	private MainApplication program;
-	
+
 	private GButton sound;
 	private GButton resume;
 	private GButton quit;
 	private GButton back;
-	
+	private GLabel pauseLabel;
+
 	public PausePane(MainApplication app) {
 		this.program = app;
-		sound = new GButton ("Sound on",200,200,200,100 );
-		resume = new GButton("Resume", 150,150,55,55);
-		quit = new GButton("Quit Game", 400,200,100,100);
-		back = new GButton("Back to Menu", 200, 400, 200, 100);
+
+		pauseLabel = new GLabel( "Pause", 200 , 50);
+		pauseLabel.setFont("Forte-70");
+		sound = new GButton ("Sound on",200,100,200,50 );
+		sound.setFillColor(Color.RED);
+		resume = new GButton("Resume", 200,200,200,50);
+		resume.setFillColor(Color.RED);
+		quit = new GButton("Quit Game", 200,300,200,50);
+		quit.setFillColor(Color.RED);
+		back = new GButton("Back to Menu",200,400,200,50);
+		back.setFillColor(Color.RED);
+		this.program.setBackground(Color.CYAN);
 	}
-	
+
 	@Override
 	public void showContents() {
+		program.add(pauseLabel);
 		program.add(sound);
 		program.add(resume);
 		program.add(quit);
@@ -30,16 +40,17 @@ public class PausePane extends GraphicsPane {
 	}
 	@Override
 	public void hideContents() {
+		program.remove(pauseLabel);
 		program.remove(sound);
 		program.remove(resume);
 		program.remove(quit);
 		program.remove(back);
 	}
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		
+
 		if (obj == back) {
 			program.switchToMenu();
 			program.pauseGameMusic();
@@ -51,19 +62,19 @@ public class PausePane extends GraphicsPane {
 				program.volume = false;
 				program.pauseMenuMusic();
 				program.pauseGameMusic();
-				}
+			}
 			else {
 				program.volume = true;
 				sound.setLabel("Sound on");
 				program.playGameMusic();
-		}
 			}
+		}
 		if(obj== resume) {
 			program.switchToGame();
 		}
 		if(obj == quit) {
 			System.exit(0);
 		}
-	
+
 	}
 }
