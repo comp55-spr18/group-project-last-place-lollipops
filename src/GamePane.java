@@ -67,6 +67,7 @@ public class GamePane extends GraphicsPane  {
 	}
 	public void addAllFish() {
 		for (Fish f: fishLtoR) {
+			f.setSize(1);
 			program.add(f.fish);
 		}
 		for (Fish f: fishRtoL) {
@@ -75,6 +76,7 @@ public class GamePane extends GraphicsPane  {
 	}
 	public void removeAllFish() {
 		for (Fish f: fishLtoR) {
+			f.setSize(1); //turn 1 into varible to alter size of fish
 			program.remove(f.fish);
 		}
 		for (Fish f: fishRtoL) {

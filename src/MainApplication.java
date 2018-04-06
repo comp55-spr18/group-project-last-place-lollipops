@@ -13,7 +13,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public static final int MS = 10;
 	public static final int MAX_ENEMY = 4;
 	
-	private SomePane somePane;
 	private MenuPane menu;
 	private PausePane pause;
 	private GamePane game;
@@ -34,7 +33,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void run() {
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
-		somePane = new SomePane(this);
 		game = new GamePane(this);
 		pause = new PausePane(this);
 		settings = new SettingsPane(this);
@@ -54,7 +52,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void switchToSome() {
 		//playRandomSound();
-		switchToScreen(somePane);
 		pauseMenuMusic();
 		playGameMusic();
 		
