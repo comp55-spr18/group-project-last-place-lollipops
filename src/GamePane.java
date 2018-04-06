@@ -38,7 +38,7 @@ public class GamePane extends GraphicsPane  {
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 
 		pause.setFillColor(Color.RED);
-		p = new Player(2, 8, 50, 40, Color.green);
+		//p = new Player(2, 8, 50, 40, Color.green);
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png",program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
@@ -55,7 +55,7 @@ public class GamePane extends GraphicsPane  {
 		Fish f = new Fish();
 		int random = program.rgen.nextInt(0,1);
 		if (random == 0) {
-			f.fish = new GImage("SmallFry.png", 0,program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+			f.fish = new GImage("SmallFryFlipped.png", 0,program.rgen.nextInt(0, program.WINDOW_HEIGHT));
 			fishLtoR.add(f);
 			return f;
 		}

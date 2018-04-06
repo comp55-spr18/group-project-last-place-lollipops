@@ -5,10 +5,10 @@ import acm.graphics.GImage;
 public class Player extends Fish { //implements actionListener ??
 	private Entity e;
 	private Player player;
-	//constructor
 	public Fish f;
 
-	public Player(double speed, int size, double x, double y, Color color) { 
+	//constructor
+	public Player(GImage p, double speed, int size) { 
 		f = new Fish();
 		f.color = color; 		
 		setSpeed(speed);
@@ -29,6 +29,9 @@ public class Player extends Fish { //implements actionListener ??
 //			return true;
 //
 //		}
+//		Fish foo = player fish location 
+//		if (getElementAt(foo == Fish f))
+//			return true;
 		return false;
 	}
 
