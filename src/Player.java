@@ -1,10 +1,11 @@
 import java.awt.Color;
+import acm.graphics.GImage;
 
 //silvana & kevin
-public class Player extends Fish { //implements actionListener ???
+public class Player extends Fish { //implements actionListener ??
 	//constructor
-	public Player(double speed, int size, double x, double y, Color color) { 
-		color = Color.blue; // temporary
+	public Player(GImage p, double speed, int size, double x, double y, Color color) { 
+		color = Color.yellow; // temporary
 		
 		setSpeed(speed);
 		setSize(size);
@@ -14,12 +15,7 @@ public class Player extends Fish { //implements actionListener ???
 	}
 	
 	//functions
-	//*** Needs a function to determine what key was pressed then passes amount to move. ***
-	public void move(int xPosition, int yPosition)
-	{
-//		setxPosition(getxPosition()+ xPosition);
-//		setyPosition(getyPosition() + yPosition);
-	}
+	// move() is not needed. Uses Keylistener function in Game
 	//checks if player fish has collided with anything
 	public boolean checkCollision() {
 		//get GImage
@@ -29,7 +25,7 @@ public class Player extends Fish { //implements actionListener ???
 	
 	public void collision() {
 		if(checkCollision()) {
-		
+		collidedWith(getSize());
 		//call function of whatever [type] it collided with 
 		//check player size and coordinates
 		
@@ -39,8 +35,9 @@ public class Player extends Fish { //implements actionListener ???
 		
 	}
 	//should this be in Player or Entity?
-/*	public void collidedWith(EntityType e, int s) { // object entity e, size s
-		switch(e) { // ***print statements are only for testing***
+	public void collidedWith(int s) { // object entity e, size s
+		
+		/*switch(e) { // ***print statements are only for testing***
 			case KELP: 
 				System.out.println("Kelp has been called\n");
 			case HOOK: 
@@ -50,9 +47,11 @@ public class Player extends Fish { //implements actionListener ???
 			case ROCK: 
 				System.out.println("Rock has been called\n");
 			case SPEEDBUFF: 
-				System.out.println("Speedbuff has been called\n");
-		}
-	}*/
+				System.out.println("Speedbuff has been called\n"); */
+		
+	}
+	
+	//6 different functions named the same but they all do the different things
 	
 	public int grow(int s) {
 		s = getSize();
