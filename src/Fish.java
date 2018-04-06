@@ -1,18 +1,16 @@
 import java.awt.*;
-import java.util.ArrayList;
 import acm.graphics.GImage;
 
-public class Fish extends Entity { // EnemyFish & Player inherit from this class
-	private int size; // size matters only for fish
-
-	// getters & setters
-	public int getSize() {
+public class Fish extends Entity{ // EnemyFish & Player inherit from this class
+	private int size; 
+	public GImage fish;
+	
+	public int getSize() { 
 		return size;
 	}
 
 	public void setSize(int size) {
 		this.size = size;
 	}
-
 
 }

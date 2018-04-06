@@ -2,14 +2,17 @@
 import java.awt.*;
 
 import acm.graphics.GImage;
-public abstract class Entity  {
+public class Entity {
 	private double speed;
-	private Color color;
+
+	protected Color color;
+
 	private GImage image; // for sprites ("image name.png", x, y)
 
 	public double getSpeed() {
 		return speed;
 	}
+
 	public Color getColor() {
 		return color;
 	}
@@ -19,9 +22,8 @@ public abstract class Entity  {
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+	
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	//GImage does not need a setter
-
 }

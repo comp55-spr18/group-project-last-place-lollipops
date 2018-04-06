@@ -1,5 +1,5 @@
-OSV 100
-Kev 98
-KyLa 97
-Silvana 97
-Dmitrij 98
+Kyla 12
+Kevin 20
+Silvana 18
+Dmitrij 5
+Osvaldo 9001
