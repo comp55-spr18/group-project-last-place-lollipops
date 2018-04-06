@@ -43,7 +43,7 @@ public class LeaderboardsPane extends GraphicsPane {
 				leaderboards[i].setName(splitline[0]);
 				leaderboards[i].setScore(Integer.valueOf(splitline[1]));
 			}catch(NullPointerException ex) {
-				System.out.println("less than 11 scores.");
+				//System.out.println("less than 11 scores.");
 			}
 			
 		}
