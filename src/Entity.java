@@ -4,7 +4,7 @@ import java.awt.*;
 import acm.graphics.GImage;
 public abstract class Entity  {
 	private double speed;
-	private Color color;
+	protected Color color;
 	private GImage image; // for sprites ("image name.png", x, y)
 
 	

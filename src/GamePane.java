@@ -11,29 +11,29 @@ public class GamePane extends GraphicsPane {
 	// all of the GraphicsProgram calls
 	private GButton pause;
 	
-	private GRect p1;
+	private GRect player;
 	private GImage p2;
 	private Player p;
 	
 	private GImage img;
-	private GParagraph para;
+	private GParagraph title;
 	
 	public GamePane(MainApplication app) {
 		this.program = app;
 		
 		
-		para = new GParagraph("Something Smells Fishy", 50, 30);
-		para.setFont("Forte-30");
-		para.setColor(Color.pink);
+		title = new GParagraph("Something Smells Fishy", 50, 30);
+		title.setFont("Forte-30");
+		title.setColor(Color.pink);
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 		pause.setFillColor(Color.RED);
 		p = new Player(2, 8, 50, 40, Color.green);
 		
 		//p2 = new GImage("fish.gif", program.WINDOW_WIDTH/2,program.WINDOW_HEIGHT/2);
-		p1 = new GRect(program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2, p.getSize()*5,p.getSize()*5);
-		p1.setFillColor((p.getColor()));
-		p1.setFilled(true);
+		player = new GRect(program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2, p.getSize()*5,p.getSize()*5);
+		player.setFillColor((p.getColor()));
+		player.setFilled(true);
 		
 				
 		img = new GImage("GamePane.jpg", 100, 100);
@@ -44,10 +44,10 @@ public class GamePane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		program.add(pause);
-		program.add(p1);
 		//program.add(p2);
 		program.add(img);
-		program.add(para);
+		program.add(title);
+		program.add(player);
 	}
 
 	@Override
@@ -55,8 +55,8 @@ public class GamePane extends GraphicsPane {
 		program.remove(img);
 		program.remove(pause);
 		//program.remove(p2);
-		program.remove(para);
-		program.remove(p1);
+		program.remove(title);
+		program.remove(player);
 	}
 
 	@Override
@@ -70,25 +70,25 @@ public class GamePane extends GraphicsPane {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		p1.sendToFront();
+		player.sendToFront();
 		img.sendToBack();
 		int key = e.getKeyCode();
 		System.out.println("key:" + key);
 		switch(key) {
 		case KeyEvent.VK_UP:{
-			p1.setLocation(p1.getX(), p1.getY() - 50);
+			player.setLocation(player.getX(), player.getY() - 5);
 			break;
 		}
 		case KeyEvent.VK_DOWN:{
-			p1.setLocation(p1.getX(), p1.getY() +50);
+			player.setLocation(player.getX(), player.getY() +5);
 			break;
 		}
 		case KeyEvent.VK_LEFT:{
-			p1.setLocation(p1.getX()-50, p1.getY());
+			player.setLocation(player.getX()-5, player.getY());
 			break;
 		}
 		case KeyEvent.VK_RIGHT:{
-			p1.setLocation(p1.getX() +50, p1.getY());
+			player.setLocation(player.getX() +5, player.getY());
 			break;
 		}
 

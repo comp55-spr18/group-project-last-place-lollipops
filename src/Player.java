@@ -3,8 +3,11 @@ import java.awt.Color;
 //silvana & kevin
 public class Player extends Fish { //implements actionListener ???
 	//constructor
+	public Fish f;
+	
 	public Player(double speed, int size, double x, double y, Color color) { 
-		color = Color.blue; // temporary
+		f = new Fish();
+		f.color = color; 
 		
 		setSpeed(speed);
 		setSize(size);
