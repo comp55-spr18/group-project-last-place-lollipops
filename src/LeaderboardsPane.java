@@ -33,11 +33,12 @@ public class LeaderboardsPane extends GraphicsPane {
 		Arrays.sort(leaderboards, Collections.reverseOrder());
 		displayLeaders(leaderboards);
 		writeLeaders(leaderboards);
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 	}
 	
 	public void writeLeaders(Score[] l) {
 		try {
-			out = new FileWriter("leaders.txt"); //Update relative filepath to write to same file instead of creating new one
+			out = new FileWriter(System.getProperty("user.dir")+"/leaders.txt"); //Update relative filepath to write to same file instead of creating new one
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -68,7 +69,7 @@ public class LeaderboardsPane extends GraphicsPane {
 		Score[] scores = new Score[11];
 		scores = Stream.generate(() -> new Score()).limit(11).toArray(Score[]::new);
 		try {
-			in = new FileReader("leaders.txt");
+			in = new FileReader(System.getProperty("user.dir")+"/leaders.txt");
 			reader = new BufferedReader(in);
 		}catch(FileNotFoundException ex) {
 			System.out.println("Could not open leaderboards.");
