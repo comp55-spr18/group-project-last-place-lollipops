@@ -52,11 +52,11 @@ public class GamePane extends GraphicsPane {
 
 	@Override
 	public void hideContents() {
-		program.remove(img);
 		program.remove(pause);
-		//program.remove(p2);
-		program.remove(para);
 		program.remove(p1);
+		//program.remove(p2);
+		program.remove(img);
+		program.remove(para);
 	}
 
 	@Override
@@ -70,8 +70,6 @@ public class GamePane extends GraphicsPane {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		p1.sendToFront();
-		img.sendToBack();
 		int key = e.getKeyCode();
 		System.out.println("key:" + key);
 		switch(key) {
