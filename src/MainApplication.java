@@ -18,7 +18,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 
-	private int count;
 	public boolean volume = true;
 	
 	public Timer movement;
