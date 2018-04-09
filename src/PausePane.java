@@ -42,6 +42,9 @@ public class PausePane extends GraphicsPane {
 	public void showContents() {
 		program.add(background);
 		program.add(pauseLabel);
+		if(!program.volume) {
+			sound.setLabel("Sound off");
+		}
 		program.add(sound);
 		program.add(resume);
 		program.add(quit);
