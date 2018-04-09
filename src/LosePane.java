@@ -31,8 +31,7 @@ public class LosePane extends GraphicsPane {
 		loseLabel.setFont("Forte-70");
 		loseLabel = new GLabel( "Enter username: ", 200 , 50);
 		String text = textField.getText();
-		// textArea.append(text + newline)
-		textField.selectAll();
+		// textArea.append(text + newline)textField.selectAll();
 
 		loseLabel.setFont("Forte-40");
 		inputmessage = new GRectangle(200,200,200,200);
