@@ -16,6 +16,7 @@ public class GamePane extends GraphicsPane {
 	private GImage player;
 	private GImage gameBackground;
 	private GParagraph title;
+	private GImage rock;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
 
 	private ArrayList<Fish> fishLtoR;
@@ -43,6 +44,7 @@ public class GamePane extends GraphicsPane {
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
 
+		
 		for (int i = 0; i < program.MAX_ENEMY; i++) {
 			makeFish();
 		}
@@ -109,6 +111,7 @@ public class GamePane extends GraphicsPane {
 		addAllFish();
 		program.add(player);
 		program.movement.start();
+		
 	}
 
 	@Override
@@ -120,6 +123,7 @@ public class GamePane extends GraphicsPane {
 		removeAllFish();
 		program.remove(player);
 		program.movement.stop();
+	
 	}
 
 	@Override
