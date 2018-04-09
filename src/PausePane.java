@@ -30,7 +30,6 @@ public class PausePane extends GraphicsPane {
 		quit.setFillColor(Color.RED);
 		background = new GImage("pause.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-		this.program.setBackground(Color.CYAN);
 	}
 
 	@Override

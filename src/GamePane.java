@@ -1,3 +1,4 @@
+
 //kyla
 import java.awt.event.MouseEvent;
 import acm.graphics.GObject;
@@ -8,89 +9,95 @@ import acm.graphics.GImage;
 import acm.graphics.GObject;
 import java.util.*;
 
+public class GamePane extends GraphicsPane {
+	private MainApplication program;
 
-public class GamePane extends GraphicsPane  {
-	private MainApplication program; 
-	
 	private GButton pause;
 	private GImage player;
 	private GImage gameBackground;
 	private GParagraph title;
+	private GImage rock;
+	private final Set<Integer> pressed = new TreeSet<Integer>();
 
 	private ArrayList<Fish> fishLtoR;
 	private ArrayList<Fish> fishRtoL;
 
 	public boolean playerMove;
 	public int keyPress;
-	
+
 	public GamePane(MainApplication app) {
 		this.program = app;
-		
+
 		fishLtoR = new ArrayList<Fish>();
 		fishRtoL = new ArrayList<Fish>();
 
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
-		
+
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 
 		pause.setFillColor(Color.RED);
+
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-		player = new GImage("PlainOldFish.png",program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
+		player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
 
-		for(int i =0; i < program.MAX_ENEMY; i++) {
+		
+		for (int i = 0; i < program.MAX_ENEMY; i++) {
 			makeFish();
 		}
-		System.out.println(fishLtoR.size() +", "+fishRtoL.size());
+		System.out.println(fishLtoR.size() + ", " + fishRtoL.size());
 
 	}
+
 	public Fish makeFish() {
 		Fish f = new Fish();
-		int random = program.rgen.nextInt(0,1);
+		int random = program.rgen.nextInt(0, 1);
 		if (random == 0) {
-			f.fish = new GImage("SmallFry.png", 0,program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+			f.fish = new GImage("SmallFryFlipped.png", 0, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
 			fishLtoR.add(f);
 			return f;
-		}
-		else {
-			f.fish = new GImage("SmallFry.png", program.WINDOW_WIDTH,program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+		} else {
+			f.fish = new GImage("SmallFry.png", program.WINDOW_WIDTH, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
 			fishRtoL.add(f);
 			return f;
 		}
 	}
+
 	public void addAllFish() {
-		for (Fish f: fishLtoR) {
+		for (Fish f : fishLtoR) {
+			f.setSize(1);
 			program.add(f.fish);
 		}
-		for (Fish f: fishRtoL) {
+		for (Fish f : fishRtoL) {
 			program.add(f.fish);
 		}
 	}
+
 	public void removeAllFish() {
-		for (Fish f: fishLtoR) {
+		for (Fish f : fishLtoR) {
+			f.setSize(1); // turn 1 into varible to alter size of fish
 			program.remove(f.fish);
 		}
-		for (Fish f: fishRtoL) {
+		for (Fish f : fishRtoL) {
 			program.remove(f.fish);
 		}
 	}
+
 	public void moveAllFish() {
-		for (Fish f: fishLtoR) {
+		for (Fish f : fishLtoR) {
 			if (f.fish.getX() > program.WINDOW_WIDTH) {
 				f.fish.setLocation(0, f.fish.getY());
-			}
-			else {
+			} else {
 				f.fish.move(2, 0);
 			}
 		}
-		for (Fish f: fishRtoL) {
+		for (Fish f : fishRtoL) {
 			if (f.fish.getX() < 0) {
 				f.fish.setLocation(program.WINDOW_WIDTH, f.fish.getY());
-			}
-			else {
+			} else {
 				f.fish.move(-2, 0);
 			}
 		}
@@ -104,6 +111,7 @@ public class GamePane extends GraphicsPane  {
 		addAllFish();
 		program.add(player);
 		program.movement.start();
+		
 	}
 
 	@Override
@@ -115,8 +123,8 @@ public class GamePane extends GraphicsPane  {
 		removeAllFish();
 		program.remove(player);
 		program.movement.stop();
+	
 	}
-
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -125,25 +133,55 @@ public class GamePane extends GraphicsPane  {
 			program.switchToPause();
 		}
 	}
-
+	
 	public void playerMovement() {
-		switch(keyPress) {
-		case KeyEvent.VK_UP:{
-			player.move(0, -2);
-			break;
+		pressed.add(keyPress); 
+		System.out.println("pressed size: " + pressed.size());
+		if (pressed.size() > 1) { // if two keys are pressed, move diagonally
+			Integer[] arr = pressed.toArray(new Integer[] {}); //save multiple key pressed into an array
+			if ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) ||
+			    (arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_RIGHT)){
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, -2);
+			}
+			else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
+					(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
+				player.setImage("PlainOldFish.png");
+				player.move(-2, -2);
+			}
+			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
+					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, 2);
+			}
+			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
+					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
+				player.setImage("PlainOldFish.png");
+				player.move(-2, 2);
+			}
 		}
-		case KeyEvent.VK_DOWN:{
-			player.move(0, 2);
-			break;
-		}
-		case KeyEvent.VK_LEFT:{
-			player.move(-2, 0);
-			break;
-		}
-		case KeyEvent.VK_RIGHT:{
-			player.move(2, 0);
-			break;
-		}
+		
+		else {
+			switch (keyPress) {
+			case KeyEvent.VK_UP: {
+				player.move(0, -2);
+				break;
+			}
+			case KeyEvent.VK_DOWN: {
+				player.move(0, 2);
+				break;
+			}
+			case KeyEvent.VK_LEFT: {
+				player.setImage("PlainOldFish.png");
+				player.move(-2, 0);
+				break;
+			}
+			case KeyEvent.VK_RIGHT: {
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, 0);
+				break;
+			}
+			}
 		}
 	}
 
@@ -154,7 +192,9 @@ public class GamePane extends GraphicsPane  {
 		keyPress = e.getKeyCode();
 		playerMove = true;
 	}
+
 	public void keyReleased(KeyEvent e) {
+		pressed.remove(Integer.valueOf(e.getKeyCode()));
 		playerMove = false;
 	}
 
