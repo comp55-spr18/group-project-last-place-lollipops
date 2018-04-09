@@ -20,7 +20,11 @@ public class PausePane extends GraphicsPane {
 
 		pauseLabel = new GLabel( "Pause", 200 , 50);
 		pauseLabel.setFont("Forte-70");
-		sound = new GButton ("Sound on",200,100,200,50 );
+		if(program.volume) {
+			sound = new GButton ("Sound on",200,100,200,50 );
+		}else {
+			sound = new GButton ("Sound off",200,100,200,50 );
+		}
 		sound.setFillColor(Color.RED);
 		resume = new GButton("Resume", 200,200,200,50);
 		resume.setFillColor(Color.RED);
