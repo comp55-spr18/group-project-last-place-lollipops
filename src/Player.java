@@ -10,10 +10,13 @@ public class Player extends Fish { //implements actionListener ??
 	//constructor
 	public Player(GImage p, double speed, int size) { 
 		f = new Fish();
-		f.color = color; 		
+		//f.color = color; 		
+	}
+	
+	public Player(double speed, int size, double x, double y) { 
+		f = new Fish();		
 		setSpeed(speed);
 		setSize(size);
-		setColor(color);
 	}
 	
 	public int grow(int s) {
