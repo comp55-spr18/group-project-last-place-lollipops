@@ -1,6 +1,9 @@
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JTextField;
+
 import acm.graphics.*;
 import acm.graphics.GObject;
 
@@ -14,12 +17,25 @@ public class LosePane extends GraphicsPane {
 	private GButton back;
 	private GLabel loseLabel;
 	private GImage background;
+	private GLabel message;
+	private GRectangle inputmessage;
+
+	private JTextField textField;
 
 	public LosePane(MainApplication app) {
 		this.program = app;
 
+		
+		textField = new JTextField(20);
 		loseLabel = new GLabel( "Lose", 200 , 50);
 		loseLabel.setFont("Forte-70");
+		loseLabel = new GLabel( "Enter username: ", 200 , 50);
+		String text = textField.getText();
+		// textArea.append(text + newline)
+		textField.selectAll();
+
+		loseLabel.setFont("Forte-40");
+		inputmessage = new GRectangle(200,200,200,200);
 		sound = new GButton ("Sound on",200,100,200,50 );
 		sound.setFillColor(Color.RED);
 		back = new GButton("Back to Menu",200,300,200,50);
@@ -74,6 +90,6 @@ public class LosePane extends GraphicsPane {
 		if(obj == quit) {
 			System.exit(0);
 		}
-
+		
 	}
 }
