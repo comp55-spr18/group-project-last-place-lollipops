@@ -11,16 +11,15 @@ public class SettingsPane extends GraphicsPane {
 
 	public SettingsPane(MainApplication app) {
 		this.program = app;
-		if(program.volume) {
-			sound = new GButton("Sound on", 200, 200, 200, 100);
-		}else {
-			sound = new GButton("Sound off", 200, 200, 200, 100);
-		}
+		sound = new GButton("Sound on", 200, 200, 200, 100);
 		back = new GButton("Back", 200, 400, 200, 100);
 	}
 
 	@Override
 	public void showContents() {
+		if(!program.volume) {
+			sound.setLabel("Sound off");
+		}
 		program.add(sound);
 		program.add(back);
 	}
