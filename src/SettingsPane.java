@@ -11,7 +11,11 @@ public class SettingsPane extends GraphicsPane {
 
 	public SettingsPane(MainApplication app) {
 		this.program = app;
-		sound = new GButton("Sound on", 200, 200, 200, 100);
+		if(program.volume) {
+			sound = new GButton("Sound on", 200, 200, 200, 100);
+		}else {
+			sound = new GButton("Sound off", 200, 200, 200, 100);
+		}
 		back = new GButton("Back", 200, 400, 200, 100);
 	}
 
@@ -35,14 +39,14 @@ public class SettingsPane extends GraphicsPane {
 		}
 		if (obj == sound) {	
 			if (program.volume) {
-				sound.setLabel("sound off");
+				sound.setLabel("Sound off");
 				program.volume = false;
 				program.pauseMenuMusic();
 				program.pauseGameMusic();
 				}
 			else {
 				program.volume = true;
-				sound.setLabel("sound on");
+				sound.setLabel("Sound on");
 				program.playMenuMusic();
 			}
 		}
