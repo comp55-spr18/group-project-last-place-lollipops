@@ -140,10 +140,12 @@ public class GamePane extends GraphicsPane {
 				break;
 			}
 			case KeyEvent.VK_LEFT: {
+				player.setImage("PlainOldFish.png");
 				player.move(-2, 0);
 				break;
 			}
 			case KeyEvent.VK_RIGHT: {
+				player.setImage("PlainOldFishFlipped.png");
 				player.move(2, 0);
 				break;
 		}
