@@ -6,6 +6,12 @@ public class Player extends Fish { //implements actionListener ??
 	private Entity e;
 	private Player player;
 	public Fish f;
+
+	//constructor
+	public Player(GImage p, double speed, int size) { 
+		f = new Fish();
+		//f.color = color; 		
+	}
 	
 	public Player(double speed, int size, double x, double y) { 
 		f = new Fish();		
@@ -26,6 +32,9 @@ public class Player extends Fish { //implements actionListener ??
 //			return true;
 //
 //		}
+//		Fish foo = player fish location 
+//		if (getElementAt(foo == Fish f))
+//			return true;
 		return false;
 	}
 
