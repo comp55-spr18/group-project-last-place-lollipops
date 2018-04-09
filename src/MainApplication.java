@@ -8,7 +8,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "Lullatones - Still Feeling the Waves When You Go to Bed.mp3" };
+	private static final String[] SOUND_FILES = { "Lullatone1.mp3", "somethinlikethis.mp3" };
 
 	public static final int MS = 10;
 	public static final int MAX_ENEMY = 4;
