@@ -16,6 +16,7 @@ public class GamePane extends GraphicsPane {
 	private GImage player;
 	private GImage gameBackground;
 	private GParagraph title;
+	private final Set<Integer> pressed = new TreeSet<Integer>();
 
 	private ArrayList<Fish> fishLtoR;
 	private ArrayList<Fish> fishRtoL;
@@ -128,9 +129,36 @@ public class GamePane extends GraphicsPane {
 			program.switchToPause();
 		}
 	}
-
+	
 	public void playerMovement() {
-		switch (keyPress) {
+		pressed.add(keyPress); 
+		System.out.println("pressed size: " + pressed.size());
+		if (pressed.size() > 1) { // if two keys are pressed, move diagonally
+			Integer[] arr = pressed.toArray(new Integer[] {}); //save multiple key pressed into an array
+			if ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) ||
+			    (arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_RIGHT)){
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, -2);
+			}
+			else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
+					(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
+				player.setImage("PlainOldFish.png");
+				player.move(-2, -2);
+			}
+			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
+					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, 2);
+			}
+			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
+					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
+				player.setImage("PlainOldFish.png");
+				player.move(-2, 2);
+			}
+		}
+		
+		else {
+			switch (keyPress) {
 			case KeyEvent.VK_UP: {
 				player.move(0, -2);
 				break;
@@ -148,7 +176,8 @@ public class GamePane extends GraphicsPane {
 				player.setImage("PlainOldFishFlipped.png");
 				player.move(2, 0);
 				break;
-		}
+			}
+			}
 		}
 	}
 
@@ -161,6 +190,7 @@ public class GamePane extends GraphicsPane {
 	}
 
 	public void keyReleased(KeyEvent e) {
+		pressed.remove(Integer.valueOf(e.getKeyCode()));
 		playerMove = false;
 	}
 
