@@ -90,6 +90,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		game.moveAllFish();
 		if (game.playerMove) {
 			game.playerMovement();
+			game.collision();
 		}
 	}
 }

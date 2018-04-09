@@ -21,7 +21,6 @@ public class GamePane extends GraphicsPane  {
 	private ArrayList<Fish> fishLtoR;
 	private ArrayList<Fish> fishRtoL;
 
-//	private Fish foo;
 
 	public boolean playerMove;
 	public int keyPress;
@@ -50,44 +49,68 @@ public class GamePane extends GraphicsPane  {
 		for(int i =0; i < program.MAX_ENEMY; i++) {
 			makeFish();
 		}
-//		foo = new Fish();
-//		foo.setFish(new GImage("KingofthePond.png",0,0));
 
 		System.out.println(fishLtoR.size() +", "+fishRtoL.size());
 	}
 
-	public void CollisionInteractions(Entity o) {
+	public int collisionInteractions(Entity o) {
+		/* 0 = you lose
+		 * 1 = collided with a fish but u ate it
+		 * 2 = do nothing (at the momemnt)
+		 * 
+		 */
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSizeCounter() > player.getSizeCounter()) {
 					System.out.println("you lose!");
 					program.remove(player.getFish());
+					return 0; 
 				}
 				else {
 					program.remove(((Fish) o).getFish());
 					s.increment();
+					return 1; 
+					
 				}
 			}
 			else if (o instanceof Kelp) {
-
+				return 2; 
 			}
 			else if (o instanceof Rock) {
 				//are we making falling rocks? or non-lethal that do nothing?
+				return 2;
 			}
 			else if (o instanceof Hook) {
-				
+				return 2;
 			}
 			else if (o instanceof Buff) {
 				// what do these do?????????
+				return 2;
+			}
+		}
+		return 2;
+	}
+	public void collision() {
+		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (collisionInteractions(f) ==1 ) {
+				itr.remove();
+			}
+		}
+		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (collisionInteractions(f) ==1 ) {
+				itr.remove();
 			}
 		}
 	}
-
+	
 	public Fish makeFish() {
 		Fish f = new Fish();
 		int random = program.rgen.nextInt(0,1);
 		if (random == 0) {
 			f.setFish(new GImage("SmallFry.png", 0,program.rgen.nextInt(0, program.WINDOW_HEIGHT)));
+			f.getFish().setLocation(f.getFish().getX() - f.getFish().getWidth(), f.getFish().getY());
 			fishLtoR.add(f);
 			return f;
 		}
@@ -116,14 +139,15 @@ public class GamePane extends GraphicsPane  {
 	public void moveAllFish() {
 		for (Fish f: fishLtoR) {
 			if (f.getFish().getX() > program.WINDOW_WIDTH) {
-				f.getFish().setLocation(0, f.getFish().getY());
+				f.getFish().setLocation(0 - f.getFish().getWidth(), f.getFish().getY());
 			}
 			else {
 				f.getFish().move(2, 0);
+
 			}
 		}
 		for (Fish f: fishRtoL) {
-			if (f.getFish().getX() < 0) {
+			if (f.getFish().getX() < 0 - f.getFish().getWidth()) {
 				f.getFish().setLocation(program.WINDOW_WIDTH, f.getFish().getY());
 			}
 			else {
@@ -139,7 +163,6 @@ public class GamePane extends GraphicsPane  {
 		program.add(title);
 		program.add(s.getScoreTxt());
 		addAllFish();
-//		program.add(foo.getFish());
 		program.add(player.getFish());
 		program.movement.start();
 	}
@@ -151,7 +174,6 @@ public class GamePane extends GraphicsPane  {
 		program.remove(title);
 		program.remove(s.getScoreTxt());
 		removeAllFish();
-//		program.remove(foo.getFish());
 		program.remove(player.getFish());
 		program.movement.stop();
 	}
@@ -165,7 +187,6 @@ public class GamePane extends GraphicsPane  {
 	}
 
 	public void playerMovement() {
-//		CollisionInteractions(foo);
 		switch(keyPress) {
 		case KeyEvent.VK_UP:{
 			player.getFish().move(0, -2);
