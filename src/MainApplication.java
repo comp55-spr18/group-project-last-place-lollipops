@@ -8,8 +8,6 @@ import acm.util.RandomGenerator;
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "Lullatone1.mp3", "somethinlikethis.mp3" };
 
 	public static final int MS = 10;
 	public static final int MAX_ENEMY = 4;
@@ -21,11 +19,11 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private Fish f;
+	private int count;
+
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
-	private int count;
 	public boolean volume = true;
-	
 	public Timer movement;
 	public RandomGenerator rgen;
 	
@@ -47,19 +45,17 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	}
 
 	public void switchToMenu() {
-		//playRandomSound();
-		count++;
 		switchToScreen(menu);
 		playMenuMusic();
 	}
-
-	public void switchToSome() {
-		//playRandomSound();
+	
+	public void switchToGame() {
+		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
-		
 	}
-	public void switchToGame() {
+	public void switchToNewGame() {
+		game = new GamePane(this);
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
@@ -81,11 +77,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		movement.stop();
 	}
 
-	private void playRandomSound() {
-		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
-	}
-	
 	public void playMenuMusic() {
 		if (!volume) return;
 		AudioPlayer audio = AudioPlayer.getInstance();
@@ -104,12 +95,17 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "gameMusic.mp3");
 	}
+	public void stopGameMusic() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.stopSound("", "gameMusic.mp3");
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		moveAllFish();
-		
-		if (game.playerMove) {
+
+if (game.playerMove) {
 			game.playerMovement();
+			// game.collision();
 		}
 	}
 	

@@ -6,20 +6,20 @@ import acm.graphics.GObject;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import acm.graphics.GImage;
-import acm.graphics.GObject;
+import acm.graphics.*;
 import java.util.*;
 
 public class GamePane extends GraphicsPane {
 	private MainApplication program;
-
-	private GButton pause;
 	private GImage player;
 	private GImage gameBackground;
-	private GParagraph title;
 	private GImage rock;
+	private GButton pause;
+	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
 	private Fish f;
-	
+	private Score s;
+
 	public boolean playerMove;
 	public int keyPress;
 
@@ -30,6 +30,9 @@ public class GamePane extends GraphicsPane {
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
 
+		s = new Score();
+		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),50,60));
+		
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 
@@ -38,14 +41,94 @@ public class GamePane extends GraphicsPane {
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
-		
+
 		for (int i = 0; i < program.MAX_ENEMY; i++) {
 			f = new Fish(app);
 		} 
 		 System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
-
 	}
 
+/*
+	public int collisionInteractions(Entity o) {
+		 0 = you lose
+		  1 = collided with a fish but u ate it
+		  2 = do nothing (at the momemnt)
+		  
+		 
+		if (player.collideWith(o)) {
+			if (o instanceof Fish) {
+				if (((Fish) o).getSizeCounter() > player.getSizeCounter()) {
+					System.out.println("you lose!");
+					program.remove(player);
+					return 0; 
+				}
+				else {
+					program.remove(((Fish) o).getFish());
+					s.increment();
+					return 1; 
+					
+				}
+			}
+			else if (o instanceof Kelp) {
+				return 2; 
+			}
+			else if (o instanceof Rock) {
+				//are we making falling rocks? or non-lethal that do nothing?
+				return 2;
+			}
+			else if (o instanceof Hook) {
+				return 2;
+			}
+			else if (o instanceof Buff) {
+				// what do these do?????????
+				return 2;
+			}
+		}
+		return 2;
+	}
+	public void collision() {
+		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (collisionInteractions(f) ==1 ) {
+				itr.remove();
+			}
+		}
+		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (collisionInteractions(f) ==1 ) {
+				itr.remove();
+			}
+		}
+	}
+	*/
+	
+/*	// moved makeFish() to Fish.java as constructor 
+	public Fish makeFish() {
+		Fish f = new Fish();
+		int random = program.rgen.nextInt(0, 1);
+		if (random == 0) {
+			f.setFish(new GImage("SmallFryFlipped.png", 0,program.rgen.nextInt(0, program.WINDOW_HEIGHT)));
+			f.getFish().setLocation(f.getFish().getX() - f.getFish().getWidth(), f.getFish().getY());
+			fishLtoR.add(f);
+			return f;
+		}
+		else {
+			f.setFish(new GImage("SmallFry.png", program.WINDOW_WIDTH,program.rgen.nextInt(0, program.WINDOW_HEIGHT)));
+			fishRtoL.add(f);
+			return f;
+		}
+	}
+	*/
+	
+	public void addAllFish() {
+		for (Fish f : program.fishLtoR) {
+			program.add(f.fishImage);
+		}
+		for (Fish f : program.fishRtoL) {
+			program.add(f.fishImage);
+		}
+	}
+	
 	public void removeAllFish() {
 		for (Fish f : program.fishLtoR) {
 			program.fishLtoR.remove(f.fishImage);
@@ -54,30 +137,16 @@ public class GamePane extends GraphicsPane {
 			program.fishRtoL.remove(f.fishImage);
 		}
 	}
-	public void addAllFish() {
-		System.out.println("Add all Fish\n");
-		for (Fish f : program.fishLtoR) {
-				System.out.println("Enter for loop LtoR\n");
-				System.out.println("Set size LtoR\n");
-			program.add(f.fishImage);
-				System.out.println("add LtoR fish\n");
-		}
-		for (Fish f : program.fishRtoL) {
-				System.out.println("Enter for loop RtoL\n");
-				System.out.println("Set size RtoL\n");
-			program.add(f.fishImage);
-				System.out.println("add LtoR fish\n");
-		}
-	}
+
 	@Override
 	public void showContents() {
 		program.add(gameBackground);
 		program.add(pause);
 		program.add(title);
+		program.add(s.getScoreTxt());
 		addAllFish();
 		program.add(player);
 		program.movement.start();
-		
 	}
 
 	@Override
@@ -85,10 +154,10 @@ public class GamePane extends GraphicsPane {
 		program.remove(gameBackground);
 		program.remove(pause);
 		program.remove(title);
+		program.remove(s.getScoreTxt());
 		removeAllFish();
 		program.remove(player);
 		program.movement.stop();
-	
 	}
 
 	@Override
@@ -124,7 +193,7 @@ public class GamePane extends GraphicsPane {
 				player.move(-2, 2);
 			}
 		}
-		
+
 		else { // otherwise, move in one direction
 			switch (keyPress) {
 			case KeyEvent.VK_UP: {

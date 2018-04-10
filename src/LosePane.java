@@ -5,62 +5,62 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 
 import acm.graphics.*;
+import acm.graphics.GObject;
 
 
-public class PausePane extends GraphicsPane {
+public class LosePane extends GraphicsPane {
 	private MainApplication program;
 
 	private GButton sound;
-	private GButton resume;
+	
 	private GButton quit;
 	private GButton back;
-	private GLabel pauseLabel;
+	private GLabel loseLabel;
 	private GImage background;
+	private GLabel message;
+	private GRectangle inputmessage;
 
+	private JTextField textField;
 
-
-
-	public PausePane(MainApplication app) {
+	public LosePane(MainApplication app) {
 		this.program = app;
+
 		
-		
-		pauseLabel = new GLabel( "Pause", 200 , 50);
-		pauseLabel.setFont("Forte-70");
+		textField = new JTextField(20);
+		loseLabel = new GLabel( "Lose", 200 , 50);
+		loseLabel.setFont("Forte-70");
+		loseLabel = new GLabel( "Enter username: ", 200 , 50);
+		String text = textField.getText();
+		// textArea.append(text + newline)textField.selectAll();
+
+		loseLabel.setFont("Forte-40");
+		inputmessage = new GRectangle(200,200,200,200);
 		sound = new GButton ("Sound on",200,100,200,50 );
 		sound.setFillColor(Color.RED);
-		resume = new GButton("Resume", 200,200,200,50);
-		resume.setFillColor(Color.RED);
 		back = new GButton("Back to Menu",200,300,200,50);
 		back.setFillColor(Color.RED);
 		quit = new GButton("Quit Game", 200,400,200,50);
 		quit.setFillColor(Color.RED);
-		background = new GImage("pause.gif",0,0);
+		background = new GImage("fish.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 	}
 
 	@Override
 	public void showContents() {
 		program.add(background);
-		program.add(pauseLabel);
-		if(!program.volume) {
-			sound.setLabel("Sound off");
-		}
+		program.add(loseLabel);
 		program.add(sound);
-		program.add(resume);
 		program.add(quit);
 		program.add(back);
-		
 		
 	}
 	@Override
 	public void hideContents() {
 		program.remove(background);
-		program.remove(pauseLabel);
+		program.remove(loseLabel);
 		program.remove(sound);
-		program.remove(resume);
 		program.remove(quit);
 		program.remove(back);
-		
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class PausePane extends GraphicsPane {
 
 		if (obj == back) {
 			program.switchToMenu();
-			program.stopGameMusic();
+			program.pauseGameMusic();
 			program.playMenuMusic();
 		}
 		if (obj == sound) {
@@ -85,12 +85,10 @@ public class PausePane extends GraphicsPane {
 				program.playGameMusic();
 			}
 		}
-		if(obj== resume) {
-			program.switchToGame();
-		}
+		
 		if(obj == quit) {
 			System.exit(0);
 		}
-
+		
 	}
 }

@@ -1,7 +1,6 @@
 import java.awt.Color;
 import acm.graphics.GImage;
 
-//silvana & kevin
 public class Player extends Fish { //implements actionListener ??
 	private Entity e;
 	private Player player;
@@ -11,7 +10,7 @@ public class Player extends Fish { //implements actionListener ??
 	public Player(MainApplication app, double speed, int size) { 
 		super(app);		
 		setSpeed(speed);
-		setSize(size);
+		setSizeCounter(size);
 	}
 	
 	public int grow(int s) {
