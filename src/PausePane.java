@@ -2,7 +2,6 @@
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JTextField;
 
 import acm.graphics.*;
 
