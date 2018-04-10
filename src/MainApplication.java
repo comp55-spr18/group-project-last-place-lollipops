@@ -104,7 +104,15 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "gameMusic.mp3");
 	}
-	//main app
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		moveAllFish();
+		
+		if (game.playerMove) {
+			game.playerMovement();
+		}
+	}
+	
 	public void moveAllFish() {
 		for (Fish f : fishLtoR) {
 			if (f.fishImage.getX() > WINDOW_WIDTH) {
@@ -119,14 +127,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			} else {
 				f.fishImage.move(-2, 0);
 			}
-		}
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		moveAllFish();
-		
-		if (game.playerMove) {
-			game.playerMovement();
 		}
 	}
 }

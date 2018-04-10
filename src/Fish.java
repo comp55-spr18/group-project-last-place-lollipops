@@ -7,7 +7,6 @@ public class Fish extends Entity { // Player inherits from this class
 	private MainApplication program;
 
 	public GImage fishImage;
-	
 
 	// constructor
 	public Fish(MainApplication program) {
