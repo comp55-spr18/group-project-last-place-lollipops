@@ -1,8 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.Timer;
 import acm.util.RandomGenerator;
-
 
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
@@ -19,7 +20,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
-
+	private Fish f;
+	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
+	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
 	private int count;
 	public boolean volume = true;
 	
@@ -101,9 +104,26 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "gameMusic.mp3");
 	}
+	//main app
+	public void moveAllFish() {
+		for (Fish f : fishLtoR) {
+			if (f.fishImage.getX() > WINDOW_WIDTH) {
+				f.fishImage.setLocation(0, f.fishImage.getY());
+			} else {
+				f.fishImage.move(2, 0);
+			}
+		}
+		for (Fish f : fishRtoL) {
+			if (f.fishImage.getX() < 0) {
+				f.fishImage.setLocation(WINDOW_WIDTH, f.fishImage.getY());
+			} else {
+				f.fishImage.move(-2, 0);
+			}
+		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		game.moveAllFish();
+		moveAllFish();
 		
 		if (game.playerMove) {
 			game.playerMovement();

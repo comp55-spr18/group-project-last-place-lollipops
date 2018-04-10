@@ -18,18 +18,13 @@ public class GamePane extends GraphicsPane {
 	private GParagraph title;
 	private GImage rock;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
-
-	private ArrayList<Fish> fishLtoR;
-	private ArrayList<Fish> fishRtoL;
-
+	private Fish f;
+	
 	public boolean playerMove;
 	public int keyPress;
 
 	public GamePane(MainApplication app) {
 		this.program = app;
-
-		fishLtoR = new ArrayList<Fish>();
-		fishRtoL = new ArrayList<Fish>();
 
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
@@ -43,15 +38,14 @@ public class GamePane extends GraphicsPane {
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
-
 		
 		for (int i = 0; i < program.MAX_ENEMY; i++) {
-			makeFish();
-		}
-		System.out.println(fishLtoR.size() + ", " + fishRtoL.size());
+			f = new Fish(app);
+		} 
+		 System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
 
 	}
-
+/*
 	public Fish makeFish() {
 		Fish f = new Fish();
 		int random = program.rgen.nextInt(0, 1);
@@ -68,7 +62,7 @@ public class GamePane extends GraphicsPane {
 
 	public void addAllFish() {
 		for (Fish f : fishLtoR) {
-			f.setSize(1);
+			f.setSize(1); // turn 1 into varible to alter size of fish
 			program.add(f.fish);
 		}
 		for (Fish f : fishRtoL) {
@@ -78,7 +72,6 @@ public class GamePane extends GraphicsPane {
 
 	public void removeAllFish() {
 		for (Fish f : fishLtoR) {
-			f.setSize(1); // turn 1 into varible to alter size of fish
 			program.remove(f.fish);
 		}
 		for (Fish f : fishRtoL) {
@@ -102,7 +95,31 @@ public class GamePane extends GraphicsPane {
 			}
 		}
 	}
+*/
+	public void removeAllFish() {
+		for (Fish f : program.fishLtoR) {
+			program.fishLtoR.remove(f.fishImage);
+		}
+		for (Fish f : program.fishRtoL) {
+			program.fishRtoL.remove(f.fishImage);
+		}
+	}
+	public void addAllFish() {
+		System.out.println("Add all Fish\n");
+		for (Fish f : program.fishLtoR) {
+				System.out.println("Enter forloop LtoR\n");
+				System.out.println("Set size LtoR\n");
+			program.add(f.fishImage);
+				System.out.println("add LtoR fish\n");
+		}
+		for (Fish f : program.fishRtoL) {
+				System.out.println("Enter forloop RtoL\n");
+				System.out.println("Set size RtoL\n");
+			program.add(f.fishImage);
+				System.out.println("add LtoR fish\n");
 
+		}
+	}
 	@Override
 	public void showContents() {
 		program.add(gameBackground);
@@ -115,7 +132,6 @@ public class GamePane extends GraphicsPane {
 	}
 
 	@Override
-
 	public void hideContents() {
 		program.remove(gameBackground);
 		program.remove(pause);
@@ -136,7 +152,6 @@ public class GamePane extends GraphicsPane {
 	
 	public void playerMovement() {
 		pressed.add(keyPress); 
-		System.out.println("pressed size: " + pressed.size());
 		if (pressed.size() > 1) { // if two keys are pressed, move diagonally
 			Integer[] arr = pressed.toArray(new Integer[] {}); //save multiple key pressed into an array
 			if ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) ||
@@ -161,7 +176,7 @@ public class GamePane extends GraphicsPane {
 			}
 		}
 		
-		else {
+		else { // otherwise, move in one direction
 			switch (keyPress) {
 			case KeyEvent.VK_UP: {
 				player.move(0, -2);
