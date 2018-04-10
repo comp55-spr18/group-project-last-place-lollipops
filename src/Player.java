@@ -1,7 +1,6 @@
 import java.awt.Color;
 import acm.graphics.GImage;
 
-//silvana & kevin
 public class Player extends Fish { //implements actionListener ??
 	private Entity e;
 	private Player player;
@@ -13,10 +12,10 @@ public class Player extends Fish { //implements actionListener ??
 		//f.color = color; 		
 	}
 	
-	public Player(double speed, int size, double x, double y) { 
+	public Player(double speed, int size) { 
 		f = new Fish();		
 		setSpeed(speed);
-		setSize(size);
+		setSizeCounter(size);
 	}
 	
 	public int grow(int s) {

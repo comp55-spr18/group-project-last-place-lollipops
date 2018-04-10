@@ -68,7 +68,7 @@ public class PausePane extends GraphicsPane {
 
 		if (obj == back) {
 			program.switchToMenu();
-			program.pauseGameMusic();
+			program.stopGameMusic();
 			program.playMenuMusic();
 		}
 		if (obj == sound) {
