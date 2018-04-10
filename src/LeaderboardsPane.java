@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import java.io.*;
@@ -22,7 +23,7 @@ public class LeaderboardsPane extends GraphicsPane {
 	
 	public LeaderboardsPane(MainApplication app) {
 		this.program = app;
-		topTen = new GParagraph("", 200, 200);
+		topTen = new GParagraph("", 200, 50);
 		back = new GButton("Back", 200, 400, 200, 100);
 		//leaderboards = new Score[11];
 		Score[] leaderboards;
@@ -61,6 +62,8 @@ public class LeaderboardsPane extends GraphicsPane {
 	public void displayLeaders(Score[] l) {
 		for(int i=0;i<10;i++) {
 			topTen.addText(l[i].getName() + " " + Integer.toString(l[i].getScore()) + "\n");
+			topTen.setFont("Forte-30");
+			topTen.setColor(Color.pink);
 		}
 	}
 	

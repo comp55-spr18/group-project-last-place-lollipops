@@ -17,6 +17,9 @@ public class SettingsPane extends GraphicsPane {
 
 	@Override
 	public void showContents() {
+		if(!program.volume) {
+			sound.setLabel("Sound off");
+		}
 		program.add(sound);
 		program.add(back);
 	}
@@ -35,14 +38,14 @@ public class SettingsPane extends GraphicsPane {
 		}
 		if (obj == sound) {	
 			if (program.volume) {
-				sound.setLabel("sound off");
+				sound.setLabel("Sound off");
 				program.volume = false;
 				program.pauseMenuMusic();
 				program.pauseGameMusic();
 				}
 			else {
 				program.volume = true;
-				sound.setLabel("sound on");
+				sound.setLabel("Sound on");
 				program.playMenuMusic();
 			}
 		}

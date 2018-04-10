@@ -30,13 +30,15 @@ public class PausePane extends GraphicsPane {
 		quit.setFillColor(Color.RED);
 		background = new GImage("pause.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-		this.program.setBackground(Color.CYAN);
 	}
 
 	@Override
 	public void showContents() {
 		program.add(background);
 		program.add(pauseLabel);
+		if(!program.volume) {
+			sound.setLabel("Sound off");
+		}
 		program.add(sound);
 		program.add(resume);
 		program.add(quit);
@@ -59,7 +61,7 @@ public class PausePane extends GraphicsPane {
 
 		if (obj == back) {
 			program.switchToMenu();
-			program.pauseGameMusic();
+			program.stopGameMusic();
 			program.playMenuMusic();
 		}
 		if (obj == sound) {

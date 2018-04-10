@@ -44,8 +44,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToScreen(menu);
 		playMenuMusic();
 	}
-
+	
 	public void switchToGame() {
+		switchToScreen(game);
+		pauseMenuMusic();
+		playGameMusic();
+	}
+	public void switchToNewGame() {
+		game = new GamePane(this);
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
@@ -84,6 +90,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void pauseGameMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "gameMusic.mp3");
+	}
+	public void stopGameMusic() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.stopSound("", "gameMusic.mp3");
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
