@@ -1,8 +1,10 @@
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JTextField;
+
 import acm.graphics.*;
-import acm.graphics.GObject;
 
 
 public class PausePane extends GraphicsPane {
@@ -15,9 +17,13 @@ public class PausePane extends GraphicsPane {
 	private GLabel pauseLabel;
 	private GImage background;
 
+
+
+
 	public PausePane(MainApplication app) {
 		this.program = app;
-
+		
+		
 		pauseLabel = new GLabel( "Pause", 200 , 50);
 		pauseLabel.setFont("Forte-70");
 		sound = new GButton ("Sound on",200,100,200,50 );
@@ -44,6 +50,7 @@ public class PausePane extends GraphicsPane {
 		program.add(quit);
 		program.add(back);
 		
+		
 	}
 	@Override
 	public void hideContents() {
@@ -53,6 +60,7 @@ public class PausePane extends GraphicsPane {
 		program.remove(resume);
 		program.remove(quit);
 		program.remove(back);
+		
 	}
 
 	@Override
