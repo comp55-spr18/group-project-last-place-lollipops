@@ -1,7 +1,6 @@
 import java.awt.Color;
 import acm.graphics.GImage;
 
-//silvana & kevin
 public class Player extends Fish { //implements actionListener ??
 	private Entity e;
 	private Player player;
