@@ -4,13 +4,17 @@ import java.awt.*;
 import acm.graphics.*;
 public abstract class Entity implements Collision {
 	private double speed;
+	// private GImage image; // for sprites ("image name.png", x, y)
 	public GObject obj;
+
 	public double getSpeed() {
 		return speed;
 	}
+	
 	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
+	
 	@Override
 	public boolean collideWith(Entity o) {
 		// TODO Auto-generated method stub

@@ -11,27 +11,20 @@ import java.util.*;
 
 public class GamePane extends GraphicsPane {
 	private MainApplication program;
-	private GButton pause;
-	private Fish player;
-	private Score s;
+	private GImage player;
 	private GImage gameBackground;
-	private GParagraph title;
-
 	private GImage rock;
+	private GButton pause;
+	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
-
-
-	private ArrayList<Fish> fishLtoR;
-	private ArrayList<Fish> fishRtoL;
+	private Fish f;
+	private Score s;
 
 	public boolean playerMove;
 	public int keyPress;
 
 	public GamePane(MainApplication app) {
 		this.program = app;
-
-		fishLtoR = new ArrayList<Fish>();
-		fishRtoL = new ArrayList<Fish>();
 
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
@@ -47,27 +40,26 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-		player = new Fish();
-		player.setFish(new GImage("PlainOldFish.png",program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2));
+		player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
 
 		for (int i = 0; i < program.MAX_ENEMY; i++) {
-			makeFish();
-		}
-		System.out.println(fishLtoR.size() +", "+fishRtoL.size());
+			f = new Fish(app);
+		} 
+		 System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
 	}
 
-
+/*
 	public int collisionInteractions(Entity o) {
-		/* 0 = you lose
-		 * 1 = collided with a fish but u ate it
-		 * 2 = do nothing (at the momemnt)
-		 * 
-		 */
+		 0 = you lose
+		  1 = collided with a fish but u ate it
+		  2 = do nothing (at the momemnt)
+		  
+		 
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSizeCounter() > player.getSizeCounter()) {
 					System.out.println("you lose!");
-					program.remove(player.getFish());
+					program.remove(player);
 					return 0; 
 				}
 				else {
@@ -108,8 +100,9 @@ public class GamePane extends GraphicsPane {
 			}
 		}
 	}
+	*/
 	
-
+/*	// moved makeFish() to Fish.java as constructor 
 	public Fish makeFish() {
 		Fish f = new Fish();
 		int random = program.rgen.nextInt(0, 1);
@@ -125,43 +118,23 @@ public class GamePane extends GraphicsPane {
 			return f;
 		}
 	}
-
+	*/
+	
 	public void addAllFish() {
-
-		for (Fish f: fishLtoR) {
-			program.add(f.getFish());
+		for (Fish f : program.fishLtoR) {
+			program.add(f.fishImage);
 		}
-		for (Fish f: fishRtoL) {
-			program.add(f.getFish());
+		for (Fish f : program.fishRtoL) {
+			program.add(f.fishImage);
 		}
 	}
-
+	
 	public void removeAllFish() {
-		for (Fish f: fishLtoR) {
-			program.remove(f.getFish());
-
+		for (Fish f : program.fishLtoR) {
+			program.fishLtoR.remove(f.fishImage);
 		}
-		for (Fish f: fishRtoL) {
-			program.remove(f.getFish());
-		}
-	}
-
-	public void moveAllFish() {
-		for (Fish f: fishLtoR) {
-			if (f.getFish().getX() > program.WINDOW_WIDTH) {
-				f.getFish().setLocation(0 - f.getFish().getWidth(), f.getFish().getY());
-			}
-			else {
-				f.getFish().move(2, 0);
-			}
-		}
-		for (Fish f: fishRtoL) {
-			if (f.getFish().getX() < 0 - f.getFish().getWidth()) {
-				f.getFish().setLocation(program.WINDOW_WIDTH, f.getFish().getY());
-			}
-			else {
-				f.getFish().move(-2, 0);
-			}
+		for (Fish f : program.fishRtoL) {
+			program.fishRtoL.remove(f.fishImage);
 		}
 	}
 
@@ -172,10 +145,9 @@ public class GamePane extends GraphicsPane {
 		program.add(title);
 		program.add(s.getScoreTxt());
 		addAllFish();
-		program.add(player.getFish());
+		program.add(player);
 		program.movement.start();
 	}
-
 
 	@Override
 	public void hideContents() {
@@ -184,7 +156,7 @@ public class GamePane extends GraphicsPane {
 		program.remove(title);
 		program.remove(s.getScoreTxt());
 		removeAllFish();
-		program.remove(player.getFish());
+		program.remove(player);
 		program.movement.stop();
 	}
 
@@ -198,49 +170,48 @@ public class GamePane extends GraphicsPane {
 	
 	public void playerMovement() {
 		pressed.add(keyPress); 
-		System.out.println("pressed size: " + pressed.size());
 		if (pressed.size() > 1) { // if two keys are pressed, move diagonally
 			Integer[] arr = pressed.toArray(new Integer[] {}); //save multiple key pressed into an array
 			if ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) ||
 			    (arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_RIGHT)){
-				player.getFish().setImage("PlainOldFishFlipped.png");
-				player.getFish().move(2, -2);
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, -2);
 			}
 			else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
 					(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
-				player.getFish().setImage("PlainOldFish.png");
-				player.getFish().move(-2, -2);
+				player.setImage("PlainOldFish.png");
+				player.move(-2, -2);
 			}
 			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
 					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
-				player.getFish().setImage("PlainOldFishFlipped.png");
-				player.getFish().move(2, 2);
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, 2);
 			}
 			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
 					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
-				player.getFish().setImage("PlainOldFish.png");
-				player.getFish().move(-2, 2);
+				player.setImage("PlainOldFish.png");
+				player.move(-2, 2);
 			}
 		}
 
-		else {
+		else { // otherwise, move in one direction
 			switch (keyPress) {
 			case KeyEvent.VK_UP: {
-				player.getFish().move(0, -2);
+				player.move(0, -2);
 				break;
 			}
 			case KeyEvent.VK_DOWN: {
-				player.getFish().move(0, 2);
+				player.move(0, 2);
 				break;
 			}
 			case KeyEvent.VK_LEFT: {
-				player.getFish().setImage("PlainOldFish.png");
-				player.getFish().move(-2, 0);
+				player.setImage("PlainOldFish.png");
+				player.move(-2, 0);
 				break;
 			}
 			case KeyEvent.VK_RIGHT: {
-				player.getFish().setImage("PlainOldFishFlipped.png");
-				player.getFish().move(2, 0);
+				player.setImage("PlainOldFishFlipped.png");
+				player.move(2, 0);
 				break;
 			}
 			}
@@ -249,7 +220,7 @@ public class GamePane extends GraphicsPane {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		player.getFish().sendToFront();
+		player.sendToFront();
 		gameBackground.sendToBack();
 		keyPress = e.getKeyCode();
 		playerMove = true;
