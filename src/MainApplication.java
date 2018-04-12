@@ -19,6 +19,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private Fish f;
+	private Kelp k;
 	private int count;
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
@@ -104,7 +105,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		moveAllFish();
 
 if (game.playerMove) {
-			game.playerMovement();
+			//game.playerMovement();
 			// game.collision();
 		}
 	}

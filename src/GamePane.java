@@ -17,11 +17,14 @@ public class GamePane extends GraphicsPane {
 	private GButton pause;
 	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
+	private Kelp k;
 	private Fish f;
 	private Score s;
 
 	public boolean playerMove;
 	public int keyPress;
+	double testX = 0;
+	double testY = 0;
 
 	public GamePane(MainApplication app) {
 		this.program = app;
@@ -29,7 +32,7 @@ public class GamePane extends GraphicsPane {
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
-
+		k = new Kelp(program,10);
 		s = new Score();
 		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),50,60));
 		
@@ -102,39 +105,21 @@ public class GamePane extends GraphicsPane {
 	}
 	*/
 	
-/*	// moved makeFish() to Fish.java as constructor 
-	public Fish makeFish() {
-		Fish f = new Fish();
-		int random = program.rgen.nextInt(0, 1);
-		if (random == 0) {
-			f.setFish(new GImage("SmallFryFlipped.png", 0,program.rgen.nextInt(0, program.WINDOW_HEIGHT)));
-			f.getFish().setLocation(f.getFish().getX() - f.getFish().getWidth(), f.getFish().getY());
-			fishLtoR.add(f);
-			return f;
-		}
-		else {
-			f.setFish(new GImage("SmallFry.png", program.WINDOW_WIDTH,program.rgen.nextInt(0, program.WINDOW_HEIGHT)));
-			fishRtoL.add(f);
-			return f;
-		}
-	}
-	*/
-	
 	public void addAllFish() {
-		for (Fish f : program.fishLtoR) {
-			program.add(f.fishImage);
+		for (Fish fish : program.fishLtoR) {
+			program.add(fish.fishImage);
 		}
-		for (Fish f : program.fishRtoL) {
-			program.add(f.fishImage);
+		for (Fish fish : program.fishRtoL) {
+			program.add(fish.fishImage);
 		}
 	}
 	
 	public void removeAllFish() {
-		for (Fish f : program.fishLtoR) {
-			program.fishLtoR.remove(f.fishImage);
+		for (Fish fish : program.fishLtoR) {
+			program.fishLtoR.remove(fish.fishImage);
 		}
-		for (Fish f : program.fishRtoL) {
-			program.fishRtoL.remove(f.fishImage);
+		for (Fish fish : program.fishRtoL) {
+			program.fishRtoL.remove(fish.fishImage);
 		}
 	}
 
@@ -144,6 +129,7 @@ public class GamePane extends GraphicsPane {
 		program.add(pause);
 		program.add(title);
 		program.add(s.getScoreTxt());
+		program.add(k.getKelpImage());
 		addAllFish();
 		program.add(player);
 		program.movement.start();
@@ -155,6 +141,7 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
+		k.removeKelp();
 		removeAllFish();
 		program.remove(player);
 		program.movement.stop();
@@ -168,7 +155,7 @@ public class GamePane extends GraphicsPane {
 		}
 	}
 	
-	public void playerMovement() {
+/*	public void playerMovement() {
 		pressed.add(keyPress); 
 		if (pressed.size() > 1) { // if two keys are pressed, move diagonally
 			Integer[] arr = pressed.toArray(new Integer[] {}); //save multiple key pressed into an array
@@ -196,39 +183,62 @@ public class GamePane extends GraphicsPane {
 
 		else { // otherwise, move in one direction
 			switch (keyPress) {
-			case KeyEvent.VK_UP: {
+			case KeyEvent.VK_UP:
 				player.move(0, -2);
 				break;
-			}
-			case KeyEvent.VK_DOWN: {
+			case KeyEvent.VK_DOWN:
 				player.move(0, 2);
 				break;
-			}
-			case KeyEvent.VK_LEFT: {
+			case KeyEvent.VK_LEFT:
 				player.setImage("PlainOldFish.png");
 				player.move(-2, 0);
 				break;
-			}
-			case KeyEvent.VK_RIGHT: {
+			case KeyEvent.VK_RIGHT:
 				player.setImage("PlainOldFishFlipped.png");
 				player.move(2, 0);
 				break;
 			}
-			}
 		}
 	}
-
+*/
 	@Override
 	public void keyPressed(KeyEvent e) {
 		player.sendToFront();
 		gameBackground.sendToBack();
 		keyPress = e.getKeyCode();
-		playerMove = true;
+		if(keyPress == KeyEvent.VK_RIGHT) {
+			player.setImage("PlainOldFishFlipped.png");
+			testX = 10;
+		}
+		if(keyPress == KeyEvent.VK_LEFT) {
+			player.setImage("PlainOldFish.png");
+			testX = -10;
+		}
+		if(keyPress == KeyEvent.VK_UP) {
+			testY = -10;
+		}
+		if(keyPress == KeyEvent.VK_DOWN) {
+			testY = 10;
+		}
+		player.move(testX, testY);
+//		playerMove = true;
 	}
-
+	@Override
 	public void keyReleased(KeyEvent e) {
-		pressed.remove(Integer.valueOf(e.getKeyCode()));
-		playerMove = false;
+		if(keyPress == KeyEvent.VK_RIGHT) {
+			testX = 0;
+		}
+		if(keyPress == KeyEvent.VK_LEFT) {
+			testX = 0;
+		}
+		if(keyPress == KeyEvent.VK_UP) {
+			testY = 0;
+		}
+		if(keyPress == KeyEvent.VK_DOWN) {
+			testY = 0;
+		}
+//		pressed.remove(Integer.valueOf(e.getKeyCode()));
+//		playerMove = false;
 	}
 
 }

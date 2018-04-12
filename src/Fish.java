@@ -1,26 +1,27 @@
 import java.awt.*;
 import java.util.ArrayList;
 import acm.graphics.GImage;
+import acm.graphics.GScalable;
 
 public class Fish extends Entity { // Player inherits from this class
 	private int size;
 	private int sizeCounter = 1;
 	private MainApplication program;
+	private GScalable scale;
+
 
 	public GImage fishImage;
 
 	// constructor
 	public Fish(MainApplication program) {
 		setSize(size);
-		System.out.println("Making a fish()\n");
 		int random = program.rgen.nextInt(0, 1);
-		System.out.println("random: " + random);
 		if (random == 0) {
 			fishImage = new GImage("SmallFryFlipped.png", 0, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
 			program.fishLtoR.add(this);
 		} else {
 			fishImage = new GImage("SmallFry.png", program.WINDOW_WIDTH,
-					program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+			program.rgen.nextInt(0, program.WINDOW_HEIGHT));
 			program.fishRtoL.add(this);
 		}
 	}
@@ -59,5 +60,7 @@ public class Fish extends Entity { // Player inherits from this class
 		this.fishImage.scale(1.25);
 		sizeCounter++;
 	}
+	
+	
 
 }
