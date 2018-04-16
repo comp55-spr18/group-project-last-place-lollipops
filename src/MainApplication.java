@@ -21,6 +21,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private Fish f;
 	private int count;
 	private Garbage g;
+	private boolean run = false;
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
@@ -44,7 +45,35 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		menu = new MenuPane(this);
 		switchToMenu();
 	}
-
+	
+	/*private synchronized void start() {
+	 * if(running)
+	 * 	return;
+	 * 
+	 * running = true;
+	 * thread = new Thread(this);
+	 * thread.start();
+	 */
+/*	
+	public void ticking() { // allows for smoother player movement
+		long time = System.nanoTime();
+		double numTicks = 60;
+		double ns = 1000000000 / numTicks;
+		double update = 0; // calculates the time passed (to catch up)
+		int u = 0;
+		int frames = 0;
+		long timer = System.currentTimeMillis();
+		while(run) {
+			long now = System.nanoTime();
+			update += (time - now) / ns;
+			time = now;
+			if(update >= 1 ) {
+				tick();
+				update--;
+			}
+		}
+	}
+*/
 	public void switchToMenu() {
 		switchToScreen(menu);
 		playMenuMusic();
@@ -145,10 +174,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		
 		moveAllFish();
 		g.moveGarbage();
-		if (game.playerMove) {
-			game.playerMovement();
+		//if (game.playerMove) {
+			//game.playerMovement();
 			// game.collision();
-		}
+	//	}
 	}
 
 	public void moveAllFish() {

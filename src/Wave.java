@@ -1,6 +1,7 @@
 
 public class Wave {
 	private int count;
+	private int wave;
 	public static final int max_enemies = 3;
 	
 	

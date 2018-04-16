@@ -18,12 +18,13 @@ public class GamePane extends GraphicsPane {
 	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
 	private Fish fish;
+	private Player p;
 	private Score s;
 
 	public boolean playerMove;
-	public int keyPress;
-	double testX = 0;
-	double testY = 0;
+	public int key;
+	double moveX = 0;
+	double moveY = 0;
 
 	public GamePane(MainApplication app) {
 		this.program = app;
@@ -196,7 +197,7 @@ public class GamePane extends GraphicsPane {
 			program.switchToPause();
 		}
 	}
-	
+/*	
 	public void playerMovement() {
 		pressed.add(keyPress); 
 		if (pressed.size() > 1) { // if two keys are pressed, move diagonally
@@ -241,46 +242,91 @@ public class GamePane extends GraphicsPane {
 				break;
 			}
 		}
-	}
+	} */
 
-	@Override
+/*	@Override
 	public void keyPressed(KeyEvent e) {
 		player.sendToFront();
 		gameBackground.sendToBack();
 		keyPress = e.getKeyCode();
 		if(keyPress == KeyEvent.VK_RIGHT) {
 			player.setImage("PlainOldFishFlipped.png");
-			testX = 5;
+			moveX = 5;
 		}
 		if(keyPress == KeyEvent.VK_LEFT) {
 			player.setImage("PlainOldFish.png");
-			testX = -5;
+			moveY = -5;
 		}
 		if(keyPress == KeyEvent.VK_UP) {
-			testY = -5;
+			moveY = -5;
 		}
 		if(keyPress == KeyEvent.VK_DOWN) {
-			testY = 5;
+			moveX = 5;
 		}
-		player.move(testX, testY);
+		player.move(moveX, moveY);
 		playerMove = true;
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(keyPress == KeyEvent.VK_RIGHT) {
-			testX = 0;
+			moveX = 0;
 		}
 		if(keyPress == KeyEvent.VK_LEFT) {
-			testX = 0;
+			moveX = 0;
 		}
 		if(keyPress == KeyEvent.VK_UP) {
-			testY = 0;
+			moveY = 0;
 		}
 		if(keyPress == KeyEvent.VK_DOWN) {
-			testY = 0;
+			moveY = 0;
 		}
 		pressed.remove(Integer.valueOf(e.getKeyCode()));
 		playerMove = false;
 	}
-
+*/
+	private void tick() {
+		p.tick();
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		player.sendToFront();
+		gameBackground.sendToBack();
+		key = e.getExtendedKeyCode();
+		
+		if(key == KeyEvent.VK_RIGHT) {
+			player.setImage("PlainOldFishFlipped.png");
+			p.setMoveX(5);
+		}
+		else if(key == KeyEvent.VK_LEFT) {
+			player.setImage("PlainOldFish.png");
+			p.setMoveX(-5);
+		}
+		else if(key == KeyEvent.VK_UP) {
+			p.setMoveY(-5);
+		}
+		else if(key == KeyEvent.VK_DOWN) {
+			p.setMoveY(5);
+		}
+		//player.move(moveX, moveY);
+	}
+	
+	public void keyReleased(KeyEvent e) {
+		key = e.getExtendedKeyCode();
+		
+		if(key == KeyEvent.VK_RIGHT) {
+			player.setImage("PlainOldFishFlipped.png");
+			p.setMoveX(0);
+		}
+		else if(key == KeyEvent.VK_LEFT) {
+			player.setImage("PlainOldFish.png");
+			p.setMoveX(0);
+		}
+		else if(key == KeyEvent.VK_UP) {
+			p.setMoveY(0);
+		}
+		else if(key == KeyEvent.VK_DOWN) {
+			p.setMoveY(0);
+		}
+		//player.move(moveX, moveY);
+	}
 }
