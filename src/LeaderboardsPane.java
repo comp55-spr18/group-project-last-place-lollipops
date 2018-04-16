@@ -20,11 +20,13 @@ public class LeaderboardsPane extends GraphicsPane {
 	private BufferedReader reader;
 	private String line;
 	private String[] splitline;
-	
+	private String workDir = System.getProperty("user.dir");
+	private String newPath = workDir.substring(0, workDir.lastIndexOf('\\')) + "\\src\\";
+			
 	public LeaderboardsPane(MainApplication app) {
 		this.program = app;
 		topTen = new GParagraph("", 200, 50);
-		back = new GButton("Back", 200, 400, 200, 100);
+		back = new GButton("Back", 200, 410, 200, 100);
 		//leaderboards = new Score[11];
 		Score[] leaderboards;
 		leaderboards = getLeaders();
@@ -34,12 +36,14 @@ public class LeaderboardsPane extends GraphicsPane {
 		Arrays.sort(leaderboards, Collections.reverseOrder());
 		displayLeaders(leaderboards);
 		writeLeaders(leaderboards);
-		System.out.println("Working Directory = " + System.getProperty("user.dir"));
+		System.out.println(workDir);
+		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
+		System.out.println(newPath);
 	}
 	
 	public void writeLeaders(Score[] l) {
 		try {
-			out = new FileWriter(System.getProperty("user.dir")+"/leaders.txt"); //Update relative filepath to write to same file instead of creating new one
+			out = new FileWriter(newPath + "leaders.txt"); //Update relative filepath to write to same file instead of creating new one
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +76,8 @@ public class LeaderboardsPane extends GraphicsPane {
 		Score[] scores = new Score[11];
 		scores = Stream.generate(() -> new Score()).limit(11).toArray(Score[]::new);
 		try {
-			in = new FileReader(System.getProperty("user.dir")+"/leaders.txt");
+			System.out.println("Working Directory = " + System.getProperty("user.dir"));
+			in = new FileReader(newPath + "leaders.txt");
 			reader = new BufferedReader(in);
 		}catch(FileNotFoundException ex) {
 			System.out.println("Could not open leaderboards.");
@@ -89,6 +94,8 @@ public class LeaderboardsPane extends GraphicsPane {
 				splitline = line.split(" ");
 				scores[i].setName(splitline[0]);
 				scores[i].setScore(Integer.valueOf(splitline[1]));
+				System.out.println("Name: " + scores[i].getName());
+				System.out.println("Score: " + scores[i].getScore() + "\n");
 			}catch(NullPointerException ex) {
 				//System.out.println("less than 10 scores.");
 			}
