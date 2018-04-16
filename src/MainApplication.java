@@ -10,8 +10,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public static final int WINDOW_HEIGHT = 600;
 
 	public static final int MS = 10;
-	public static final int MAX_ENEMY = 4;
-	
+	public static final int MAX_ENEMY = 6;
+
 	private MenuPane menu;
 	private PausePane pause;
 	private GamePane game;
@@ -20,18 +20,20 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private LeaderboardsPane leaderboards;
 	private Fish f;
 	private int count;
+	private Garbage g;
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
 	public boolean volume = true;
 	public Timer movement;
 	public RandomGenerator rgen;
-	
+
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 
 	public void run() {
+		g = new Garbage(this, 10);
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
 		game = new GamePane(this);
@@ -39,7 +41,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		settings = new SettingsPane(this);
 		instructions = new InstructionsPane(this);
 		leaderboards = new LeaderboardsPane(this);
-
 		menu = new MenuPane(this);
 		switchToMenu();
 	}
@@ -48,78 +49,119 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToScreen(menu);
 		playMenuMusic();
 	}
-	
+
 	public void switchToGame() {
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
 	}
+
 	public void switchToNewGame() {
 		game = new GamePane(this);
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
 	}
-	
+
 	public void switchToSettings() {
 		switchToScreen(settings);
 	}
-	
+
 	public void switchToInstructions() {
 		switchToScreen(instructions);
 	}
-	
+
 	public void switchToLeaderboards() {
 		switchToScreen(leaderboards);
 	}
+
 	public void switchToPause() {
 		switchToScreen(pause);
 		movement.stop();
 	}
 
 	public void playMenuMusic() {
-		if (!volume) return;
+		if (!volume)
+			return;
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound("", "Race Against The Sunset.mp3");
 	}
+
 	public void pauseMenuMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "Race Against The Sunset.mp3");
 	}
+
 	public void playGameMusic() {
-		if (!volume) return;
+		if (!volume)
+			return;
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound("", "Lullatone1.mp3");
 	}
+
 	public void pauseGameMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "Lullatone1.mp3");
 	}
+
 	public void stopGameMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.stopSound("", "Lullatone1.mp3");
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		count++;
+		/*for (Fish fish : fishRtoL ) {
+			if (fish.fishImage.getX()==0) {
+				fishRtoL.remove(fish);
+				remove(fish.fishImage);
+			}
+		}
+		
+			for (Fish fish1 : fishLtoR) {
+			if (fish1.fishImage.getX()==600) {
+			remove(fish1.fishImage);
+			fishLtoR.remove(fish1);
+			}*/
+			
+		if((fishLtoR.size() <= MAX_ENEMY) && (fishRtoL.size() <= MAX_ENEMY)) {
+			if (count % 200 == 0) {
+				int num = rgen.nextInt(0, 2);
+				System.out.println("num: " + num + "\n");
+				game.addEnemy(num);
+			}
+		}
+		//} 
+		
+//			for(GOval b: balls) {
+//				remove(b);
+//			}
+//			for(GRect r: enemies) {
+//				remove(r);
+//			}
+		//moveAllBallsOnce();		
+		//moveAllEnemiesOnce();
+		
 		moveAllFish();
-
-if (game.playerMove) {
+		g.moveGarbage();
+		if (game.playerMove) {
 			game.playerMovement();
 			// game.collision();
 		}
 	}
-	
+
 	public void moveAllFish() {
 		for (Fish f : fishLtoR) {
-			if (f.fishImage.getX() > WINDOW_WIDTH) {
-				f.fishImage.setLocation(0, f.fishImage.getY());
+			if (f.fishImage.getX() > WINDOW_WIDTH+50) {
+				 f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
 				f.fishImage.move(2, 0);
 			}
 		}
 		for (Fish f : fishRtoL) {
-			if (f.fishImage.getX() < 0) {
-				f.fishImage.setLocation(WINDOW_WIDTH, f.fishImage.getY());
+			if (f.fishImage.getX() < 0-70) {
+				 f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
 				f.fishImage.move(-2, 0);
 			}

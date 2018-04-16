@@ -4,7 +4,7 @@ import java.awt.*;
 import acm.graphics.*;
 public abstract class Entity implements Collision {
 	private double speed;
-	// private GImage image; // for sprites ("image name.png", x, y)
+	private GImage image; // for sprites ("image name.png", x, y)
 	public GObject obj;
 
 	public double getSpeed() {
@@ -23,4 +23,5 @@ public abstract class Entity implements Collision {
 				&& (o.obj.getY() + o.obj.getHeight() > obj.getY() 
 				&& o.obj.getY() < obj.getY() + obj.getHeight())); //top and bottom overlap
 	}
+	
 }

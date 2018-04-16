@@ -17,19 +17,20 @@ public class GamePane extends GraphicsPane {
 	private GButton pause;
 	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
-	private Fish f;
+	private Fish fish;
 	private Score s;
 
 	public boolean playerMove;
 	public int keyPress;
+	double testX = 0;
+	double testY = 0;
 
 	public GamePane(MainApplication app) {
 		this.program = app;
-
+		fish = new Fish(app);
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
-
 		s = new Score();
 		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),50,60));
 		
@@ -41,10 +42,10 @@ public class GamePane extends GraphicsPane {
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
-
-		for (int i = 0; i < program.MAX_ENEMY; i++) {
-			f = new Fish(app);
-		} 
+		//player.scale(0.65);
+	/*	for (int i = 0; i < program.MAX_ENEMY; i++) {
+			fish = new Fish(app);
+		} */
 		 System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
 	}
 
@@ -102,41 +103,67 @@ public class GamePane extends GraphicsPane {
 	}
 	*/
 	
-/*	// moved makeFish() to Fish.java as constructor 
-	public Fish makeFish() {
-		Fish f = new Fish();
-		int random = program.rgen.nextInt(0, 1);
-		if (random == 0) {
-			f.setFish(new GImage("SmallFryFlipped.png", 0,program.rgen.nextInt(0, program.WINDOW_HEIGHT)));
-			f.getFish().setLocation(f.getFish().getX() - f.getFish().getWidth(), f.getFish().getY());
-			fishLtoR.add(f);
-			return f;
+	public void addEnemy(int type) {
+		fish = new Fish(program);
+		switch(type) {
+		case 0: 
+			if (fish.RtL) {
+			fish.setFish("SmallFry.png");
+			fish.getFish().scale(0.50);
+			fish.setSize(1);
+			}
+			else {
+				fish.setFish("SmallFryFlipped.png");
+				fish.getFish().scale(0.50);
+				fish.setSize(1);
+			}
+			break;
+		case 1:
+			if (fish.RtL) {
+				fish.setFish("Nibbler.png");
+				fish.getFish().scale(1.2);
+				fish.setSize(3);
+			}
+			else {
+				fish.setFish("NibblerFlipped.png");
+				fish.getFish().scale(1.2);
+				fish.setSize(3);
+			}
+			break;
+		case 2:
+			if (fish.RtL) {
+				fish.setFish("TouchyFish.png");
+				fish.getFish().scale(1.5);
+				fish.setSize(5);
+			}
+			else {
+				fish.setFish("TouchyFishFlipped.png");
+				fish.getFish().scale(1.5);
+				fish.setSize(5);
+			}
+			break;
 		}
-		else {
-			f.setFish(new GImage("SmallFry.png", program.WINDOW_WIDTH,program.rgen.nextInt(0, program.WINDOW_HEIGHT)));
-			fishRtoL.add(f);
-			return f;
-		}
+		program.add(fish.fishImage);
+		
 	}
-	*/
 	
-	public void addAllFish() {
-		for (Fish f : program.fishLtoR) {
-			program.add(f.fishImage);
+/*	public void addAllFish() {
+		for (Fish fish : program.fishLtoR) {
+			program.add(fish.fishImage);
 		}
-		for (Fish f : program.fishRtoL) {
-			program.add(f.fishImage);
+		for (Fish fish : program.fishRtoL) {
+			program.add(fish.fishImage);
 		}
-	}
+	}*/
 	
-	public void removeAllFish() {
-		for (Fish f : program.fishLtoR) {
-			program.fishLtoR.remove(f.fishImage);
+/*	public void removeAllFish() {
+		for (Fish fish : program.fishLtoR) {
+			program.fishLtoR.remove(fish.fishImage);
 		}
-		for (Fish f : program.fishRtoL) {
-			program.fishRtoL.remove(f.fishImage);
+		for (Fish fish : program.fishRtoL) {
+			program.fishRtoL.remove(fish.fishImage);
 		}
-	}
+	}*/
 
 	@Override
 	public void showContents() {
@@ -144,7 +171,8 @@ public class GamePane extends GraphicsPane {
 		program.add(pause);
 		program.add(title);
 		program.add(s.getScoreTxt());
-		addAllFish();
+		//program.add(program.g.getGarbageImage());
+		//addAllFish();
 		program.add(player);
 		program.movement.start();
 	}
@@ -155,7 +183,8 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
-		removeAllFish();
+	//	program.g.removeGarbage();
+		//removeAllFish();
 		program.remove(player);
 		program.movement.stop();
 	}
@@ -175,45 +204,41 @@ public class GamePane extends GraphicsPane {
 			if ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) ||
 			    (arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_RIGHT)){
 				player.setImage("PlainOldFishFlipped.png");
-				player.move(2, -2);
+				player.move(5, -5);
 			}
 			else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
 					(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
 				player.setImage("PlainOldFish.png");
-				player.move(-2, -2);
+				player.move(-5, -5);
 			}
 			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
 					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
 				player.setImage("PlainOldFishFlipped.png");
-				player.move(2, 2);
+				player.move(5, 5);
 			}
 			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
 					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
 				player.setImage("PlainOldFish.png");
-				player.move(-2, 2);
+				player.move(-5, 5);
 			}
 		}
 
 		else { // otherwise, move in one direction
 			switch (keyPress) {
-			case KeyEvent.VK_UP: {
-				player.move(0, -2);
+			case KeyEvent.VK_UP:
+				player.move(0, -5);
 				break;
-			}
-			case KeyEvent.VK_DOWN: {
-				player.move(0, 2);
+			case KeyEvent.VK_DOWN:
+				player.move(0, 5);
 				break;
-			}
-			case KeyEvent.VK_LEFT: {
+			case KeyEvent.VK_LEFT:
 				player.setImage("PlainOldFish.png");
-				player.move(-2, 0);
+				player.move(-5, 0);
 				break;
-			}
-			case KeyEvent.VK_RIGHT: {
+			case KeyEvent.VK_RIGHT:
 				player.setImage("PlainOldFishFlipped.png");
-				player.move(2, 0);
+				player.move(5, 0);
 				break;
-			}
 			}
 		}
 	}
@@ -223,10 +248,37 @@ public class GamePane extends GraphicsPane {
 		player.sendToFront();
 		gameBackground.sendToBack();
 		keyPress = e.getKeyCode();
+		if(keyPress == KeyEvent.VK_RIGHT) {
+			player.setImage("PlainOldFishFlipped.png");
+			testX = 5;
+		}
+		if(keyPress == KeyEvent.VK_LEFT) {
+			player.setImage("PlainOldFish.png");
+			testX = -5;
+		}
+		if(keyPress == KeyEvent.VK_UP) {
+			testY = -5;
+		}
+		if(keyPress == KeyEvent.VK_DOWN) {
+			testY = 5;
+		}
+		player.move(testX, testY);
 		playerMove = true;
 	}
-
+	@Override
 	public void keyReleased(KeyEvent e) {
+		if(keyPress == KeyEvent.VK_RIGHT) {
+			testX = 0;
+		}
+		if(keyPress == KeyEvent.VK_LEFT) {
+			testX = 0;
+		}
+		if(keyPress == KeyEvent.VK_UP) {
+			testY = 0;
+		}
+		if(keyPress == KeyEvent.VK_DOWN) {
+			testY = 0;
+		}
 		pressed.remove(Integer.valueOf(e.getKeyCode()));
 		playerMove = false;
 	}
