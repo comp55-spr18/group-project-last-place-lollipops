@@ -17,7 +17,7 @@ public class GamePane extends GraphicsPane {
 	private GButton pause;
 	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
-	private Fish f;
+	private Fish fish;
 	private Score s;
 
 	public boolean playerMove;
@@ -27,7 +27,7 @@ public class GamePane extends GraphicsPane {
 
 	public GamePane(MainApplication app) {
 		this.program = app;
-
+		fish = new Fish(app);
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
@@ -42,10 +42,10 @@ public class GamePane extends GraphicsPane {
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
-		
-		for (int i = 0; i < program.MAX_ENEMY; i++) {
-			f = new Fish(app);
-		} 
+		//player.scale(0.65);
+	/*	for (int i = 0; i < program.MAX_ENEMY; i++) {
+			fish = new Fish(app);
+		} */
 		 System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
 	}
 
@@ -103,23 +103,67 @@ public class GamePane extends GraphicsPane {
 	}
 	*/
 	
-	public void addAllFish() {
+	public void addEnemy(int type) {
+		fish = new Fish(program);
+		switch(type) {
+		case 0: 
+			if (fish.RtL) {
+			fish.setFish("SmallFry.png");
+			fish.getFish().scale(0.50);
+			fish.setSize(1);
+			}
+			else {
+				fish.setFish("SmallFryFlipped.png");
+				fish.getFish().scale(0.50);
+				fish.setSize(1);
+			}
+			break;
+		case 1:
+			if (fish.RtL) {
+				fish.setFish("Nibbler.png");
+				fish.getFish().scale(1.2);
+				fish.setSize(3);
+			}
+			else {
+				fish.setFish("NibblerFlipped.png");
+				fish.getFish().scale(1.2);
+				fish.setSize(3);
+			}
+			break;
+		case 2:
+			if (fish.RtL) {
+				fish.setFish("TouchyFish.png");
+				fish.getFish().scale(1.5);
+				fish.setSize(5);
+			}
+			else {
+				fish.setFish("TouchyFishFlipped.png");
+				fish.getFish().scale(1.5);
+				fish.setSize(5);
+			}
+			break;
+		}
+		program.add(fish.fishImage);
+		
+	}
+	
+/*	public void addAllFish() {
 		for (Fish fish : program.fishLtoR) {
 			program.add(fish.fishImage);
 		}
 		for (Fish fish : program.fishRtoL) {
 			program.add(fish.fishImage);
 		}
-	}
+	}*/
 	
-	public void removeAllFish() {
+/*	public void removeAllFish() {
 		for (Fish fish : program.fishLtoR) {
 			program.fishLtoR.remove(fish.fishImage);
 		}
 		for (Fish fish : program.fishRtoL) {
 			program.fishRtoL.remove(fish.fishImage);
 		}
-	}
+	}*/
 
 	@Override
 	public void showContents() {
@@ -127,8 +171,8 @@ public class GamePane extends GraphicsPane {
 		program.add(pause);
 		program.add(title);
 		program.add(s.getScoreTxt());
-		program.add(program.g.getGarbageImage());
-		addAllFish();
+		//program.add(program.g.getGarbageImage());
+		//addAllFish();
 		program.add(player);
 		program.movement.start();
 	}
@@ -139,8 +183,8 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
-		program.g.removeGarbage();
-		removeAllFish();
+	//	program.g.removeGarbage();
+		//removeAllFish();
 		program.remove(player);
 		program.movement.stop();
 	}

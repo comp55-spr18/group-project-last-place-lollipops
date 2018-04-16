@@ -5,10 +5,10 @@ import acm.graphics.GScalable;
 
 public class Fish extends Entity { // Player inherits from this class
 	private int size;
+	public boolean RtL;
 	private int sizeCounter = 1;
 	private MainApplication program;
 	private GScalable scale;
-
 
 	public GImage fishImage;
 
@@ -16,13 +16,15 @@ public class Fish extends Entity { // Player inherits from this class
 	public Fish(MainApplication program) {
 		setSize(size);
 		int random = program.rgen.nextInt(0, 1);
+		int random1 = program.rgen.nextInt(0, 600);
 		if (random == 0) {
-			fishImage = new GImage("SmallFryFlipped.png", 0, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+			fishImage = new GImage("SmallFryFlipped.png", 0, random1);
 			program.fishLtoR.add(this);
+			RtL = false;
 		} else {
-			fishImage = new GImage("SmallFry.png", program.WINDOW_WIDTH,
-			program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+			fishImage = new GImage("SmallFry.png", 630 ,random1);
 			program.fishRtoL.add(this);
+			RtL = true;
 		}
 	}
 
@@ -39,13 +41,13 @@ public class Fish extends Entity { // Player inherits from this class
 		return fishImage;
 	}
 
-	public void setFish(GImage fish) {
+	public void setFish(String fish) {
 		/*
 		 * not intended for boss fish! do not use for kingofthepond or mysteryfish
 		 */
-		this.fishImage = fish;
-		this.fishImage.setSize(90, 90);
-		obj = this.fishImage;
+		fishImage.setImage(fish);
+		fishImage.setSize(90, 90);
+		obj = fishImage;
 	}
 
 	public int getSizeCounter() {
@@ -54,11 +56,6 @@ public class Fish extends Entity { // Player inherits from this class
 
 	public void setSizeCounter(int sizeCounter) {
 		this.sizeCounter = sizeCounter;
-	}
-
-	public void grow() {
-		this.fishImage.scale(1.25);
-		sizeCounter++;
 	}
 	
 	// make switch statement to create enemy fishes and different sizes and images

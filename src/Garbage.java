@@ -5,7 +5,6 @@ import acm.graphics.GObject;
 import acm.graphics.GScalable;
 import acm.util.RandomGenerator;
 
-// *** Want to change kelp to insta-kill garbage ***
 public class Garbage extends Entity{
 	private RandomGenerator rgen = new RandomGenerator();
 	private GImage garbageImage;

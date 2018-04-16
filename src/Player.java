@@ -12,10 +12,10 @@ public class Player extends Fish { //implements actionListener ??
 		setSpeed(speed);
 		setSizeCounter(size);
 	}
-	
-	public int grow(int s) {
-
-		return 0;
+	public int grow(int size) {
+		this.fishImage.scale(1.25);
+		size = f.getSize() + 1;
+		return size;
 	}
 
 	// checks if player fish has collided with anything
