@@ -61,6 +61,7 @@ public class Fish extends Entity { // Player inherits from this class
 		sizeCounter++;
 	}
 	
+	// make switch statement to create enemy fishes and different sizes and images
 	
 
 }

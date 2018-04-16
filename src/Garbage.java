@@ -6,43 +6,43 @@ import acm.graphics.GScalable;
 import acm.util.RandomGenerator;
 
 // *** Want to change kelp to insta-kill garbage ***
-public class Kelp extends Entity{
-	private RandomGenerator rgen;
-	private GImage kelpImage;
+public class Garbage extends Entity{
+	private RandomGenerator rgen = new RandomGenerator();
+	private GImage garbageImage;
 	private MainApplication program;
 	
-	public Kelp(MainApplication program, double speed) {
+	public Garbage(MainApplication program, double speed) {
 		setSpeed(speed);
-		kelpImage = new GImage("kelp.png", 0,  100);		
-		kelpImage.scale(0.5);
+		garbageImage = new GImage("kelp.png", 0,  100);		
+		garbageImage.scale(0.5);
 	}
 	
 	//getters, don't need setters because image will never change
-	public GImage getKelpImage() {
-		return kelpImage;
+	public GImage getGarbageImage() {
+		return garbageImage;
 	}
 	
-	//functions for what kelp does
-	public void addKelp() {
-		program.add(kelpImage);
+	//functions for what garbage does
+	public void addGarbage() {
+		program.add(garbageImage);
 	}
 	
-	public void removeKelp() {
-		program.remove(kelpImage);
+	public void removeGarbage() {
+		program.remove(garbageImage);
 	}
 	
-	public void moveKelp() {
-		int random = program.rgen.nextInt(0, 1);
+	public void moveGarbage() {
+		int random = rgen.nextInt(-2, 2);
 		if (random == 0) {
 			//kelpImage.add(this);
 		} else {
-			program.rgen.nextInt(0, program.WINDOW_HEIGHT);
+			rgen.nextInt(0, program.WINDOW_HEIGHT);
 			//add(this);
 		}
-		kelpImage.move(3, rgen.nextInt(-2, 2));
+		garbageImage.move(3, rgen.nextInt(-2, 2));
 	}
 	
-	public void hitKelp() {
+	public void hitGarbage() {
 		
 	}
 

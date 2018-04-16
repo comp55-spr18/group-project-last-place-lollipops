@@ -19,7 +19,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private Fish f;
-	private Kelp k;
+	public Garbage g;
 	private int count;
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
@@ -33,6 +33,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	}
 
 	public void run() {
+		g = new Garbage(this,10);
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
 		game = new GamePane(this);
@@ -40,7 +41,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		settings = new SettingsPane(this);
 		instructions = new InstructionsPane(this);
 		leaderboards = new LeaderboardsPane(this);
-
 		menu = new MenuPane(this);
 		switchToMenu();
 	}
@@ -103,9 +103,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		moveAllFish();
-
-if (game.playerMove) {
-			//game.playerMovement();
+		g.moveGarbage();
+		if (game.playerMove) {
+			game.playerMovement();
 			// game.collision();
 		}
 	}
