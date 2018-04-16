@@ -12,7 +12,7 @@ public class Garbage extends Entity{
 	
 	public Garbage(MainApplication program, double speed) {
 		setSpeed(speed);
-		garbageImage = new GImage("kelp.png", 0,  100);		
+		garbageImage = new GImage("plastic rings.png", 0,  100);		
 		garbageImage.scale(0.5);
 	}
 	
