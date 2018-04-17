@@ -9,6 +9,8 @@ import acm.graphics.*;
 public class LosePane extends GraphicsPane {
 	private MainApplication program;
 //set score to name.
+	Score[] score;
+	Score[] name;
 	private GButton sound;
 	private GButton quit;
 	private GButton back;
@@ -29,7 +31,7 @@ public class LosePane extends GraphicsPane {
 		
 		//Score[] score = getScoreTxt();
 		//score
-		yourscore= new GLabel("Your Score: ", 200,170);
+		yourscore= new GLabel("Your Score: "+score, 200,170);
 		yourscore.setFont("Century Gothic-30");
 		
 		//textbox
@@ -85,6 +87,7 @@ public class LosePane extends GraphicsPane {
 		program.remove(saveName);
 		program.remove(rect1);
 		program.remove(playername);
+		program.remove(yourscore);
 		program.remove(sound);
 		program.remove(quit);
 		program.remove(back);
@@ -117,7 +120,10 @@ public class LosePane extends GraphicsPane {
 			System.exit(0);
 		}
 		if(obj ==saveName) {
+			//program.getInputContext();
+			nameEnter.getInputContext();
 			
+			program.switchToLeaderboards();
 		}
 		
 	}
