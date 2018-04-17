@@ -7,7 +7,7 @@ public class Score implements Comparable<Score>{
 	private GLabel scoreTxt;
 	
 	public Score() {
-		name = "";
+		name = "-";
 		score = 0;
 	}
 	public Score(String name, int score) {

@@ -1,4 +1,4 @@
-
+//kyla 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
@@ -17,7 +17,7 @@ public class LosePane extends GraphicsPane {
 	private GLabel loseLabel;
 	private GImage background;
 
-
+	private Score[] name;
 	private JTextField textField;
 	private GRectangle inputmessage;
 
@@ -27,10 +27,10 @@ public class LosePane extends GraphicsPane {
 		//score to score
 		//score kyla
 		textField = new JTextField(20);
-		loseLabel = new GLabel( "Lose", 200 , 50);
+		loseLabel = new GLabel( "You Died!", 200 , 50);
 		loseLabel.setFont("Forte-70");
 		loseLabel = new GLabel( "Enter username: ", 200 , 50);
-		String text = textField.getText();
+		Score name = getName();
 		// textArea.append(text + newline)textField.selectAll();
 		
 		loseLabel.setFont("Forte-40");
@@ -43,6 +43,11 @@ public class LosePane extends GraphicsPane {
 		quit.setFillColor(Color.RED);
 		background = new GImage("fishbackground.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+	}
+
+	private Score getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
