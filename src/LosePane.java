@@ -22,15 +22,17 @@ public class LosePane extends GraphicsPane {
 	
 	public LosePane(MainApplication app) {
 		this.program = app;
+		//title
 		loseLabel = new GLabel( "You Died!", 220 , 100);
 		loseLabel.setFont("Century Gothic-bold-70");
 		loseLabel.setColor(Color.blue);
 		
-		Score score = getScore();
-		
+		//Score[] score = getScoreTxt();
+		//score
 		yourscore= new GLabel("Your Score: "+score, 200,170);
 		yourscore.setFont("Century Gothic-30");
 		
+		//textbox
 		playername=new GLabel("Please enter your name:", 200,250);
 		playername.setFont("Century Gothic-30");
 		
@@ -38,16 +40,16 @@ public class LosePane extends GraphicsPane {
 		nameEnter.setBounds(280,300,200,50);
 		Font font1 = new Font("Century Gothic", Font.BOLD, 40);
 		nameEnter.setFont(font1);
+		//save button for saving name and score
 		saveName = new GButton("Save",280,400,200,50);
 		
-		Score name = getName();
-		
+		//background rectangle
 		rect1=new GRect(180,45,400,230);
 		rect1.setFillColor(Color.white);
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
 		
-		
+		//all buttons
 		sound = new GButton ("Sound on",60,500,200,50 );
 		sound.setFillColor(Color.RED);
 		back = new GButton("Back to Menu",280,500,200,50);
@@ -58,16 +60,8 @@ public class LosePane extends GraphicsPane {
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 	}
 
-	private Score getScore() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	private Score getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+		
 	@Override
 	public void showContents() {
 		program.add(background);
