@@ -1,7 +1,8 @@
 
 public class Wave {
 	private int count;
-	public static final int max_enemies = 3;
+	private int wave;
+	public static final int max_enemies = 5;
 	
 	
 	public void spawn() {

@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.Timer;
 
@@ -10,9 +11,8 @@ import acm.util.RandomGenerator;
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-
 	public static final int MS = 10;
-	public static final int MAX_ENEMY = 6;
+	public static final int MAX_ENEMY = 5;
 
 	private MenuPane menu;
 	private PausePane pause;
@@ -23,6 +23,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private Fish f;
 	private int count;
 	private Garbage g;
+
 	private LosePane lose;
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
@@ -49,12 +50,44 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToMenu();
 	}
 
+
 	public void switchToLose() {
 		switchToScreen(lose);
 		pauseGameMusic();
 		playGameMusic();
 	}
 	
+
+	
+	/*private synchronized void start() {
+	 * if(running)
+	 * 	return;
+	 * 
+	 * running = true;
+	 * thread = new Thread(this);
+	 * thread.start();
+	 */
+/*	
+	public void ticking() { // allows for smoother player movement
+		long time = System.nanoTime();
+		double numTicks = 60;
+		double ns = 1000000000 / numTicks;
+		double update = 0; // calculates the time passed (to catch up)
+		int u = 0;
+		int frames = 0;
+		long timer = System.currentTimeMillis();
+		while(run) {
+			long now = System.nanoTime();
+			update += (time - now) / ns;
+			time = now;
+			if(update >= 1 ) {
+				tick();
+				update--;
+			}
+		}
+	}
+*/
+
 	public void switchToMenu() {
 		switchToScreen(menu);
 		playMenuMusic();
@@ -142,22 +175,12 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				game.addEnemy(num);
 			}
 		}
-		//} 
-		
-//			for(GOval b: balls) {
-//				remove(b);
-//			}
-//			for(GRect r: enemies) {
-//				remove(r);
-//			}
-		//moveAllBallsOnce();		
-		//moveAllEnemiesOnce();
 		
 		moveAllFish();
 		g.moveGarbage();
 		if (game.playerMove) {
 			game.playerMovement();
-			// game.collision();
+//			 game.collision();
 		}
 	}
 
@@ -178,4 +201,20 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		}
 	}
 
+
+	public void collision() {
+		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (game.collisionInteractions(f) ==1 ) {
+				itr.remove();
+			}
+		}
+		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (game.collisionInteractions(f) ==1 ) {
+				itr.remove();
+			}
+		}
 	}
+}
+

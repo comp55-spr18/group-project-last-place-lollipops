@@ -17,14 +17,18 @@ public class Fish extends Entity { // Player inherits from this class
 		setSize(size);
 		int random = program.rgen.nextInt(0, 1);
 		int random1 = program.rgen.nextInt(0, 600);
-		if (random == 0) {
-			fishImage = new GImage("SmallFryFlipped.png", 0, random1);
-			program.fishLtoR.add(this);
-			RtL = false;
+		if(!(this instanceof Player)) {
+			if (random == 0) {
+				fishImage = new GImage("SmallFryFlipped.png", 0, random1);
+				program.fishLtoR.add(this);
+				RtL = false;
+			} else {
+				fishImage = new GImage("SmallFry.png", 630 ,random1);
+				program.fishRtoL.add(this);
+				RtL = true;
+			}
 		} else {
-			fishImage = new GImage("SmallFry.png", 630 ,random1);
-			program.fishRtoL.add(this);
-			RtL = true;
+			fishImage = new GImage("PlainOldFish.png", program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
 		}
 	}
 
