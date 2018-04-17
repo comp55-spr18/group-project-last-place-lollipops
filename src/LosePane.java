@@ -36,7 +36,7 @@ public class LosePane extends GraphicsPane {
 		
 		nameEnter = new TextField();
 		nameEnter.setBounds(280,300,200,50);
-		Font font1 = new Font("Century Gothic", Font.BOLD, 50);
+		Font font1 = new Font("Century Gothic", Font.BOLD, 40);
 		nameEnter.setFont(font1);
 		saveName = new GButton("Save",280,400,200,50);
 		
