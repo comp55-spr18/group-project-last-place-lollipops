@@ -21,6 +21,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private Fish f;
 	private int count;
 	private Garbage g;
+	private LosePane lose;
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
@@ -42,9 +43,15 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		instructions = new InstructionsPane(this);
 		leaderboards = new LeaderboardsPane(this);
 		menu = new MenuPane(this);
+		lose = new LosePane(this);
 		switchToMenu();
 	}
 
+	public void switchToLose() {
+		switchToScreen(lose);
+		playMenuMusic();
+	}
+	
 	public void switchToMenu() {
 		switchToScreen(menu);
 		playMenuMusic();
