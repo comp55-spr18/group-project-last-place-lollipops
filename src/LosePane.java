@@ -1,7 +1,6 @@
 //kyla 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JTextField;
 
 import acm.graphics.*;
@@ -11,39 +10,32 @@ public class LosePane extends GraphicsPane {
 	private MainApplication program;
 //set score to name.
 	private GButton sound;
-	
 	private GButton quit;
 	private GButton back;
 	private GLabel loseLabel;
 	private GImage background;
-
-	private Score[] name;
-	private JTextField textField;
-	private GRectangle inputmessage;
-	private GRectangle lose;
+	private GRectangle rect1;
+	
+	
 	public LosePane(MainApplication app) {
 		this.program = app;
+		
 
-		//score to score
-		//score kyla
-		textField = new JTextField(20);
-		loseLabel = new GLabel( "You Died!", 200 , 50);
-		
-		loseLabel.setFont("Forte-70");
-		loseLabel = new GLabel( "Enter username: ", 200 , 50);
 		Score name = getName();
-		// textArea.append(text + newline)textField.selectAll();
 		
-		loseLabel.setFont("Forte-40");
-		inputmessage = new GRectangle(200,200,200,200);
-		sound = new GButton ("Sound on",200,100,200,50 );
+		
+		loseLabel = new GLabel( "You Died!", 220 , 100);
+		loseLabel.setFont("Century Gothic-bold-70");
+		loseLabel.setColor(Color.blue);
+		sound = new GButton ("Sound on",60,300,200,50 );
 		sound.setFillColor(Color.RED);
-		back = new GButton("Back to Menu",200,300,200,50);
+		back = new GButton("Back to Menu",280,300,200,50);
 		back.setFillColor(Color.RED);
-		quit = new GButton("Quit Game", 200,400,200,50);
+		quit = new GButton("Quit Game", 500,300,200,50);
 		quit.setFillColor(Color.RED);
 		background = new GImage("fishbackground.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		rect1 = new GRectangle( 200,100,200,50);
 	}
 
 	private Score getName() {
@@ -63,6 +55,7 @@ public class LosePane extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.remove(background);
+	
 		program.remove(loseLabel);
 		program.remove(sound);
 		program.remove(quit);
