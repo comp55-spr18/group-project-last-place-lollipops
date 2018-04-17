@@ -20,7 +20,7 @@ public class LosePane extends GraphicsPane {
 	private Score[] name;
 	private JTextField textField;
 	private GRectangle inputmessage;
-
+	private GRectangle lose;
 	public LosePane(MainApplication app) {
 		this.program = app;
 
@@ -28,6 +28,7 @@ public class LosePane extends GraphicsPane {
 		//score kyla
 		textField = new JTextField(20);
 		loseLabel = new GLabel( "You Died!", 200 , 50);
+		
 		loseLabel.setFont("Forte-70");
 		loseLabel = new GLabel( "Enter username: ", 200 , 50);
 		Score name = getName();
