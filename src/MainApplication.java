@@ -3,6 +3,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
+
+import acm.graphics.GRectangle;
 import acm.util.RandomGenerator;
 
 public class MainApplication extends GraphicsApplication implements ActionListener {
@@ -49,7 +51,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void switchToLose() {
 		switchToScreen(lose);
-		playMenuMusic();
+		pauseGameMusic();
+		playGameMusic();
 	}
 	
 	public void switchToMenu() {
@@ -174,4 +177,5 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			}
 		}
 	}
-}
+
+	}
