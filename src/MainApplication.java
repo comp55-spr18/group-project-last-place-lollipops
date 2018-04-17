@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.Timer;
 import acm.util.RandomGenerator;
@@ -8,9 +9,8 @@ import acm.util.RandomGenerator;
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-
 	public static final int MS = 10;
-	public static final int MAX_ENEMY = 6;
+	public static final int MAX_ENEMY = 5;
 
 	private MenuPane menu;
 	private PausePane pause;
@@ -21,7 +21,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private Fish f;
 	private int count;
 	private Garbage g;
-	private boolean run = false;
+	//private boolean run = false; // for tick()
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
@@ -161,23 +161,13 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				game.addEnemy(num);
 			}
 		}
-		//} 
-		
-//			for(GOval b: balls) {
-//				remove(b);
-//			}
-//			for(GRect r: enemies) {
-//				remove(r);
-//			}
-		//moveAllBallsOnce();		
-		//moveAllEnemiesOnce();
 		
 		moveAllFish();
 		g.moveGarbage();
-		//if (game.playerMove) {
-			//game.playerMovement();
-			// game.collision();
-	//	}
+		if (game.playerMove) {
+			game.playerMovement();
+//			 game.collision();
+		}
 	}
 
 	public void moveAllFish() {
@@ -193,6 +183,21 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				 f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
 				f.fishImage.move(-2, 0);
+			}
+		}
+	}
+	
+	public void collision() {
+		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (game.collisionInteractions(f) ==1 ) {
+				itr.remove();
+			}
+		}
+		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (game.collisionInteractions(f) ==1 ) {
+				itr.remove();
 			}
 		}
 	}

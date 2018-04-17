@@ -3,18 +3,17 @@ import acm.graphics.GImage;
 
 public class Player extends Fish { //implements actionListener ??
 	private Entity e;
-	private Player player;
 	private double x;
 	private double y;
 	private double moveX = 0;
 	private double moveY = 0;
-	
+	private GImage p;
 	public Fish f;
 
 	//constructor
-	public Player(MainApplication app, double speed, int size) { 
+	public Player(MainApplication app, int size) { 
 		super(app);		
-		setSpeed(speed);
+		//setSpeed(speed);
 		setSizeCounter(size);
 	}
 	
