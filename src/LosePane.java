@@ -29,7 +29,7 @@ public class LosePane extends GraphicsPane {
 		
 		//Score[] score = getScoreTxt();
 		//score
-		yourscore= new GLabel("Your Score: "+score, 200,170);
+		yourscore= new GLabel("Your Score: ", 200,170);
 		yourscore.setFont("Century Gothic-30");
 		
 		//textbox
