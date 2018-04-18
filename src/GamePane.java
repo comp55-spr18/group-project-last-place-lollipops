@@ -185,7 +185,7 @@ public class GamePane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == pause) {
-			program.switchToLose();
+			program.switchToPause();
 		}
 	}
 
