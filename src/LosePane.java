@@ -92,7 +92,8 @@ public class LosePane extends GraphicsPane {
 		program.remove(playername);
 		program.remove(yourscore);
 		program.remove(sound);
-		program.remove(quit);		program.remove(back);
+		program.remove(quit);		
+		program.remove(back);
 	}
 
 	public Score findScore() {
