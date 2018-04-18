@@ -36,6 +36,7 @@ public class GamePane extends GraphicsPane {
 		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),50,60));
 		s.getLabel().setFont("Forte-30");
 		s.getLabel().setColor(Color.pink);
+		s.increment();
 		
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
@@ -52,6 +53,10 @@ public class GamePane extends GraphicsPane {
 	}
 
 
+	public Score getScore() {
+		return s;
+	}
+	
 	public int collisionInteractions(Entity o) {
 		 //0 = you lose
 		 //1 = collided with a fish but u ate it
