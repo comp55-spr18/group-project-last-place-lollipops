@@ -43,7 +43,11 @@ public class LeaderboardsPane extends GraphicsPane {
 		Score[] leaderboards;
 		leaderboards = getLeaders();
 		
-		//leaderboards[11] = playerScore;
+		try {
+			leaderboards[10] = program.getLosePane().findScore();
+		}catch(NullPointerException e) {
+			System.out.println("no leaderboard update.");
+		}
 		
 		Arrays.sort(leaderboards, Collections.reverseOrder());
 		displayLeaders(leaderboards);
