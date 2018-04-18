@@ -128,7 +128,11 @@ public class LosePane extends GraphicsPane {
 		if(obj ==saveName) {
 			//program.getInputContext();
 			//nameEnter.getInputContext();
-			score.setName(nameEnter.getText());
+			if(nameEnter.getText().equals("") || nameEnter.getText().charAt(0) == ' ') {
+				score.setName("-");
+			}else {
+				score.setName(nameEnter.getText());
+			}
 			program.updateLeaderboards();
 			program.switchToLeaderboards();
 		}
