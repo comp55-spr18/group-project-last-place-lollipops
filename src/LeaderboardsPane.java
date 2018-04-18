@@ -69,7 +69,6 @@ public class LeaderboardsPane extends GraphicsPane {
 		number.setColor(Color.black);
 		
 		rect1=new GRect(200,30,440,470);
-		//rect1.setFillColor(Color.white);
 		rect1.setFillColor(new Color(255,255,255,128));
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
