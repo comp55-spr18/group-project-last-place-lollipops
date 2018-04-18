@@ -145,7 +145,7 @@ public class LeaderboardsPane extends GraphicsPane {
 		program.remove(background);
 		program.remove(title);
 		program.remove(topTen);
-		program.add(number);
+		program.remove(number);
 		program.remove(back);
 	}
 
