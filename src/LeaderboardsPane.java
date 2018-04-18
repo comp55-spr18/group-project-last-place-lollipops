@@ -25,10 +25,10 @@ public class LeaderboardsPane extends GraphicsPane {
 
 			
 	public LeaderboardsPane(MainApplication app) {
-		if(System.getProperty("os.name").equals("Mac OS X")) {
-			newPath = workDir.substring(0, workDir.lastIndexOf('/')) + "/src/";
-		}else {
+		if(System.getProperty("os.name").split(" ")[0].equals("Windows")) {
 			newPath = workDir.substring(0, workDir.lastIndexOf('\\')) + "\\src\\";
+		}else {
+			newPath = workDir.substring(0, workDir.lastIndexOf('/')) + "/src/";
 			
 		}
 		this.program = app;
@@ -38,7 +38,11 @@ public class LeaderboardsPane extends GraphicsPane {
 		Score[] leaderboards;
 		leaderboards = getLeaders();
 		
-		//leaderboards[11] = playerScore;
+		try {
+			leaderboards[10] = program.getLosePane().findScore();
+		}catch(NullPointerException e) {
+			System.out.println("no leaderboard update.");
+		}
 		
 		Arrays.sort(leaderboards, Collections.reverseOrder());
 		displayLeaders(leaderboards);
