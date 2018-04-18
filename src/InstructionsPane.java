@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.graphics.GRect;
 
 public class InstructionsPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
@@ -17,6 +18,7 @@ public class InstructionsPane extends GraphicsPane {
 	private GParagraph instructions;
 	private GButton back;
 	private GImage background;
+	private GRect rect1;
 
 	public InstructionsPane(MainApplication app) {
 		this.program = app;
@@ -48,11 +50,18 @@ public class InstructionsPane extends GraphicsPane {
 		
 		background = new GImage("sunset.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		
+		//background rectangle
+		rect1=new GRect(100,30,500,460);
+		rect1.setFillColor(new Color(255,255,255,128));
+		rect1.setFilled(true);
+		rect1.setColor(Color.black);
 	}
 
 	@Override
 	public void showContents() {
 		program.add(background);
+		program.add(rect1);
 		program.add(instructions);
 		program.add(back);
 		program.add(objective);
@@ -65,6 +74,7 @@ public class InstructionsPane extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.remove(background);
+		program.remove(rect1);
 		program.remove(instructions);
 		program.remove(back);
 		program.remove(objective);
