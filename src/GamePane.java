@@ -18,6 +18,7 @@ public class GamePane extends GraphicsPane {
 	private final Set<Integer> pressed = new TreeSet<Integer>();
 	private Player player;
 	private Fish fish;
+	public Garbage garbage;
 	private Score s;
 
 	public boolean playerMove;
@@ -26,6 +27,7 @@ public class GamePane extends GraphicsPane {
 	double moveY = 0;
 
 	public GamePane(MainApplication app) {
+		garbage = new Garbage(app);
 		this.program = app;
 		player = new Player(app, 2); // size 2
 		fish = new Fish(app);
@@ -42,6 +44,7 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		
 		//player = new GImage("PlainOldFish.png", program.WINDOW_WIDTH / 2, program.WINDOW_HEIGHT / 2);
 	/*	for (int i = 0; i < program.MAX_ENEMY; i++) {
 			fish = new Fish(app);
@@ -54,7 +57,6 @@ public class GamePane extends GraphicsPane {
 		 //0 = you lose
 		 //1 = collided with a fish but u ate it
 		 //2 = do nothing (at the momemnt)
-		  
 		 
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
@@ -70,7 +72,7 @@ public class GamePane extends GraphicsPane {
 					
 				}
 			}
-	/*		else if (o instanceof Kelp) {
+	/*		else if (o instanceof Garbage) {
 				return 2; 
 			}
 			else if (o instanceof Rock) {
@@ -88,20 +90,20 @@ public class GamePane extends GraphicsPane {
 		return 2;
 	}
 	
-/*	public void collision() {
-		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+	public void collision() {
+		for (Iterator<Fish> itr = program.fishLtoR.iterator(); itr.hasNext();) {
 			Fish f = itr.next();
 			if (collisionInteractions(f) ==1 ) {
 				itr.remove();
 			}
 		}
-		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+		for (Iterator<Fish> itr = program.fishRtoL.iterator(); itr.hasNext();) {
 			Fish f = itr.next();
 			if (collisionInteractions(f) ==1 ) {
 				itr.remove();
 			}
 		}
-	} */
+	}
 	
 	
 	public void addEnemy(int type) {
@@ -154,7 +156,7 @@ public class GamePane extends GraphicsPane {
 		program.add(pause);
 		program.add(title);
 		program.add(s.getScoreTxt());
-		//program.add(program.g.getGarbageImage());
+		program.add(garbage.getGarbageImage());
 		//addAllFish();
 		program.add(player.getFish());
 		program.movement.start();
@@ -166,7 +168,7 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
-	//	program.g.removeGarbage();
+		garbage.removeGarbage();
 		//removeAllFish();
 		program.remove(player.getFish());
 		program.movement.stop();

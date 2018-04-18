@@ -7,7 +7,6 @@ public class Player extends Fish { //implements actionListener ??
 	private double y;
 	private double moveX = 0;
 	private double moveY = 0;
-	private GImage p;
 	public Fish f;
 
 	//constructor
@@ -47,8 +46,8 @@ public class Player extends Fish { //implements actionListener ??
 //		}
 //		Fish foo = player fish location 
 //		if (getElementAt(foo == Fish f))
-//			return true;
-		return false;
+			return true;
+//		return false;
 	}
 
 	public void collision() {

@@ -20,9 +20,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
-	private Fish f;
+	private Wave wave;
+
 	private int count;
-	private Garbage g;
 
 	private LosePane lose;
 
@@ -37,7 +37,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	}
 
 	public void run() {
-		g = new Garbage(this, 10);
+		
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
 		game = new GamePane(this);
@@ -50,14 +50,11 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToMenu();
 	}
 
-
 	public void switchToLose() {
 		switchToScreen(lose);
 		pauseGameMusic();
 		playGameMusic();
 	}
-	
-
 	
 	/*private synchronized void start() {
 	 * if(running)
@@ -154,53 +151,42 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		count++;
-		/*for (Fish fish : fishRtoL ) {
-			if (fish.fishImage.getX()==0) {
-				fishRtoL.remove(fish);
-				remove(fish.fishImage);
-			}
-		}
-		
-			for (Fish fish1 : fishLtoR) {
-			if (fish1.fishImage.getX()==600) {
-			remove(fish1.fishImage);
-			fishLtoR.remove(fish1);
-			}*/
+		//if(wave.newWave()) {
 			
+		//}
+			
+		count++;
 		if((fishLtoR.size() <= MAX_ENEMY) && (fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 200 == 0) {
 				int num = rgen.nextInt(0, 2);
-				System.out.println("num: " + num + "\n");
+				//System.out.println("num: " + num + "\n");
 				game.addEnemy(num);
 			}
 		}
-		
 		moveAllFish();
-		g.moveGarbage();
+		game.garbage.moveGarbage();
+		game.collision();
 		if (game.playerMove) {
 			game.playerMovement();
-//			 game.collision();
 		}
 	}
 
 	public void moveAllFish() {
 		for (Fish f : fishLtoR) {
-			if (f.fishImage.getX() > WINDOW_WIDTH+50) {
+			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
 				 f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
 				f.fishImage.move(2, 0);
 			}
 		}
 		for (Fish f : fishRtoL) {
-			if (f.fishImage.getX() < 0-70) {
+			if (f.fishImage.getX() < 0-100) {
 				 f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
 				f.fishImage.move(-2, 0);
 			}
 		}
 	}
-
 
 	public void collision() {
 		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
