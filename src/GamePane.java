@@ -34,6 +34,8 @@ public class GamePane extends GraphicsPane {
 		title.setColor(Color.pink);
 		s = new Score();
 		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),50,60));
+		s.getLabel().setFont("Forte-30");
+		s.getLabel().setColor(Color.pink);
 		
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());

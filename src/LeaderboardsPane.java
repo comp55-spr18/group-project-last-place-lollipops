@@ -21,9 +21,16 @@ public class LeaderboardsPane extends GraphicsPane {
 	private String line;
 	private String[] splitline;
 	private String workDir = System.getProperty("user.dir");
-	private String newPath = workDir.substring(0, workDir.lastIndexOf('\\')) + "\\src\\";
+	private String newPath = "filepath";
+
 			
 	public LeaderboardsPane(MainApplication app) {
+		if(System.getProperty("os.name").equals("Mac OS X")) {
+			newPath = workDir.substring(0, workDir.lastIndexOf('/')) + "/src/";
+		}else {
+			newPath = workDir.substring(0, workDir.lastIndexOf('\\')) + "\\src\\";
+			
+		}
 		this.program = app;
 		topTen = new GParagraph("", 200, 50);
 		back = new GButton("Back", 200, 410, 200, 100);
@@ -37,6 +44,7 @@ public class LeaderboardsPane extends GraphicsPane {
 		displayLeaders(leaderboards);
 		writeLeaders(leaderboards);
 		System.out.println(workDir);
+		System.out.println(System.getProperty("os.name"));
 		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		System.out.println(newPath);
 	}
