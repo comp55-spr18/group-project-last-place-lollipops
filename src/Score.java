@@ -1,3 +1,5 @@
+import java.awt.Container;
+
 import acm.graphics.GLabel;
 
 //kevin&silvana
@@ -49,6 +51,10 @@ public class Score implements Comparable<Score>{
 	}
 	public void updateScoreTxt() {
 		this.scoreTxt.setLabel(Integer.toString(score));
+	}
+	public GLabel getLabel() {
+		// TODO Auto-generated method stub
+		return scoreTxt;
 	}
 	
 }

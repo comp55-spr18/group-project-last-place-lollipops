@@ -7,7 +7,10 @@ import java.util.Collections;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import acm.graphics.GImage;
+import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.graphics.GRect;
 
 public class LeaderboardsPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
@@ -21,24 +24,56 @@ public class LeaderboardsPane extends GraphicsPane {
 	private String line;
 	private String[] splitline;
 	private String workDir = System.getProperty("user.dir");
-	private String newPath = workDir.substring(0, workDir.lastIndexOf('\\')) + "\\src\\";
+	private String newPath = "filepath";
+	private GImage background;
+	private GLabel title;
+	private GParagraph number;
+	private GRect rect1;
+	
+
 			
 	public LeaderboardsPane(MainApplication app) {
+		if(System.getProperty("os.name").split(" ")[0].equals("Windows")) {
+			newPath = workDir.substring(0, workDir.lastIndexOf('\\')) + "\\src\\";
+		}else {
+			newPath = workDir.substring(0, workDir.lastIndexOf('/')) + "/src/";
+			
+		}
 		this.program = app;
-		topTen = new GParagraph("", 200, 50);
-		back = new GButton("Back", 200, 410, 200, 100);
+		topTen = new GParagraph("", 270, 140);
+		back = new GButton("Back", 280,500,200,50);
 		//leaderboards = new Score[11];
 		Score[] leaderboards;
 		leaderboards = getLeaders();
 		
-		//leaderboards[11] = playerScore;
+		try {
+			leaderboards[10] = program.getLosePane().findScore();
+		}catch(NullPointerException e) {
+			System.out.println("no leaderboard update.");
+		}
 		
 		Arrays.sort(leaderboards, Collections.reverseOrder());
 		displayLeaders(leaderboards);
 		writeLeaders(leaderboards);
 		System.out.println(workDir);
+		System.out.println(System.getProperty("os.name"));
 		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		System.out.println(newPath);
+		background = new GImage("koi fish.gif",0,0);
+		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		title = new GLabel( "Top Ten Fish", 220 , 100);
+		title.setFont("Century Gothic-bold-70");
+		number = new GParagraph ("1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10.", 230,140);
+		
+		number.setFont("Century Gothic-bold-30");
+		number.setColor(Color.black);
+		
+		rect1=new GRect(200,30,440,470);
+		//rect1.setFillColor(Color.white);
+		rect1.setFillColor(new Color(255,255,255,128));
+		rect1.setFilled(true);
+		rect1.setColor(Color.black);
+	
 	}
 	
 	public void writeLeaders(Score[] l) {
@@ -66,8 +101,8 @@ public class LeaderboardsPane extends GraphicsPane {
 	public void displayLeaders(Score[] l) {
 		for(int i=0;i<10;i++) {
 			topTen.addText(l[i].getName() + " " + Integer.toString(l[i].getScore()) + "\n");
-			topTen.setFont("Forte-30");
-			topTen.setColor(Color.pink);
+			topTen.setFont("Century Gothic-bold-30");
+			topTen.setColor(Color.black);
 		}
 	}
 	
@@ -112,13 +147,21 @@ public class LeaderboardsPane extends GraphicsPane {
 	
 	@Override
 	public void showContents() {
+		program.add(background);
+		program.add(rect1);
+		program.add(title);
 		program.add(topTen);
+		program.add(number);
 		program.add(back);
 	}
 
 	@Override
 	public void hideContents() {
+		program.remove(background);
+		program.remove(rect1);
+		program.remove(title);
 		program.remove(topTen);
+		program.remove(number);
 		program.remove(back);
 	}
 

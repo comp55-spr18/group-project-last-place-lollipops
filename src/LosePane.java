@@ -9,8 +9,7 @@ import acm.graphics.*;
 public class LosePane extends GraphicsPane {
 	private MainApplication program;
 //set score to name.
-	Score[] score;
-	Score[] name;
+	private Score score;
 	private GButton sound;
 	private GButton quit;
 	private GButton back;
@@ -29,9 +28,13 @@ public class LosePane extends GraphicsPane {
 		loseLabel.setFont("Century Gothic-bold-70");
 		loseLabel.setColor(Color.blue);
 		
+		//get score from gamePane
+		score = program.getGame().getScore();
+		
+		
 		//Score[] score = getScoreTxt();
 		//score
-		yourscore= new GLabel("Your Score: "+score, 200,170);
+		yourscore= new GLabel("Your Score: "+ score.getScore(), 200,170);
 		yourscore.setFont("Century Gothic-30");
 		
 		//textbox
@@ -89,10 +92,13 @@ public class LosePane extends GraphicsPane {
 		program.remove(playername);
 		program.remove(yourscore);
 		program.remove(sound);
-		program.remove(quit);
-		program.remove(back);
+		program.remove(quit);		program.remove(back);
 	}
 
+	public Score findScore() {
+		return score;
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -121,8 +127,13 @@ public class LosePane extends GraphicsPane {
 		}
 		if(obj ==saveName) {
 			//program.getInputContext();
-			nameEnter.getInputContext();
-			
+			//nameEnter.getInputContext();
+			if(nameEnter.getText().equals("") || nameEnter.getText().charAt(0) == ' ') {
+				score.setName("-");
+			}else {
+				score.setName(nameEnter.getText());
+			}
+			program.updateLeaderboards();
 			program.switchToLeaderboards();
 		}
 		
