@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import acm.graphics.GImage;
+import acm.graphics.GLabel;
 import acm.graphics.GObject;
 
 public class LeaderboardsPane extends GraphicsPane {
@@ -22,6 +24,9 @@ public class LeaderboardsPane extends GraphicsPane {
 	private String[] splitline;
 	private String workDir = System.getProperty("user.dir");
 	private String newPath = "filepath";
+	private GImage background;
+	private GLabel title;
+	private GParagraph number;
 
 			
 	public LeaderboardsPane(MainApplication app) {
@@ -32,8 +37,8 @@ public class LeaderboardsPane extends GraphicsPane {
 			
 		}
 		this.program = app;
-		topTen = new GParagraph("", 200, 50);
-		back = new GButton("Back", 200, 410, 200, 100);
+		topTen = new GParagraph("", 280, 140);
+		back = new GButton("Back", 280,500,200,50);
 		//leaderboards = new Score[11];
 		Score[] leaderboards;
 		leaderboards = getLeaders();
@@ -47,6 +52,14 @@ public class LeaderboardsPane extends GraphicsPane {
 		System.out.println(System.getProperty("os.name"));
 		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		System.out.println(newPath);
+		background = new GImage("koi fish.gif",0,0);
+		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		title = new GLabel( "Top Ten Fish", 220 , 100);
+		title.setFont("Century Gothic-bold-70");
+		number = new GParagraph ("1. \n2. \n3. \n4. \n5. \n6. \n7. \n8. \n9. \n10.", 200,150);
+		
+		number.setFont("Century Gothic-bold-30");
+		number.setColor(Color.orange);
 	}
 	
 	public void writeLeaders(Score[] l) {
@@ -74,8 +87,8 @@ public class LeaderboardsPane extends GraphicsPane {
 	public void displayLeaders(Score[] l) {
 		for(int i=0;i<10;i++) {
 			topTen.addText(l[i].getName() + " " + Integer.toString(l[i].getScore()) + "\n");
-			topTen.setFont("Forte-30");
-			topTen.setColor(Color.pink);
+			topTen.setFont("Century Gothic-bold-30");
+			topTen.setColor(Color.orange);
 		}
 	}
 	
@@ -120,13 +133,19 @@ public class LeaderboardsPane extends GraphicsPane {
 	
 	@Override
 	public void showContents() {
+		program.add(background);
+		program.add(title);
 		program.add(topTen);
+		program.add(number);
 		program.add(back);
 	}
 
 	@Override
 	public void hideContents() {
+		program.remove(background);
+		program.remove(title);
 		program.remove(topTen);
+		program.add(number);
 		program.remove(back);
 	}
 
