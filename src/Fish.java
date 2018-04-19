@@ -16,11 +16,11 @@ public class Fish extends Entity { // Player inherits from this class
 		if(!(this instanceof Player)) {
 			if (leftOrRight == 0) {
 				fishImage = new GImage("SmallFryFlipped.png", 0, topOrBottom);
-				program.fishLtoR.add(this);
+				program.getGame().fishLtoR.add(this);
 				RtL = false;
 			} else {
 				fishImage = new GImage("SmallFry.png", 630 ,topOrBottom);
-				program.fishRtoL.add(this);
+				program.getGame().fishRtoL.add(this);
 				RtL = true;
 			}
 		} else {
@@ -43,7 +43,6 @@ public class Fish extends Entity { // Player inherits from this class
 	}
 
 	public void setFish(String fish) {
-		
 		fishImage.setImage(fish);
 		fishImage.setSize(90, 90);
 		obj = fishImage;

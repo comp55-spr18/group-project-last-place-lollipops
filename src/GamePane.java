@@ -24,6 +24,8 @@ public class GamePane extends GraphicsPane {
 	
 	public Garbage garbage;
 	public Score s;
+	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
+	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
 
 	public GamePane(MainApplication app) {
 		this.program = app;
@@ -46,56 +48,42 @@ public class GamePane extends GraphicsPane {
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 
-		System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
-		
-		
 	}
-
 
 	public Score getScore() {
 		return s;
 	}
 
 	public int collisionInteractions(Entity o) {
-		//0 = you lose
-		//1 = collided with a fish but u ate it
-		//2 = do nothing (at the momemnt)
+		//0 = you ate the fish
+		//1 = you lost
+		//2 = nothing happened
 
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
 					System.out.println("you lose!");
 					program.remove(player.getFish());
-					return 0; 
+					return 1; 
 				}
 				else {
 					program.remove(((Fish) o).getFish());
 					s.increment();
-					return 1; 
-
+					return 0; 
 				}
 			}
 			else if (o instanceof Garbage) {
-				return 2; 
+				System.out.println("you lose!");
+				program.remove(player.getFish());
+				System.out.println("1");
+				return 1; 
 			}
 		}
 		return 2;
 	}
 
-	public void collision() {
-		for (Iterator<Fish> itr = program.fishLtoR.iterator(); itr.hasNext();) {
-			Fish f = itr.next();
-			if (collisionInteractions(f) ==1 ) {
-				itr.remove();
-			}
-		}
-		for (Iterator<Fish> itr = program.fishRtoL.iterator(); itr.hasNext();) {
-			Fish f = itr.next();
-			if (collisionInteractions(f) ==1 ) {
-				itr.remove();
-			}
-		}
-	}
+	
+	
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
@@ -147,18 +135,18 @@ public class GamePane extends GraphicsPane {
 	}
 
 	public void addAllFish() {
-		for(Fish f: program.fishLtoR) {
+		for(Fish f: fishLtoR) {
 			program.add(f.fishImage);
 		}
-		for(Fish f: program.fishRtoL) {
+		for(Fish f: fishRtoL) {
 			program.add(f.fishImage);
 		}
 	}
 	public void removeAllFish() {
-		for(Fish f: program.fishLtoR) {
+		for(Fish f: fishLtoR) {
 			program.remove(f.fishImage);
 		}
-		for(Fish f: program.fishRtoL) {
+		for(Fish f: fishRtoL) {
 			program.remove(f.fishImage);
 		}
 	}
@@ -188,7 +176,7 @@ public class GamePane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == pause) {
-			program.switchToLose();
+			program.switchToPause();
 		}
 	}
 
@@ -203,7 +191,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, -.5);
+					player.getFish().move(2, -2);
 				}
 				else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
 						(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
@@ -211,7 +199,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, -.5);
+					player.getFish().move(-2, -2);
 				}
 				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
 						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
@@ -219,7 +207,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, .5);
+					player.getFish().move(2, 2);
 				}
 				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
 						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
@@ -227,31 +215,31 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, .5);
+					player.getFish().move(-2, 2);
 				}
 			}
 	
 			else { // otherwise, move in one direction
 				switch (keyPress) {
 				case KeyEvent.VK_UP:
-					player.getFish().move(0, -.5);
+					player.getFish().move(0, -2);
 					break;
 				case KeyEvent.VK_DOWN:
-					player.getFish().move(0, .5);
+					player.getFish().move(0, 2);
 					break;
 				case KeyEvent.VK_LEFT:
 					if(!player.getRTL()) {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, 0);
+					player.getFish().move(-2, 0);
 					break;
 				case KeyEvent.VK_RIGHT:
 					if(player.getRTL()) {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, 0);
+					player.getFish().move(2, 0);
 					break;
 				}
 			}

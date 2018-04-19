@@ -24,10 +24,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public int count;
 	private Wave wave = new Wave();
 
-
-
-	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
-	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
 	public boolean volume = true;
 	public Timer movement;
 	public RandomGenerator rgen;
@@ -47,7 +43,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void run() {
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
-		setGame(new GamePane(this));
+		game = new GamePane(this);
 		pause = new PausePane(this);
 		settings = new SettingsPane(this);
 		instructions = new InstructionsPane(this);
@@ -57,12 +53,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToMenu();
 	}
 
-	public void switchToLose() {
-		switchToScreen(lose);
-		pauseGameMusic();
-		playGameMusic();
-	}
-	
+
 	/*private synchronized void start() {
 	 * if(running)
 	 * 	return;
@@ -71,7 +62,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	 * thread = new Thread(this);
 	 * thread.start();
 	 */
-/*	
+	/*	
 	public void ticking() { // allows for smoother player movement
 		long time = System.nanoTime();
 		double numTicks = 60;
@@ -90,7 +81,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			}
 		}
 	}
-*/
+	 */
 
 	public void switchToMenu() {
 		switchToScreen(menu);
@@ -98,14 +89,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	}
 
 	public void switchToGame() {
-		switchToScreen(getGame());
+		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
 	}
 
 	public void switchToNewGame() {
-		setGame(new GamePane(this));
-		switchToScreen(getGame());
+		game = new GamePane(this);
+		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
 		add(wave.getWaveLabel());
@@ -123,9 +114,15 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void switchToLeaderboards() {
 		switchToScreen(leaderboards);
 	}
-
+	
 	public void switchToPause() {
 		switchToScreen(pause);
+		movement.stop();
+	}
+	public void switchToLose() {
+		switchToScreen(lose);
+		pauseGameMusic();
+		playGameMusic();
 		movement.stop();
 	}
 
@@ -165,8 +162,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			remove(wave.getWaveLabel());
 		}
 		
+		collision();
 		count++;
-		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
+		if((game.fishLtoR.size() + game.fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 1000 == 0 && count > 0) {
 				int num = rgen.nextInt(0, 2);
 				//System.out.println("num: " + num + "\n");
@@ -188,60 +186,77 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			// *** clear screen ***
 		}
 
-		
-		moveAllFish();
-		game.collision();
-		if (game.playerMove) {
-			game.playerMovement();
-		}
 	}
-	
-//	public void run(){
-//		t = new Timer(1000, this);
-//		t.setInitialDelay(3000);
-//		t.start();
-//		
-//	}
+
+	//	public void run(){
+	//		t = new Timer(1000, this);
+	//		t.setInitialDelay(3000);
+	//		t.start();
+	//		
+	//	}
 
 	public void moveAllFish() {
-		for (Fish f : fishLtoR) {
+		for (Fish f : game.fishLtoR) {
 			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
-				 f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
+				f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(.4, 0);
+				f.fishImage.move(1, 0);
 			}
 		}
-		for (Fish f : fishRtoL) {
+		for (Fish f : game.fishRtoL) {
 			if (f.fishImage.getX() < 0-100) {
-				 f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
+				f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(-.4, 0);
+				f.fishImage.move(-1, 0);
 			}
 		}
 	}
 
 	public void collision() {
-		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+		int interactionOutcome = 0;
+		for (Iterator<Fish> itr = game.fishLtoR.iterator(); itr.hasNext();) {
 			Fish f = itr.next();
-			if (getGame().collisionInteractions(f) ==1 ) {
+			interactionOutcome = game.collisionInteractions(f);
+			switch(interactionOutcome) {
+			case 0: {
 				itr.remove();
+				break;
 			}
+			case 1: {
+				lose = new LosePane(this);
+				switchToLose();
+				break;
+			}
+			default: {//2 doesn't do anything
+				
+				break;
+			}
+			}
+
 		}
-		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+		for (Iterator<Fish> itr = game.fishRtoL.iterator(); itr.hasNext();) {
 			Fish f = itr.next();
-			if (getGame().collisionInteractions(f) ==1 ) {
+			interactionOutcome = game.collisionInteractions(f);
+			switch(interactionOutcome) {
+			case 0: {
 				itr.remove();
+				break;
+			}
+			case 1: {
+				lose = new LosePane(this);
+				switchToLose();
+				break;
+			}
+			default: {//2 doesn't do anything
+				
+				break;
+			}
 			}
 		}
 	}
 
 	public GamePane getGame() {
 		return game;
-	}
-
-
-	public void setGame(GamePane game) {
-		this.game = game;
 	}
 }
 
