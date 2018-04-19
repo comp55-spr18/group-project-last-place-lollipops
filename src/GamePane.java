@@ -16,7 +16,7 @@ public class GamePane extends GraphicsPane {
 	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
 	private Player player;
-	public Garbage g;
+	public Garbage garbage;
 	private Score s;
 
 	public boolean playerMove;
@@ -25,7 +25,7 @@ public class GamePane extends GraphicsPane {
 	double moveY = 0;
 
 	public GamePane(MainApplication app) {
-		g = new Garbage(app);
+		garbage = new Garbage(app);
 		this.program = app;
 		player = new Player(app, 2); // size 2
 		title = new GParagraph("Something Smells Fishy", 50, 30);
@@ -93,7 +93,6 @@ public class GamePane extends GraphicsPane {
 			}
 		}
 	}
-
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
@@ -166,7 +165,7 @@ public class GamePane extends GraphicsPane {
 		program.add(pause);
 		program.add(title);
 		program.add(s.getScoreTxt());
-		program.add(g.getGarbageImage());
+		program.add(garbage.getGarbageImage());
 		addAllFish();
 		program.add(player.getFish());
 		program.movement.start();
@@ -178,8 +177,8 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
-		program.remove(g.getGarbageImage());
-		removeAllFish();
+		program.remove(garbage.getGarbageImage());
+		//removeAllFish();
 		program.remove(player.getFish());
 		program.movement.stop();
 	}

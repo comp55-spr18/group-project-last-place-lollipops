@@ -8,7 +8,6 @@ import acm.graphics.*;
 
 public class LosePane extends GraphicsPane {
 	private MainApplication program;
-//set score to name.
 	private Score score;
 	private GButton sound;
 	private GButton quit;

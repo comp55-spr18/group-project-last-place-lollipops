@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import acm.graphics.GImage;
@@ -13,9 +12,7 @@ import acm.graphics.GObject;
 import acm.graphics.GRect;
 
 public class LeaderboardsPane extends GraphicsPane {
-	private MainApplication program; // you will use program to get access to
-										// all of the GraphicsProgram calls
-	//private Score[] leaderboards;
+	private MainApplication program;
 	private GParagraph topTen;
 	private GButton back;
 	private FileReader in = null;
@@ -29,20 +26,16 @@ public class LeaderboardsPane extends GraphicsPane {
 	private GLabel title;
 	private GParagraph number;
 	private GRect rect1;
-	
-
-			
+		
 	public LeaderboardsPane(MainApplication app) {
 		if(System.getProperty("os.name").split(" ")[0].equals("Windows")) {
 			newPath = workDir.substring(0, workDir.lastIndexOf('\\')) + "\\src\\";
 		}else {
 			newPath = workDir.substring(0, workDir.lastIndexOf('/')) + "/src/";
-			
 		}
 		this.program = app;
 		topTen = new GParagraph("", 270, 140);
 		back = new GButton("Back", 280,500,200,50);
-		//leaderboards = new Score[11];
 		Score[] leaderboards;
 		leaderboards = getLeaders();
 		
@@ -55,10 +48,7 @@ public class LeaderboardsPane extends GraphicsPane {
 		Arrays.sort(leaderboards, Collections.reverseOrder());
 		displayLeaders(leaderboards);
 		writeLeaders(leaderboards);
-		System.out.println(workDir);
-		System.out.println(System.getProperty("os.name"));
-		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		System.out.println(newPath);
+		
 		background = new GImage("koi fish.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		title = new GLabel( "Top Ten Fish", 220 , 100);
@@ -76,11 +66,13 @@ public class LeaderboardsPane extends GraphicsPane {
 	}
 	
 	public void writeLeaders(Score[] l) {
+		
 		try {
-			out = new FileWriter(newPath + "leaders.txt"); //Update relative filepath to write to same file instead of creating new one
+			out = new FileWriter(newPath + "leaders.txt");
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		
 		for(int i=0;i<10;i++) {
 			try {
 				out.write(l[i].getName() + " " + l[i].getScore() + "\n");
@@ -89,11 +81,13 @@ public class LeaderboardsPane extends GraphicsPane {
 				e.printStackTrace();
 			}
 		}
+		
 		try {
 			out.close();
 		}catch(IOException e){
 			e.printStackTrace();
 		}
+		
 		System.out.println("file written");
 	}
 	
@@ -104,7 +98,6 @@ public class LeaderboardsPane extends GraphicsPane {
 			topTen.setColor(Color.black);
 		}
 	}
-	
 	
 	public Score[] getLeaders() {
 		Score[] scores = new Score[11];
@@ -118,12 +111,14 @@ public class LeaderboardsPane extends GraphicsPane {
 			ex.printStackTrace();
 		}
 		for(int i=0;i<10;i++) {
+			
 			try {
 				line = reader.readLine();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			try {
 				splitline = line.split(" ");
 				scores[i].setName(splitline[0]);
@@ -135,12 +130,14 @@ public class LeaderboardsPane extends GraphicsPane {
 			}
 			
 		}
+		
 		try {
 			reader.close();
 			in.close();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		
 		return scores;
 	}
 	
