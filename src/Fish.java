@@ -4,10 +4,10 @@ import acm.graphics.GImage;
 import acm.graphics.GScalable;
 
 public class Fish extends Entity { // Player inherits from this class
-	private int size;
 	public boolean RtL;
+	private int size;
 	public GImage fishImage;
-
+	
 	// constructor
 	public Fish(MainApplication program) {
 		int leftOrRight = program.rgen.nextInt(0, 1);

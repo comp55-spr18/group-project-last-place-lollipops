@@ -7,7 +7,7 @@ public class Wave {
 	private int fontSize = 100;
 	private MainApplication program;
 	private Score s;
-	public static final int max_enemies = 5;
+	public static final int MAX_ENEMY = 5;
 			//set font size
 			//set the position
 			// after windowWidth shit subtract font size
@@ -38,7 +38,13 @@ public class Wave {
 		this.wave = wave;
 	}
 	
-	public boolean newWave() { // update for new waves
+	
+	public void incrementWave() {
+		wave++;
+	}
+	
+	public boolean newWave() {
+		//delay?
 		if(s.getScore() % 50 == 0) {
 			//clear screen
 			//change sizing??
@@ -47,12 +53,11 @@ public class Wave {
 		}
 		else
 			return false;
+		//wave is over when score = something
+		// resets variables enemy size
+		//resets counter for when enemies spawn
 	}
-	
-	public void incrementWave() {
-		wave++;
-	}
-	
+
 	public void spawn() {
 	//enemy to spawn
 	// wave 0
@@ -73,11 +78,8 @@ public class Wave {
 	}
 	
 	
-	public void endWave() {
-		//wave is over when score = something
-		// resets variables enemy size
-		//resets counter for when enemies spawn
-	}
+	
+	
 
 	
 	//destroy fish when the sprite bounds are out of bounds

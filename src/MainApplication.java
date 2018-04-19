@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import javax.swing.Timer;
 
+import acm.graphics.GLabel;
 import acm.graphics.GRectangle;
 import acm.util.RandomGenerator;
 
@@ -12,11 +13,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int MS = 10;
-	public static final int MAX_ENEMY = 5;
+	public static final int MAX_ENEMY = 4; //gets doubled because of two arrays
 
 	private MenuPane menu;
 	private PausePane pause;
-	private GamePane game;
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
@@ -30,6 +30,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public boolean volume = true;
 	public Timer movement;
 	public RandomGenerator rgen;
+	public GamePane game;
 
 
 	public void init() {
@@ -43,7 +44,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		return lose;
 	}
 	public void run() {
-		
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
 		setGame(new GamePane(this));
@@ -157,18 +157,38 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		update();
+			
+		moveAllFish();
+		game.garbage.moveGarbage();
+		game.collision();
+		if (game.playerMove) {
+			game.playerMovement();
+		}
+	}
+	
+//	public void run(){
+//		t = new Timer(1000, this);
+//		t.setInitialDelay(3000);
+//		t.start();
+//		
+//	}
+	
+	public void update() {
 		count++;
 	
 		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
-			if (count % 200 == 0) {
+			if (count % 200 == 0 && count > 0) {
 				int num = rgen.nextInt(0, 2);
 
 				System.out.println("num: " + num + "\n");
 				getGame().addEnemy(num);
 			}
 		}
+
 		moveAllFish();
-		game.g.moveGarbage();
+		game.garbage.moveGarbage();
 		if (getGame().playerMove) {
 			getGame().playerMovement();
 //			 game.collision();
