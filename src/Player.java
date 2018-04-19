@@ -37,8 +37,7 @@ public class Player extends Fish { //implements actionListener ??
 					&& (o.obj.getY() + o.obj.getHeight() > fishImage.getY() 
 					&& o.obj.getY() < fishImage.getY() + fishImage.getHeight())); //top and bottom overlap
 		}catch(NullPointerException e) {
-			//e.printStackTrace();
-			System.out.println("NPE");
+			System.out.println("NPE!");
 			return false;
 		}
 	}

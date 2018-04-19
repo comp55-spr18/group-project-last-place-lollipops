@@ -26,7 +26,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 
 
-	public boolean volume = true;
+	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
 	public GamePane game;

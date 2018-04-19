@@ -15,6 +15,7 @@ public class Garbage extends Entity{
 		program = app;
 		garbageImage = new GImage("newsodarings.png", -20,  program.WINDOW_HEIGHT/2);		
 		garbageImage.scale(0.5);
+		obj = garbageImage;
 	}
 	
 	//getters, don't need setters because image will never change

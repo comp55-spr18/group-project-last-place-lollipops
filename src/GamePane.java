@@ -62,7 +62,7 @@ public class GamePane extends GraphicsPane {
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
-					System.out.println("you lose!");
+					System.out.println("you lose! because of bigger fish");
 					program.remove(player.getFish());
 					return 1; 
 				}
@@ -73,9 +73,8 @@ public class GamePane extends GraphicsPane {
 				}
 			}
 			else if (o instanceof Garbage) {
-				System.out.println("you lose!");
+				System.out.println("you lose! because of garbage");
 				program.remove(player.getFish());
-				System.out.println("1");
 				return 1; 
 			}
 		}
