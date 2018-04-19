@@ -9,8 +9,7 @@ import acm.graphics.*;
 public class LosePane extends GraphicsPane {
 	private MainApplication program;
 //set score to name.
-	Score[] score;
-	Score[] name;
+	private Score score;
 	private GButton sound;
 	private GButton quit;
 	private GButton back;
@@ -22,16 +21,26 @@ public class LosePane extends GraphicsPane {
 	private GRect rect1;
 	private GLabel yourscore;
 	
+	private GObject objects[];
+	
+	
 	public LosePane(MainApplication app) {
 		this.program = app;
+		
+		
+		
 		//title
 		loseLabel = new GLabel( "You Died!", 220 , 100);
 		loseLabel.setFont("Century Gothic-bold-70");
 		loseLabel.setColor(Color.blue);
 		
+		//get score from gamePane
+		score = program.getGame().getScore();
+		
+		
 		//Score[] score = getScoreTxt();
 		//score
-		yourscore= new GLabel("Your Score: "+score, 200,170);
+		yourscore= new GLabel("Your Score: "+ score.getScore(), 200,170);
 		yourscore.setFont("Century Gothic-30");
 		
 		//textbox
@@ -47,17 +56,17 @@ public class LosePane extends GraphicsPane {
 		
 		//background rectangle
 		rect1=new GRect(180,45,400,230);
-		rect1.setFillColor(Color.white);
+		rect1.setFillColor(new Color(255,255,255,128));
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
 		
 		//all buttons
 		sound = new GButton ("Sound on",60,500,200,50 );
-		sound.setFillColor(Color.RED);
+		sound.setFillColor(Color.white);
 		back = new GButton("Back to Menu",280,500,200,50);
-		back.setFillColor(Color.RED);
+		back.setFillColor(Color.white);
 		quit = new GButton("Quit Game", 500,500,200,50);
-		quit.setFillColor(Color.RED);
+		quit.setFillColor(Color.white);
 		background = new GImage("fishbackground.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 	}
@@ -89,10 +98,14 @@ public class LosePane extends GraphicsPane {
 		program.remove(playername);
 		program.remove(yourscore);
 		program.remove(sound);
-		program.remove(quit);
+		program.remove(quit);		
 		program.remove(back);
 	}
 
+	public Score findScore() {
+		return score;
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -121,8 +134,13 @@ public class LosePane extends GraphicsPane {
 		}
 		if(obj ==saveName) {
 			//program.getInputContext();
-			nameEnter.getInputContext();
-			
+			//nameEnter.getInputContext();
+			if(nameEnter.getText().equals("") || nameEnter.getText().charAt(0) == ' ') {
+				score.setName("-");
+			}else {
+				score.setName(nameEnter.getText());
+			}
+			program.updateLeaderboards();
 			program.switchToLeaderboards();
 		}
 		

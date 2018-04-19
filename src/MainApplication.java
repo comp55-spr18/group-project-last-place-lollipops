@@ -21,9 +21,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private Wave wave;
-
-	private int count;
 	private LosePane lose;
+	private int count;
+
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
@@ -32,15 +32,21 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public RandomGenerator rgen;
 	public GamePane game;
 
+
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 
+	public void updateLeaderboards() {
+		leaderboards = new LeaderboardsPane(this);
+	}
+	public LosePane getLosePane() {
+		return lose;
+	}
 	public void run() {
-		
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
-		game = new GamePane(this);
+		setGame(new GamePane(this));
 		pause = new PausePane(this);
 		settings = new SettingsPane(this);
 		instructions = new InstructionsPane(this);
@@ -91,14 +97,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	}
 
 	public void switchToGame() {
-		switchToScreen(game);
+		switchToScreen(getGame());
 		pauseMenuMusic();
 		playGameMusic();
 	}
 
 	public void switchToNewGame() {
-		game = new GamePane(this);
-		switchToScreen(game);
+		setGame(new GamePane(this));
+		switchToScreen(getGame());
 		pauseMenuMusic();
 		playGameMusic();
 	}
@@ -151,6 +157,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		update();
 			
 		moveAllFish();
@@ -169,14 +176,22 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 //	}
 	
 	public void update() {
-		System.out.println("call update\n");
 		count++;
-		if((fishLtoR.size() <= MAX_ENEMY) && (fishRtoL.size() <= MAX_ENEMY)) {
-			if (count % 200 == 0) {
+	
+		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
+			if (count % 200 == 0 && count > 0) {
 				int num = rgen.nextInt(0, 2);
-				//System.out.println("num: " + num + "\n");
-				game.addEnemy(num);
+
+				System.out.println("num: " + num + "\n");
+				getGame().addEnemy(num);
 			}
+		}
+
+		moveAllFish();
+		game.garbage.moveGarbage();
+		if (getGame().playerMove) {
+			getGame().playerMovement();
+//			 game.collision();
 		}
 	}
 
@@ -200,16 +215,25 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void collision() {
 		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
 			Fish f = itr.next();
-			if (game.collisionInteractions(f) ==1 ) {
+			if (getGame().collisionInteractions(f) ==1 ) {
 				itr.remove();
 			}
 		}
 		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
 			Fish f = itr.next();
-			if (game.collisionInteractions(f) ==1 ) {
+			if (getGame().collisionInteractions(f) ==1 ) {
 				itr.remove();
 			}
 		}
+	}
+
+	public GamePane getGame() {
+		return game;
+	}
+
+
+	public void setGame(GamePane game) {
+		this.game = game;
 	}
 }
 

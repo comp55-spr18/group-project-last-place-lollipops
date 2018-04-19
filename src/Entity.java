@@ -4,7 +4,6 @@ import java.awt.*;
 import acm.graphics.*;
 public abstract class Entity {
 	private double speed;
-	private GImage image; // for sprites ("image name.png", x, y)
 	public GObject obj;
 
 	public double getSpeed() {

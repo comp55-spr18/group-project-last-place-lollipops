@@ -3,8 +3,8 @@ Kevin 20
 Silvana 18
 Kyla 12
 Dmitrij 5
-- 0
-- 0
+Adam 5
+kyla 5
 - 0
 - 0
 - 0
