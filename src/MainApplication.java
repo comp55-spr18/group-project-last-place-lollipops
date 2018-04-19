@@ -130,24 +130,25 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		if (!volume)
 			return;
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound("", "Race Against The Sunset.mp3");
+		audio.playSound("", "Lullatone1.mp3");
 	}
 
 	public void pauseMenuMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.pauseSound("", "Race Against The Sunset.mp3");
+		audio.pauseSound("", "Lullatone1.mp3");
 	}
+	//hi
 
 	public void playGameMusic() {
 		if (!volume)
 			return;
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound("", "Lullatone1.mp3");
+		audio.playSound("", "Race Against The Sunset.mp3");
 	}
 
 	public void pauseGameMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.pauseSound("", "Lullatone1.mp3");
+		audio.pauseSound("", "Race Against The Sunset.mp3");
 	}
 
 	public void stopGameMusic() {
