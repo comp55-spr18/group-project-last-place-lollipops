@@ -14,6 +14,8 @@ public class SettingsPane extends GraphicsPane {
 	private GButton back;
 	private GRect rect1;
 	private GLabel title;
+	//private GObject object[]= {sound, background, back, rect1, title};
+
 
 	public SettingsPane(MainApplication app) {
 		this.program = app;
@@ -29,6 +31,7 @@ public class SettingsPane extends GraphicsPane {
 		rect1.setFillColor(new Color(255,255,255,128));
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
+		
 		
 	}
 
@@ -46,6 +49,7 @@ public class SettingsPane extends GraphicsPane {
 
 	@Override
 	public void hideContents() {
+		//program.remove(object[]);
 		program.remove(background);
 		program.remove(rect1);
 		program.remove(title);

@@ -28,4 +28,12 @@ public class Player extends Fish { //implements actionListener ??
 		size = getSize() + 1;
 		return size;
 	}
+	
+	public boolean getRTL() {
+		return RtL;
+	}
+	
+	public void setRTL(boolean boo) {
+		RtL = boo;
+	}
 }
