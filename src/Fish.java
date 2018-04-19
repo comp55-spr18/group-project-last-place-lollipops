@@ -4,8 +4,8 @@ import acm.graphics.GImage;
 import acm.graphics.GScalable;
 
 public class Fish extends Entity { // Player inherits from this class
-	private int size;
 	public boolean RtL;
+	private int size;
 	private int sizeCounter = 1;
 	private MainApplication program;
 	private GScalable scale;
@@ -14,7 +14,6 @@ public class Fish extends Entity { // Player inherits from this class
 
 	// constructor
 	public Fish(MainApplication program) {
-		setSize(size);
 		int random = program.rgen.nextInt(0, 1);
 		int random1 = program.rgen.nextInt(0, 600);
 		if(!(this instanceof Player)) {

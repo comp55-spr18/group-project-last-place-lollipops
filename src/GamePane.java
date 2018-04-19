@@ -12,7 +12,6 @@ import java.util.*;
 public class GamePane extends GraphicsPane {
 	private MainApplication program;
 	private GImage gameBackground;
-	//private GImage rock;
 	private GButton pause;
 	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
@@ -30,7 +29,6 @@ public class GamePane extends GraphicsPane {
 		garbage = new Garbage(app);
 		this.program = app;
 		player = new Player(app, 2); // size 2
-		fish = new Fish(app);
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
@@ -105,15 +103,14 @@ public class GamePane extends GraphicsPane {
 		}
 	}
 	
-	
 	public void addEnemy(int type) {
 		fish = new Fish(program);
 		switch(type) {
 		case 0: 
 			if (fish.RtL) {
-			fish.setFish("SmallFry.png");
-			fish.getFish().scale(0.50);
-			fish.setSize(1);
+				fish.setFish("SmallFry.png");
+				fish.getFish().scale(0.50);
+				fish.setSize(1);
 			}
 			else {
 				fish.setFish("SmallFryFlipped.png");

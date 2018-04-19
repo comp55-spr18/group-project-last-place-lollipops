@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import javax.swing.Timer;
 
+import acm.graphics.GLabel;
 import acm.graphics.GRectangle;
 import acm.util.RandomGenerator;
 
@@ -12,18 +13,16 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int MS = 10;
-	public static final int MAX_ENEMY = 5;
+	public static final int MAX_ENEMY = 4; //gets doubled because of two arrays
 
 	private MenuPane menu;
 	private PausePane pause;
-	private GamePane game;
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private Wave wave;
 
 	private int count;
-
 	private LosePane lose;
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
@@ -31,6 +30,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public boolean volume = true;
 	public Timer movement;
 	public RandomGenerator rgen;
+	public GamePane game;
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -151,8 +151,25 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//wave.update();
+		update();
 			
+		moveAllFish();
+		game.garbage.moveGarbage();
+		game.collision();
+		if (game.playerMove) {
+			game.playerMovement();
+		}
+	}
+	
+//	public void run(){
+//		t = new Timer(1000, this);
+//		t.setInitialDelay(3000);
+//		t.start();
+//		
+//	}
+	
+	public void update() {
+		System.out.println("call update\n");
 		count++;
 		if((fishLtoR.size() <= MAX_ENEMY) && (fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 200 == 0) {
@@ -160,12 +177,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				//System.out.println("num: " + num + "\n");
 				game.addEnemy(num);
 			}
-		}
-		moveAllFish();
-		game.garbage.moveGarbage();
-		game.collision();
-		if (game.playerMove) {
-			game.playerMovement();
 		}
 	}
 
