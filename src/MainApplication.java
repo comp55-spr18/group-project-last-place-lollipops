@@ -21,7 +21,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
-	private Fish f;
 	private int count;
 	private Garbage g;
 
@@ -162,20 +161,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		count++;
-		/*for (Fish fish : fishRtoL ) {
-			if (fish.fishImage.getX()==0) {
-				fishRtoL.remove(fish);
-				remove(fish.fishImage);
-			}
-		}
-		
-			for (Fish fish1 : fishLtoR) {
-			if (fish1.fishImage.getX()==600) {
-			remove(fish1.fishImage);
-			fishLtoR.remove(fish1);
-			}*/
 			
-		if((fishLtoR.size() <= MAX_ENEMY) && (fishRtoL.size() <= MAX_ENEMY)) {
+		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 200 == 0) {
 				int num = rgen.nextInt(0, 2);
 				System.out.println("num: " + num + "\n");
@@ -223,7 +210,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			}
 		}
 	}
-
 
 	public GamePane getGame() {
 		return game;
