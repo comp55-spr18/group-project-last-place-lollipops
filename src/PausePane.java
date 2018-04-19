@@ -17,22 +17,21 @@ public class PausePane extends GraphicsPane {
 	private GImage background;
 
 
-
-
 	public PausePane(MainApplication app) {
 		this.program = app;
 		
 		
-		pauseLabel = new GLabel( "Pause", 200 , 50);
-		pauseLabel.setFont("Forte-70");
-		sound = new GButton ("Sound on",200,100,200,50 );
-		sound.setFillColor(Color.RED);
-		resume = new GButton("Resume", 200,200,200,50);
-		resume.setFillColor(Color.RED);
-		back = new GButton("Back to Menu",200,300,200,50);
-		back.setFillColor(Color.RED);
-		quit = new GButton("Quit Game", 200,400,200,50);
-		quit.setFillColor(Color.RED);
+		pauseLabel = new GLabel( "Pause", 100 , 150);
+		pauseLabel.setFont("Century Gothic-bold-200");
+		pauseLabel.setColor(Color.red);
+		sound = new GButton ("Sound on",300, 230, 200, 50 );
+		sound.setFillColor(Color.white);
+		resume = new GButton("Resume", 300, 330, 200, 50);
+		resume.setFillColor(Color.white);
+		back = new GButton("Back to Menu",300, 430, 200, 50);
+		back.setFillColor(Color.white);
+		quit = new GButton("Quit Game", 300, 530, 200, 50);
+		quit.setFillColor(Color.white);
 		background = new GImage("pause.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 	}
