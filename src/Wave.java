@@ -2,11 +2,11 @@ import acm.graphics.GLabel;
 import acm.program.GraphicsProgram;
 
 public class Wave {
-	private int count = 0;
 	private int wave = 1;
 	private int fontSize = 100;
 	private MainApplication program;
 	private Score s;
+	private GLabel waveLabel;
 	public static final int MAX_ENEMY = 5;
 			//set font size
 			//set the position
@@ -15,13 +15,15 @@ public class Wave {
 	//gRectangle.getBounds => returns GREctangle
 	//getimage.getbounds (intersects) other getimage.getbounds
 	public Wave (MainApplication app) {
-		GLabel waveLabel = new GLabel("Wave ");
+		waveLabel = new GLabel("Wave ");
 		waveLabel.setFont("Arial-Bold-" + fontSize);
 		waveLabel.setLabel("Wave " + wave);
-		waveLabel.setLocation(program.WINDOW_WIDTH/2 - fontSize, program.WINDOW_HEIGHT/2 - fontSize);
-		app.add(waveLabel);
+		waveLabel.setLocation(program.WINDOW_WIDTH/2 - waveLabel.getWidth()/2, program.WINDOW_HEIGHT/2);
 	}
 	
+	public GLabel getWaveLabel() {
+		return waveLabel;
+	}
 	public int getFontSize() {
 		return fontSize;
 	}
@@ -43,20 +45,6 @@ public class Wave {
 		wave++;
 	}
 	
-	public boolean newWave() {
-		//delay?
-		if(s.getScore() % 50 == 0) {
-			//clear screen
-			//change sizing??
-			//reset counters
-			return true;
-		}
-		else
-			return false;
-		//wave is over when score = something
-		// resets variables enemy size
-		//resets counter for when enemies spawn
-	}
 
 	public void spawn() {
 	//enemy to spawn

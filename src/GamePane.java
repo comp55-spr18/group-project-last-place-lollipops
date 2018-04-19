@@ -16,18 +16,21 @@ public class GamePane extends GraphicsPane {
 	private GParagraph title;
 	private final Set<Integer> pressed = new TreeSet<Integer>();
 	private Player player;
-	public Garbage garbage;
-	private Score s;
 
 	public boolean playerMove;
 	public int keyPress;
 	double moveX = 0;
 	double moveY = 0;
+	
+	public Garbage garbage;
+	public Wave wave;
+	public Score s;
 
 	public GamePane(MainApplication app) {
-		garbage = new Garbage(app);
 		this.program = app;
 		player = new Player(app, 2); // size 2
+		wave = new Wave(app);
+		garbage = new Garbage(app);
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
 		title.setColor(Color.pink);
@@ -46,6 +49,8 @@ public class GamePane extends GraphicsPane {
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 
 		System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
+		
+		
 	}
 
 
@@ -169,6 +174,7 @@ public class GamePane extends GraphicsPane {
 		addAllFish();
 		program.add(player.getFish());
 		program.movement.start();
+		program.add(wave.getWaveLabel());
 	}
 
 	@Override
@@ -178,7 +184,7 @@ public class GamePane extends GraphicsPane {
 		program.remove(title);
 		program.remove(s.getScoreTxt());
 		program.remove(garbage.getGarbageImage());
-		//removeAllFish();
+		removeAllFish();
 		program.remove(player.getFish());
 		program.movement.stop();
 	}

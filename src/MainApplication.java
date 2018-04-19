@@ -20,9 +20,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
-	private Wave wave;
 	private LosePane lose;
-	private int count;
+	public int count;
 
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
@@ -157,7 +156,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		update();
 			
 		moveAllFish();
@@ -176,24 +174,29 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 //	}
 	
 	public void update() {
+		if(count == 200) {
+			remove(game.wave.getWaveLabel());
+		}
+		
 		count++;
-	
 		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
-			if (count % 200 == 0 && count > 0) {
+			if (count % 250 == 0 && count > 0) {
 				int num = rgen.nextInt(0, 2);
-
-				System.out.println("num: " + num + "\n");
+				//System.out.println("num: " + num + "\n");
 				getGame().addEnemy(num);
 			}
 		}
-
-		moveAllFish();
-		game.garbage.moveGarbage();
-		if (getGame().playerMove) {
-			getGame().playerMovement();
-//			 game.collision();
+		
+		System.out.println("current score: " + game.s.getScore() + "\n");
+		if(game.s.getScore() % 50 == 0) {
+			game.wave.incrementWave();
+			add(game.wave.getWaveLabel());
+			//System.out.println("new wave: " + game.wave.getWaveLabel());
+			count = 0;
 		}
+
 	}
+
 
 	public void moveAllFish() {
 		for (Fish f : fishLtoR) {

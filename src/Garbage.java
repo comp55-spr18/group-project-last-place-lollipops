@@ -32,12 +32,10 @@ public class Garbage extends Entity{
 	}
 	
 	public void moveGarbage() {
-	//	while(garbageImage.getX() < program.WINDOW_WIDTH) {
 			degree += 5;
 			rgen.nextInt(0, program.WINDOW_HEIGHT);
 			garbageImage.movePolar(2, degree % ((360*2)-360)); //needs to be 0 - 90 and 270-360 OR negative (0 - 90)
 			//System.out.println("degree: " + degree % ((360*2)-360) + "\n");
-		//}
 	}
 	
 	public void hitGarbage() {
