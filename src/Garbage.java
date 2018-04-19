@@ -12,7 +12,7 @@ public class Garbage extends Entity{
 	private int degree = 90;
 	
 	public Garbage(MainApplication app) {
-		//setSpeed(speed);
+		program = app;
 		garbageImage = new GImage("newsodarings.png", -20,  program.WINDOW_HEIGHT/2);		
 		garbageImage.scale(0.5);
 	}
@@ -22,15 +22,6 @@ public class Garbage extends Entity{
 		return garbageImage;
 	}
 	
-	//functions for what garbage does
-	public void addGarbage() {
-		program.add(garbageImage);
-	}
-	
-	public void removeGarbage() {
-		program.remove(garbageImage);
-	}
-	
 	public void moveGarbage() {
 	//	while(garbageImage.getX() < program.WINDOW_WIDTH) {
 			degree += 5;
@@ -38,10 +29,6 @@ public class Garbage extends Entity{
 			garbageImage.movePolar(2, degree % ((360*2)-360)); //needs to be 0 - 90 and 270-360 OR negative (0 - 90)
 			//System.out.println("degree: " + degree % ((360*2)-360) + "\n");
 		//}
-	}
-	
-	public void hitGarbage() {
-		
 	}
 
 }

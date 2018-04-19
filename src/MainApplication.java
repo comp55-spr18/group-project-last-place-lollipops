@@ -137,7 +137,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "Lullatone1.mp3");
 	}
-	//hi
 
 	public void playGameMusic() {
 		if (!volume)
@@ -243,6 +242,22 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			}
+		}
+		
+		switch(game.collisionInteractions(game.garbage)) {
+		case 0: { //you should never eat the garbage
+			//this should never happen
+			break;
+		}
+		case 1: {
+			lose = new LosePane(this);
+			switchToLose();
+			break;
+		}
+		default: {//2 doesn't do anything
+			
+			break;
+		}
 		}
 	}
 

@@ -28,7 +28,6 @@ public class GamePane extends GraphicsPane {
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
 
 	public GamePane(MainApplication app) {
-		garbage = new Garbage(app);
 		this.program = app;
 		player = new Player(app, 2); // size 2
 		title = new GParagraph("Something Smells Fishy", 50, 30);
@@ -47,6 +46,7 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		garbage = new Garbage(app);
 
 	}
 
@@ -81,9 +81,6 @@ public class GamePane extends GraphicsPane {
 		}
 		return 2;
 	}
-
-	
-	
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
