@@ -28,7 +28,6 @@ public class GamePane extends GraphicsPane {
 	private GRect rect1;
 
 	public GamePane(MainApplication app) {
-		garbage = new Garbage(app);
 		this.program = app;
 		player = new Player(app, 2); // size 2
 		title = new GParagraph("Something Smells Fishy", 5, 30);
@@ -47,6 +46,7 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		garbage = new Garbage(app);
 
 		rect1=new GRect(0,3,800,70);
 		rect1.setFillColor(new Color(255,255,255,128));
@@ -66,7 +66,7 @@ public class GamePane extends GraphicsPane {
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
-					System.out.println("you lose!");
+					System.out.println("you lose! because of bigger fish");
 					program.remove(player.getFish());
 					return 1; 
 				}
@@ -77,17 +77,13 @@ public class GamePane extends GraphicsPane {
 				}
 			}
 			else if (o instanceof Garbage) {
-				System.out.println("you lose!");
+				System.out.println("you lose! because of garbage");
 				program.remove(player.getFish());
-				System.out.println("1");
 				return 1; 
 			}
 		}
 		return 2;
 	}
-
-	
-	
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
@@ -199,7 +195,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, -.5);
+					player.getFish().move(2, -2);
 				}
 				else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
 						(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
@@ -207,7 +203,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, -.5);
+					player.getFish().move(-2, -2);
 				}
 				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
 						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
@@ -215,7 +211,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, .5);
+					player.getFish().move(2, 2);
 				}
 				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
 						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
@@ -223,31 +219,31 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, .5);
+					player.getFish().move(-2, 2);
 				}
 			}
 	
 			else { // otherwise, move in one direction
 				switch (keyPress) {
 				case KeyEvent.VK_UP:
-					player.getFish().move(0, -.5);
+					player.getFish().move(0, -2);
 					break;
 				case KeyEvent.VK_DOWN:
-					player.getFish().move(0, .5);
+					player.getFish().move(0, 2);
 					break;
 				case KeyEvent.VK_LEFT:
 					if(!player.getRTL()) {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, 0);
+					player.getFish().move(-2, 0);
 					break;
 				case KeyEvent.VK_RIGHT:
 					if(player.getRTL()) {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, 0);
+					player.getFish().move(2, 0);
 					break;
 				}
 			}

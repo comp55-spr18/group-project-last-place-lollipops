@@ -26,7 +26,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 
 
-	public boolean volume = true;
+	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
 	public GamePane game;
@@ -137,7 +137,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "Lullatone1.mp3");
 	}
-	//hi
 
 	public void playGameMusic() {
 		if (!volume)
@@ -191,14 +190,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
 				f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(.4, 0);
+				f.fishImage.move(1, 0);
 			}
 		}
 		for (Fish f : game.fishRtoL) {
 			if (f.fishImage.getX() < 0-100) {
 				f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(-.4, 0);
+				f.fishImage.move(-1, 0);
 			}
 		}
 	}
@@ -243,6 +242,22 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			}
+		}
+		
+		switch(game.collisionInteractions(game.garbage)) {
+		case 0: { //you should never eat the garbage
+			//this should never happen
+			break;
+		}
+		case 1: {
+			lose = new LosePane(this);
+			switchToLose();
+			break;
+		}
+		default: {//2 doesn't do anything
+			
+			break;
+		}
 		}
 	}
 
