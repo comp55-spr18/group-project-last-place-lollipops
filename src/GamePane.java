@@ -45,9 +45,6 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-
-		garbage = new Garbage(app);
-
 	}
 
 	public Score getScore() {

@@ -177,6 +177,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		
 		int randomGarbage = rgen.nextInt(0, 10000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
+			add(game.garbage.getGarbageImage());
 			game.garbage.moveGarbage();
 		}
 		// *** check if its off the screen => remove (which file should this be in?) ***
