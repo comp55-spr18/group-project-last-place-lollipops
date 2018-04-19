@@ -157,12 +157,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//if(wave.newWave()) {
-			
-		//}
-			
 		count++;
-		if((fishLtoR.size() <= MAX_ENEMY) && (fishRtoL.size() <= MAX_ENEMY)) {
+	
+		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 200 == 0) {
 				int num = rgen.nextInt(0, 2);
 
@@ -171,7 +168,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			}
 		}
 		moveAllFish();
-		game.garbage.moveGarbage();
+		game.g.moveGarbage();
 		if (getGame().playerMove) {
 			getGame().playerMovement();
 //			 game.collision();
@@ -209,7 +206,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			}
 		}
 	}
-
 
 	public GamePane getGame() {
 		return game;
