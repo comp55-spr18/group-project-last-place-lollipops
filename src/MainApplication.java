@@ -173,6 +173,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				game.addEnemy(num);
 			}
 		}
+		moveAllFish();
 		collision();
 		
 		int randomGarbage = rgen.nextInt(0, 10000);

@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.graphics.GRect;
 
 public class MenuPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
@@ -15,12 +16,13 @@ public class MenuPane extends GraphicsPane {
 	private GButton quit;
 	private GImage background;
 	private GLabel title;
+	private GRect rect1;
 
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		title = new GLabel ("Something Smells Fishy", 50, 50);
-		title.setFont("Forte-70");
+		title = new GLabel ("Something Smells Fishy", 35, 70);
+		title.setFont("Century Gothic-bold-65");
 		background = new GImage("flower.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		background.sendBackward();
@@ -34,11 +36,18 @@ public class MenuPane extends GraphicsPane {
 		leaderboards.setFillColor(Color.white);
 		quit = new GButton("Quit",300, 500, 200, 50);
 		quit.setFillColor(Color.white);
+		
+		rect1=new GRect(0,3,799,90);
+		rect1.setFillColor(new Color(255,255,255,128));
+		rect1.setFilled(true);
+		rect1.setColor(Color.black);
+		
 	}
 
 	@Override
 	public void showContents() {
 		program.add(background);
+		program.add(rect1);
 		program.add(title);
 		program.add(play);
 		program.add(settings);
@@ -56,6 +65,7 @@ public class MenuPane extends GraphicsPane {
 		program.remove(instructions);
 		program.remove(leaderboards);
 		program.remove(quit);
+		program.remove(rect1);
 		program.remove(background);
 	}
 

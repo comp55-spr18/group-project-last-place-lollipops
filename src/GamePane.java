@@ -1,11 +1,9 @@
 
 //kyla
 import java.awt.event.MouseEvent;
-import acm.graphics.GObject;
-
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import acm.graphics.GImage;
+
 import acm.graphics.*;
 import java.util.*;
 
@@ -26,25 +24,33 @@ public class GamePane extends GraphicsPane {
 	public Score s;
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
+	
+	private GRect rect1;
 
 	public GamePane(MainApplication app) {
 		this.program = app;
 		player = new Player(app, 2); // size 2
-		garbage = new Garbage(app);
-		title = new GParagraph("Something Smells Fishy", 50, 30);
-		title.setFont("Forte-30");
-		title.setColor(Color.pink);
+		title = new GParagraph("Something Smells Fishy", 5, 30);
+		title.setFont("Century Gothic-bold-30");
+		title.setColor(Color.black);
 		s = new Score();
-		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),50,60));
-		s.getLabel().setFont("Forte-30");
-		s.getLabel().setColor(Color.pink);
+		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),5,60));
+		s.getLabel().setFont("Century Gothic-bold-25");
+		s.getLabel().setColor(Color.black);
 		//s.increment();
+		
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
 		pause.setFillColor(Color.RED);
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+		garbage = new Garbage(app);
+
+		rect1=new GRect(0,3,800,70);
+		rect1.setFillColor(new Color(255,255,255,128));
+		rect1.setFilled(true);
+		rect1.setColor(Color.black);
 	}
 
 	public Score getScore() {
@@ -146,6 +152,7 @@ public class GamePane extends GraphicsPane {
 	@Override
 	public void showContents() {
 		program.add(gameBackground);
+		program.add(rect1);
 		program.add(pause);
 		program.add(title);
 		program.add(s.getScoreTxt());
@@ -157,6 +164,7 @@ public class GamePane extends GraphicsPane {
 	@Override
 	public void hideContents() {
 		program.remove(gameBackground);
+		program.remove(rect1);
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
