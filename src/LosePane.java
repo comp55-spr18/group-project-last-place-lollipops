@@ -50,7 +50,7 @@ public class LosePane extends GraphicsPane {
 		
 		//background rectangle
 		rect1=new GRect(180,45,400,230);
-		rect1.setFillColor(Color.white);
+		rect1.setFillColor(new Color(255,255,255,128));
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
 		
@@ -92,7 +92,8 @@ public class LosePane extends GraphicsPane {
 		program.remove(playername);
 		program.remove(yourscore);
 		program.remove(sound);
-		program.remove(quit);		program.remove(back);
+		program.remove(quit);		
+		program.remove(back);
 	}
 
 	public Score findScore() {
@@ -128,7 +129,11 @@ public class LosePane extends GraphicsPane {
 		if(obj ==saveName) {
 			//program.getInputContext();
 			//nameEnter.getInputContext();
-			score.setName(nameEnter.getText());
+			if(nameEnter.getText().equals("") || nameEnter.getText().charAt(0) == ' ') {
+				score.setName("-");
+			}else {
+				score.setName(nameEnter.getText());
+			}
 			program.updateLeaderboards();
 			program.switchToLeaderboards();
 		}

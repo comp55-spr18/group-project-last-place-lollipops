@@ -20,9 +20,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private SettingsPane settings;
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
+	private Wave wave;
 	private LosePane lose;
 	private int count;
-	private Garbage g;
 
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
@@ -43,7 +43,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		return lose;
 	}
 	public void run() {
-		g = new Garbage(this, 10);
+		
 		rgen = RandomGenerator.getInstance();
 		movement = new Timer(MS, this);
 		setGame(new GamePane(this));
@@ -56,14 +56,11 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToMenu();
 	}
 
-
 	public void switchToLose() {
 		switchToScreen(lose);
 		pauseGameMusic();
 		playGameMusic();
 	}
-	
-
 	
 	/*private synchronized void start() {
 	 * if(running)
@@ -161,17 +158,17 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		count++;
-			
+	
 		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 200 == 0) {
 				int num = rgen.nextInt(0, 2);
+
 				System.out.println("num: " + num + "\n");
 				getGame().addEnemy(num);
 			}
 		}
-		
 		moveAllFish();
-		g.moveGarbage();
+		game.g.moveGarbage();
 		if (getGame().playerMove) {
 			getGame().playerMovement();
 //			 game.collision();
@@ -180,21 +177,20 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void moveAllFish() {
 		for (Fish f : fishLtoR) {
-			if (f.fishImage.getX() > WINDOW_WIDTH+50) {
+			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
 				 f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
 				f.fishImage.move(2, 0);
 			}
 		}
 		for (Fish f : fishRtoL) {
-			if (f.fishImage.getX() < 0-70) {
+			if (f.fishImage.getX() < 0-100) {
 				 f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
 				f.fishImage.move(-2, 0);
 			}
 		}
 	}
-
 
 	public void collision() {
 		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {

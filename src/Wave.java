@@ -1,14 +1,62 @@
+import acm.graphics.GLabel;
+import acm.program.GraphicsProgram;
 
 public class Wave {
-	private int count;
-	private int wave;
+	private int count = 0;
+	private int wave = 1;
+	private int fontSize = 100;
+	private MainApplication program;
+	private Score s;
 	public static final int max_enemies = 5;
+			//set font size
+			//set the position
+			// after windowWidth shit subtract font size
 	
+	//gRectangle.getBounds => returns GREctangle
+	//getimage.getbounds (intersects) other getimage.getbounds
+	public Wave (MainApplication app) {
+		GLabel waveLabel = new GLabel("Wave ");
+		waveLabel.setFont("Arial-Bold-" + fontSize);
+		waveLabel.setLabel("Wave " + wave);
+		waveLabel.setLocation(program.WINDOW_WIDTH/2 - fontSize, program.WINDOW_HEIGHT/2 - fontSize);
+		app.add(waveLabel);
+	}
+	
+	public int getFontSize() {
+		return fontSize;
+	}
+
+	public void setFontSize(int fontSize) {
+		this.fontSize = fontSize;
+	}
+
+	public int getWave() {
+		return wave;
+	}
+	
+	public void setWave(int wave) {
+		this.wave = wave;
+	}
+	
+	public boolean newWave() { // update for new waves
+		if(s.getScore() % 50 == 0) {
+			//clear screen
+			//change sizing??
+			//reset counters
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public void incrementWave() {
+		wave++;
+	}
 	
 	public void spawn() {
 	//enemy to spawn
 	// wave 0
-		//officially spawn wave 1 to triger waves
+		//officially spawn wave 1 to trigger waves
 		//or delay it
 	}
 	
@@ -24,16 +72,13 @@ public class Wave {
 		
 	}
 	
-	public void newWave() {
-		//update for new waves
-		
-	}
 	
 	public void endWave() {
 		//wave is over when score = something
 		// resets variables enemy size
 		//resets counter for when enemies spawn
 	}
+
 	
 	//destroy fish when the sprite bounds are out of bounds
 		//if x or y < 0 (max width)

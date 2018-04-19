@@ -34,8 +34,6 @@ public class MenuPane extends GraphicsPane {
 		leaderboards.setFillColor(Color.white);
 		quit = new GButton("Quit",300, 500, 200, 50);
 		quit.setFillColor(Color.white);
-		
-	
 	}
 
 	@Override

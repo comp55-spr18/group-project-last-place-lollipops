@@ -6,13 +6,10 @@ public class Player extends Fish { //implements actionListener ??
 	private double y;
 	private double moveX = 0;
 	private double moveY = 0;
-
 	public Player(MainApplication app, int size) { 
 		super(app);		
 		setSize(size);
 	}
-	
-	
 	public void tick() { // allows smoother player movement
 		x += moveX;
 		y += moveY;
@@ -31,5 +28,4 @@ public class Player extends Fish { //implements actionListener ??
 		size = getSize() + 1;
 		return size;
 	}
-
 }
