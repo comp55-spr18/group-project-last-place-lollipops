@@ -190,14 +190,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
 				f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(.4, 0);
+				f.fishImage.move(1, 0);
 			}
 		}
 		for (Fish f : game.fishRtoL) {
 			if (f.fishImage.getX() < 0-100) {
 				f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(-.4, 0);
+				f.fishImage.move(-1, 0);
 			}
 		}
 	}
