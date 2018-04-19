@@ -46,7 +46,7 @@ public class InstructionsPane extends GraphicsPane {
 		
 		instructions.setFont("Harrington-bold-20");
 		instructions.setColor(Color.black);
-		back = new GButton("Back", 200, 500, 200, 100);
+		back = new GButton("Back", 280,500,200,50);
 		
 		background = new GImage("sunset.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
