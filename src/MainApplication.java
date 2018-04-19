@@ -158,6 +158,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (game.playerMove) {
+			game.playerMovement();
+		}
+		
 		if(count == 1000) {
 			remove(wave.getWaveLabel());
 		}
