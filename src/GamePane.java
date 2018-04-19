@@ -39,14 +39,14 @@ public class GamePane extends GraphicsPane {
 		s.getLabel().setFont("Forte-30");
 		s.getLabel().setColor(Color.pink);
 		//s.increment();
-
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
-
 		pause.setFillColor(Color.RED);
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
+
+		garbage = new Garbage(app);
 
 	}
 
@@ -62,7 +62,7 @@ public class GamePane extends GraphicsPane {
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
-					System.out.println("you lose!");
+					System.out.println("you lose! because of bigger fish");
 					program.remove(player.getFish());
 					return 1; 
 				}
@@ -73,17 +73,13 @@ public class GamePane extends GraphicsPane {
 				}
 			}
 			else if (o instanceof Garbage) {
-				System.out.println("you lose!");
+				System.out.println("you lose! because of garbage");
 				program.remove(player.getFish());
-				System.out.println("1");
 				return 1; 
 			}
 		}
 		return 2;
 	}
-
-	
-	
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);

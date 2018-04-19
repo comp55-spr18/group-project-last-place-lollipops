@@ -24,7 +24,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public int count;
 	private Wave wave = new Wave();
 
-	public boolean volume = true;
+	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
 	public GamePane game;
@@ -137,7 +137,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "Lullatone1.mp3");
 	}
-	//hi
 
 	public void playGameMusic() {
 		if (!volume)
@@ -166,15 +165,15 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			remove(wave.getWaveLabel());
 		}
 		
-		collision();
 		count++;
 		if((game.fishLtoR.size() + game.fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 1000 == 0 && count > 0) {
 				int num = rgen.nextInt(0, 2);
 				//System.out.println("num: " + num + "\n");
-				getGame().addEnemy(num);
+				game.addEnemy(num);
 			}
 		}
+		collision();
 		
 		int randomGarbage = rgen.nextInt(0, 10000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
@@ -256,6 +255,22 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			}
+		}
+		
+		switch(game.collisionInteractions(game.garbage)) {
+		case 0: { //you should never eat the garbage
+			//this should never happen
+			break;
+		}
+		case 1: {
+			lose = new LosePane(this);
+			switchToLose();
+			break;
+		}
+		default: {//2 doesn't do anything
+			
+			break;
+		}
 		}
 	}
 
