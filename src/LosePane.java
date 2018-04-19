@@ -66,7 +66,7 @@ public class LosePane extends GraphicsPane {
 		back.setFillColor(Color.white);
 		quit = new GButton("Quit Game", 500,500,200,50);
 		quit.setFillColor(Color.white);
-		background = new GImage("fishbackground.gif",0,0);
+		background = new GImage("eatingfish.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 	}
 
