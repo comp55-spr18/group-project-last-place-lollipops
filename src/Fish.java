@@ -48,5 +48,13 @@ public class Fish extends Entity { // Player inherits from this class
 		fishImage.setSize(90, 90);
 		obj = fishImage;
 	}
+	
+	public boolean getRTL() {
+		return RtL;
+	}
+	
+	public void setRTL(boolean boo) {
+		RtL = boo;
+	}
 
 }
