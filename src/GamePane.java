@@ -183,49 +183,69 @@ public class GamePane extends GraphicsPane {
 	}
 
 	public void playerMovement() {
-		pressed.add(keyPress); 
-		if (pressed.size() > 1) { // if two keys are pressed, move diagonally
-			Integer[] arr = pressed.toArray(new Integer[] {}); //save multiple key pressed into an array
-			if ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) ||
-					(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_RIGHT)){
-				player.getFish().setImage("PlainOldFishFlipped.png");
-				player.getFish().move(5, -5);
+		pressed.add(keyPress);
+		
+			if (pressed.size() > 1) { // if two keys are pressed, move diagonally
+				Integer[] arr = pressed.toArray(new Integer[] {}); //save multiple key pressed into an array
+				if ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) ||
+						(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_RIGHT)){
+					if(player.getRTL()) {
+						player.getFish().setImage("PlainOldFishFlipped.png");
+						player.setRTL(false);
+					}
+					player.getFish().move(.5, -.5);
+				}
+				else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
+						(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
+					if(!player.getRTL()) {
+						player.getFish().setImage("PlainOldFish.png");
+						player.setRTL(true);
+					}
+					player.getFish().move(-.5, -.5);
+				}
+				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
+						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
+					if(player.getRTL()) {
+						player.getFish().setImage("PlainOldFishFlipped.png");
+						player.setRTL(false);
+					}
+					player.getFish().move(.5, .5);
+				}
+				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
+						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
+					if(!player.getRTL()) {
+						player.getFish().setImage("PlainOldFish.png");
+						player.setRTL(true);
+					}
+					player.getFish().move(-.5, .5);
+				}
 			}
-			else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
-					(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
-				player.getFish().setImage("PlainOldFish.png");
-				player.getFish().move(-5, -5);
+	
+			else { // otherwise, move in one direction
+				switch (keyPress) {
+				case KeyEvent.VK_UP:
+					player.getFish().move(0, -.5);
+					break;
+				case KeyEvent.VK_DOWN:
+					player.getFish().move(0, .5);
+					break;
+				case KeyEvent.VK_LEFT:
+					if(!player.getRTL()) {
+						player.getFish().setImage("PlainOldFish.png");
+						player.setRTL(true);
+					}
+					player.getFish().move(-.5, 0);
+					break;
+				case KeyEvent.VK_RIGHT:
+					if(player.getRTL()) {
+						player.getFish().setImage("PlainOldFishFlipped.png");
+						player.setRTL(false);
+					}
+					player.getFish().move(.5, 0);
+					break;
+				}
 			}
-			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
-					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
-				player.getFish().setImage("PlainOldFishFlipped.png");
-				player.getFish().move(5, 5);
-			}
-			else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
-					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
-				player.getFish().setImage("PlainOldFish.png");
-				player.getFish().move(-5, 5);
-			}
-		}
 
-		else { // otherwise, move in one direction
-			switch (keyPress) {
-			case KeyEvent.VK_UP:
-				player.getFish().move(0, -5);
-				break;
-			case KeyEvent.VK_DOWN:
-				player.getFish().move(0, 5);
-				break;
-			case KeyEvent.VK_LEFT:
-				player.getFish().setImage("PlainOldFish.png");
-				player.getFish().move(-5, 0);
-				break;
-			case KeyEvent.VK_RIGHT:
-				player.getFish().setImage("PlainOldFishFlipped.png");
-				player.getFish().move(5, 0);
-				break;
-			}
-		}
 	} 
 
 	@Override

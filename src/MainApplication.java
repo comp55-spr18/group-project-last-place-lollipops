@@ -12,7 +12,7 @@ import acm.util.RandomGenerator;
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-	public static final int MS = 10;
+	public static final int MS = 1;
 	public static final int MAX_ENEMY = 4; //gets doubled because of two arrays
 
 	private MenuPane menu;
@@ -130,24 +130,25 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		if (!volume)
 			return;
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound("", "Race Against The Sunset.mp3");
+		audio.playSound("", "Lullatone1.mp3");
 	}
 
 	public void pauseMenuMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.pauseSound("", "Race Against The Sunset.mp3");
+		audio.pauseSound("", "Lullatone1.mp3");
 	}
+	//hi
 
 	public void playGameMusic() {
 		if (!volume)
 			return;
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound("", "Lullatone1.mp3");
+		audio.playSound("", "Race Against The Sunset.mp3");
 	}
 
 	public void pauseGameMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.pauseSound("", "Lullatone1.mp3");
+		audio.pauseSound("", "Race Against The Sunset.mp3");
 	}
 
 	public void stopGameMusic() {
@@ -190,14 +191,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
 				f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(2, 0);
+				f.fishImage.move(.4, 0);
 			}
 		}
 		for (Fish f : game.fishRtoL) {
 			if (f.fishImage.getX() < 0-100) {
 				f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(-2, 0);
+				f.fishImage.move(-.4, 0);
 			}
 		}
 	}
