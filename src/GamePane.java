@@ -23,13 +23,11 @@ public class GamePane extends GraphicsPane {
 	double moveY = 0;
 	
 	public Garbage garbage;
-	public Wave wave;
 	public Score s;
 
 	public GamePane(MainApplication app) {
 		this.program = app;
 		player = new Player(app, 2); // size 2
-		wave = new Wave(app);
 		garbage = new Garbage(app);
 		title = new GParagraph("Something Smells Fishy", 50, 30);
 		title.setFont("Forte-30");
@@ -170,11 +168,9 @@ public class GamePane extends GraphicsPane {
 		program.add(pause);
 		program.add(title);
 		program.add(s.getScoreTxt());
-		program.add(garbage.getGarbageImage());
 		addAllFish();
 		program.add(player.getFish());
 		program.movement.start();
-		program.add(wave.getWaveLabel());
 	}
 
 	@Override
@@ -183,7 +179,6 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
-		program.remove(garbage.getGarbageImage());
 		removeAllFish();
 		program.remove(player.getFish());
 		program.movement.stop();

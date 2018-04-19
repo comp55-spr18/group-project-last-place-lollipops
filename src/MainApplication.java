@@ -22,6 +22,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
 	public int count;
+	private Wave wave = new Wave();
+
 
 
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
@@ -106,6 +108,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToScreen(getGame());
 		pauseMenuMusic();
 		playGameMusic();
+		add(wave.getWaveLabel());
+
 	}
 
 	public void switchToSettings() {
@@ -157,10 +161,35 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		update();
-			
+		if(count == 1000) {
+			remove(wave.getWaveLabel());
+		}
+		
+		count++;
+		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
+			if (count % 1000 == 0 && count > 0) {
+				int num = rgen.nextInt(0, 2);
+				//System.out.println("num: " + num + "\n");
+				getGame().addEnemy(num);
+			}
+		}
+		
+		int randomGarbage = rgen.nextInt(0, 10000);
+		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
+			game.garbage.moveGarbage();
+		}
+		// *** check if its off the screen => remove (which file should this be in?) ***
+		
+		System.out.println("current score: " + game.s.getScore() + "\n");
+		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= 50) { // when user earns 50 pts, initiate new wave
+			wave.newWave();
+			count = 0;
+			game.removeAllFish();
+			// *** clear screen ***
+		}
+
+		
 		moveAllFish();
-		game.garbage.moveGarbage();
 		game.collision();
 		if (game.playerMove) {
 			game.playerMovement();
@@ -173,31 +202,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 //		t.start();
 //		
 //	}
-	
-	public void update() {
-		if(count == 200) {
-			remove(game.wave.getWaveLabel());
-		}
-		
-		count++;
-		if((fishLtoR.size() + fishRtoL.size() <= MAX_ENEMY)) {
-			if (count % 250 == 0 && count > 0) {
-				int num = rgen.nextInt(0, 2);
-				//System.out.println("num: " + num + "\n");
-				getGame().addEnemy(num);
-			}
-		}
-		
-		System.out.println("current score: " + game.s.getScore() + "\n");
-		if(game.s.getScore() % 50 == 0) {
-			game.wave.incrementWave();
-			add(game.wave.getWaveLabel());
-			//System.out.println("new wave: " + game.wave.getWaveLabel());
-			count = 0;
-		}
-
-	}
-
 
 	public void moveAllFish() {
 		for (Fish f : fishLtoR) {
