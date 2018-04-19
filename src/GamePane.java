@@ -23,6 +23,9 @@ public class GamePane extends GraphicsPane {
 	public int keyPress;
 	double moveX = 0;
 	double moveY = 0;
+	
+	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
+	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
 
 	public GamePane(MainApplication app) {
 		garbage = new Garbage(app);
@@ -45,54 +48,42 @@ public class GamePane extends GraphicsPane {
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 
-		System.out.println(program.fishLtoR.size() + ", " + program.fishRtoL.size());
 	}
-
 
 	public Score getScore() {
 		return s;
 	}
 
 	public int collisionInteractions(Entity o) {
-		//0 = you lose
-		//1 = collided with a fish but u ate it
-		//2 = do nothing (at the momemnt)
+		//0 = you ate the fish
+		//1 = you lost
+		//2 = nothing happened
 
 		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
 					System.out.println("you lose!");
 					program.remove(player.getFish());
-					return 0; 
+					return 1; 
 				}
 				else {
 					program.remove(((Fish) o).getFish());
 					s.increment();
-					return 1; 
-
+					return 0; 
 				}
 			}
 			else if (o instanceof Garbage) {
-				return 2; 
+				System.out.println("you lose!");
+				program.remove(player.getFish());
+				System.out.println("1");
+				return 1; 
 			}
 		}
 		return 2;
 	}
 
-	public void collision() {
-		for (Iterator<Fish> itr = program.fishLtoR.iterator(); itr.hasNext();) {
-			Fish f = itr.next();
-			if (collisionInteractions(f) ==1 ) {
-				itr.remove();
-			}
-		}
-		for (Iterator<Fish> itr = program.fishRtoL.iterator(); itr.hasNext();) {
-			Fish f = itr.next();
-			if (collisionInteractions(f) ==1 ) {
-				itr.remove();
-			}
-		}
-	}
+	
+	
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
@@ -144,18 +135,18 @@ public class GamePane extends GraphicsPane {
 	}
 
 	public void addAllFish() {
-		for(Fish f: program.fishLtoR) {
+		for(Fish f: fishLtoR) {
 			program.add(f.fishImage);
 		}
-		for(Fish f: program.fishRtoL) {
+		for(Fish f: fishRtoL) {
 			program.add(f.fishImage);
 		}
 	}
 	public void removeAllFish() {
-		for(Fish f: program.fishLtoR) {
+		for(Fish f: fishLtoR) {
 			program.remove(f.fishImage);
 		}
-		for(Fish f: program.fishRtoL) {
+		for(Fish f: fishRtoL) {
 			program.remove(f.fishImage);
 		}
 	}
@@ -178,7 +169,7 @@ public class GamePane extends GraphicsPane {
 		program.remove(title);
 		program.remove(s.getScoreTxt());
 		program.remove(garbage.getGarbageImage());
-		//removeAllFish();
+		removeAllFish();
 		program.remove(player.getFish());
 		program.movement.stop();
 	}
@@ -187,7 +178,7 @@ public class GamePane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == pause) {
-			program.switchToLose();
+			program.switchToPause();
 		}
 	}
 
