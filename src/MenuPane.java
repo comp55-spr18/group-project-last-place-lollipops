@@ -19,8 +19,8 @@ public class MenuPane extends GraphicsPane {
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		title = new GLabel ("Something Smells Fishy", 50, 50);
-		title.setFont("Forte-70");
+		title = new GLabel ("Something Smells Fishy", 15, 55);
+		title.setFont("Century Gothic-bold-70");
 		background = new GImage("flower.gif",0,0);
 		background.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		background.sendBackward();
