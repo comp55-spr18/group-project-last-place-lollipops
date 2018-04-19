@@ -38,15 +38,8 @@ public class Wave {
 		this.wave = wave;
 	}
 	
-	public boolean newWave() { // update for new waves
-		if(s.getScore() % 50 == 0) {
-			//clear screen
-			//change sizing??
-			//reset counters
-			return true;
-		}
-		else
-			return false;
+	public void newWave() { // update for new waves
+		//set delay?
 	}
 	
 	public void incrementWave() {
@@ -73,11 +66,21 @@ public class Wave {
 	}
 	
 	
-	public void endWave() {
+	public boolean endWave() {
+		if(s.getScore() % 50 == 0) {
+			//clear screen
+			//change sizing??
+			//reset counters
+			return true;
+		}
+		else
+			return false;
 		//wave is over when score = something
 		// resets variables enemy size
 		//resets counter for when enemies spawn
 	}
+	
+	
 
 	
 	//destroy fish when the sprite bounds are out of bounds

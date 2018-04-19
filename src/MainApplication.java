@@ -151,9 +151,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//if(wave.newWave()) {
-			
-		//}
+		//wave.update();
 			
 		count++;
 		if((fishLtoR.size() <= MAX_ENEMY) && (fishRtoL.size() <= MAX_ENEMY)) {

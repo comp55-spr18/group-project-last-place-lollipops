@@ -168,7 +168,7 @@ public class GamePane extends GraphicsPane {
 		program.remove(pause);
 		program.remove(title);
 		program.remove(s.getScoreTxt());
-		garbage.removeGarbage();
+		program.remove(garbage.getGarbageImage());
 		//removeAllFish();
 		program.remove(player.getFish());
 		program.movement.stop();
