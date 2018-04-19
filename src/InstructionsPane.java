@@ -26,7 +26,7 @@ public class InstructionsPane extends GraphicsPane {
 		objective.setFont("Century Gothic-bold-50");
 		objective.setColor(Color.black);
 		
-		para1 = new GParagraph ("Eat smaller fish to grow in size.\nEat as much fish as you can to score,\nthe highest score possible ", 120,150);
+		para1 = new GParagraph ("Eat smaller fish to grow in size.\nEat as much fish as you can to score,\nthe highest score possible.", 120,150);
 		para1.setFont("Century Gothic-bold-20");
 		para1.setColor(Color.black);
 		
