@@ -202,7 +202,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, -.5);
+					player.getFish().move(.8, -.8);
 				}
 				else if((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_LEFT ) || 
 						(arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_LEFT )) {
@@ -210,7 +210,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, -.5);
+					player.getFish().move(-.8, -.8);
 				}
 				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_RIGHT) ||
 						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) {
@@ -218,7 +218,7 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, .5);
+					player.getFish().move(.8, .8);
 				}
 				else if((arr[0] == KeyEvent.VK_DOWN && arr[1] == KeyEvent.VK_LEFT) ||
 						(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)) {
@@ -226,31 +226,31 @@ public class GamePane extends GraphicsPane {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, .5);
+					player.getFish().move(-.8, .8);
 				}
 			}
 	
 			else { // otherwise, move in one direction
 				switch (keyPress) {
 				case KeyEvent.VK_UP:
-					player.getFish().move(0, -.5);
+					player.getFish().move(0, -.8);
 					break;
 				case KeyEvent.VK_DOWN:
-					player.getFish().move(0, .5);
+					player.getFish().move(0, .8);
 					break;
 				case KeyEvent.VK_LEFT:
 					if(!player.getRTL()) {
 						player.getFish().setImage("PlainOldFish.png");
 						player.setRTL(true);
 					}
-					player.getFish().move(-.5, 0);
+					player.getFish().move(-.8, 0);
 					break;
 				case KeyEvent.VK_RIGHT:
 					if(player.getRTL()) {
 						player.getFish().setImage("PlainOldFishFlipped.png");
 						player.setRTL(false);
 					}
-					player.getFish().move(.5, 0);
+					player.getFish().move(.8, 0);
 					break;
 				}
 			}
