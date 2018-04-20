@@ -178,7 +178,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		moveAllFish();
 		collision();
 		
-		int randomGarbage = rgen.nextInt(0, 10000);
+		int randomGarbage = rgen.nextInt(0, 5000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
 			garbage = new Garbage();
 			add(garbage.getGarbageImage());
