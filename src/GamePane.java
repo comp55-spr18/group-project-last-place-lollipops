@@ -68,7 +68,7 @@ public class GamePane extends GraphicsPane {
 					return 1; 
 				}
 				else {
-					program.remove(((Fish) o).getFish());
+					program.remove( ((Fish) o).getFish() );
 					s.increment();
 					return 0; 
 				}
@@ -82,6 +82,30 @@ public class GamePane extends GraphicsPane {
 		return 2;
 	}
 
+	public void moveAllFish() {
+		gameBackground.sendToBack();
+		pause.sendToFront();
+		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (f.img.getX() > MainApplication.WINDOW_WIDTH + 50) {
+				itr.remove();
+				program.remove(f.img);
+			} else {
+				f.img.move(1, 0);
+			}
+		}
+		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (f.img.getX() < -1* f.img.getWidth()) {
+				itr.remove();
+				program.remove(f.img);
+			} else {
+				f.img.move(-1, 0);
+			}
+		}
+		
+	}
+	
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
 		switch(type) {
@@ -166,7 +190,7 @@ public class GamePane extends GraphicsPane {
 		program.add(fish.img);
 }
 	
-	public boolean checkSmallerFish() { //checks for a guaranteed smaller fish in the array
+/*	public boolean checkSmallerFish() { //checks for a guaranteed smaller fish in the array
 		boolean check = false;
 		for(Fish f: fishLtoR) {
 			if((f.getSize()/2) + 1 < (program.spawnTypes)) {
@@ -180,6 +204,7 @@ public class GamePane extends GraphicsPane {
 		}
 		return check;
 	}
+	*/
 	
 
 	public void addAllFish() {
@@ -316,7 +341,7 @@ public class GamePane extends GraphicsPane {
 		playerMove = false;
 	}
 
-	public void moveAllFish() {
+/*	public void moveAllFish() {
 		gameBackground.sendToBack();
 		pause.sendToFront();
 		for (Fish f : fishLtoR) {
@@ -334,5 +359,6 @@ public class GamePane extends GraphicsPane {
 			}
 		}
 	}
+*/
 	
 }

@@ -1,4 +1,5 @@
 Osvaldo 9001
+Dmitrij 50
 Kevin 20
 Silvana 18
 Kyla 12
@@ -7,4 +8,3 @@ Dmitrij 5
 Adam 5
 kyla 5
 SyMunshine 5
-- 0

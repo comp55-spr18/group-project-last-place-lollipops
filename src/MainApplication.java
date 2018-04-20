@@ -1,4 +1,5 @@
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,6 +38,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
+
+
 
 	public void updateLeaderboards() {
 		leaderboards = new LeaderboardsPane(this);
@@ -129,6 +132,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		audio.stopSound("", "Lullatone1.mp3");
 	}
 
+	public void moveGarbage() {
+		garbage.move(1, 0);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (game.playerMove) { // moves the player
@@ -151,8 +158,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		game.moveAllFish();
 		collision();
 
+		try {
+			moveGarbage();
+		}catch(NullPointerException ex) {
+			
+		}
+
 		int randomGarbage = rgen.nextInt(0, 5000);
-		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
+		if (garbage == null && randomGarbage == 7) { // makes garbage spawn at a random time during a wave
 			garbage = new Garbage();
 			System.out.println("I made garbage!");
 			add(garbage.getGarbageImage());
@@ -168,23 +181,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			nextScore += 50;
 			spawnTypes += 1;
 			count = 0;
-		}
-	}
-
-	public void moveAllFish() {
-		for (Fish f : game.fishLtoR) {
-			if (f.img.getX() > WINDOW_WIDTH + 50) {
-				f.img.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
-			} else {
-				f.img.move(1, 0);
-			}
-		}
-		for (Fish f : game.fishRtoL) {
-			if (f.img.getX() < 0-100) {
-				f.img.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
-			} else {
-				f.img.move(-1, 0);
-			}
 		}
 	}
 

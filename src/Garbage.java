@@ -6,9 +6,12 @@ import acm.graphics.GScalable;
 
 public class Garbage extends Entity{
 	private int degree = 90;
+	private int x = -50;
+	private int y = MainApplication.WINDOW_HEIGHT/2;
+	private int count = 0;
 
 	public Garbage() {
-		img = new GImage("newsodarings.png", -20,  MainApplication.WINDOW_HEIGHT/2);		
+		img = new GImage("newsodarings.png", x,  y);		
 		img.scale(0.25);
 
 	}
@@ -27,5 +30,18 @@ public class Garbage extends Entity{
 	}
 
 	
+//	public void moveGarbage() {
+//			degree += 5;
+//			if(degree % 90 == 0) {
+//				rgen.nextInt(0, program.WINDOW_HEIGHT);
+//				garbageImage.movePolar(2, degree % ((360*2)-360)); //needs to be 0 - 90 and 270-360 OR negative (0 - 90)
+//			}
+//	}
+	
+	public void move(int i, int j) {
+		count++;
+		img.move(i, Math.sin(count)*5);
+	}
+
 }
 

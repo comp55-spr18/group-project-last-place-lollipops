@@ -110,4 +110,5 @@ public abstract class GraphicsApplication extends GraphicsProgram {
 			curScreen.keyTyped(e);
 		}
 	}
+	
 }

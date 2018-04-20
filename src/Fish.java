@@ -14,7 +14,9 @@ public class Fish extends Entity { // Player inherits from this class
 		
 		if(!(this instanceof Player)) {
 			if (leftOrRight == 0) {
+
 				img = new GImage("SmallFryFlipped.png", 0, topOrBottom);
+
 				program.getGame().fishLtoR.add(this);
 				RtL = false;
 			} else {

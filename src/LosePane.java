@@ -48,6 +48,8 @@ public class LosePane extends GraphicsPane {
 
 		nameEnter = new TextField();
 		nameEnter.setBounds(280,300,200,50);
+		
+		
 		Font font1 = new Font("Century Gothic", Font.BOLD, 40);
 		nameEnter.setFont(font1);
 		//save button for saving name and score
@@ -78,9 +80,9 @@ public class LosePane extends GraphicsPane {
 	public void showContents() {
 		program.add(background);
 		program.add (rect1);
+		program.add(nameEnter);
 		program.add(loseLabel);
 		program.add(yourscore);
-		program.add(nameEnter);
 		program.add(saveName);
 		program.add(playername);
 		program.add(sound);
