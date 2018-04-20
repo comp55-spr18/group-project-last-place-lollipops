@@ -2,7 +2,6 @@ import java.awt.Color;
 import acm.graphics.GImage;
 
 public class Player extends Fish { 
-
 	private int scale = 1;
 	
 	public int getScale() {
