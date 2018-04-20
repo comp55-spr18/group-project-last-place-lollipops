@@ -2,25 +2,36 @@ import java.awt.Color;
 import acm.graphics.GImage;
 
 public class Player extends Fish { //implements actionListener ??
-	private double x;
-	private double y;
-	private double moveX = 0;
-	private double moveY = 0;
+
 	public Player(MainApplication app, int size) { 
 		super(app);		
 		setSize(size);
 	}
-	public void tick() { // allows smoother player movement
-		x += moveX;
-		y += moveY;
+	public boolean isAtTop() {
+		if(fishImage.getY()>0) {
+			return false;
+		}
+		return true;
 	}
-
-	public void setMoveX(double moveX) {
-		this.moveX = moveX;
+	
+	public boolean isAtBottom() {
+		if(fishImage.getY()< MainApplication.WINDOW_HEIGHT-fishImage.getHeight()) {
+			return false;
+		}
+		return true;
 	}
-
-	public void setMoveY(double moveY) {
-		this.moveY = moveY;
+	public boolean isAtLeft() {
+		if(fishImage.getX()>0) {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean isAtRight() {
+		if(fishImage.getX()< MainApplication.WINDOW_WIDTH-fishImage.getWidth()) {
+			return false;
+		}
+		return true;
 	}
 
 	public int grow(int size) {

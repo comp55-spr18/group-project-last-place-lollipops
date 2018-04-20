@@ -4,7 +4,7 @@ import acm.graphics.GImage;
 import acm.graphics.GScalable;
 
 public class Fish extends Entity { // Player inherits from this class
-	public boolean RtL;
+	public boolean RtL = true;
 	private int size;
 	public GImage fishImage;
 	
