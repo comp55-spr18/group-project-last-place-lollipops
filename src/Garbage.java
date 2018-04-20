@@ -40,12 +40,14 @@ public class Garbage extends Entity{
 	
 	public void move(int i, int j) {
 		count++;
-		if(Math.sin(count/20)<0) {
+		if(Math.sin(count/150)>0) {
 			img.move((double)i/2, (double)-j/2);
 			return;
 		}
 		img.move((double)i/2, (double)j/2);
-
+		if(img.getX()<0) {
+			
+		}
 	}
 
 }
