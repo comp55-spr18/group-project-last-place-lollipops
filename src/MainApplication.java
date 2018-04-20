@@ -13,7 +13,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int MS = 1;
-	public static final int MAX_ENEMY = 4; //gets doubled because of two arrays
+	public static final int MAX_ENEMY = 5; //gets doubled because of two arrays
 
 	private MenuPane menu;
 	private PausePane pause;
@@ -52,36 +52,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		lose = new LosePane(this);
 		switchToMenu();
 	}
-
-
-	/*private synchronized void start() {
-	 * if(running)
-	 * 	return;
-	 * 
-	 * running = true;
-	 * thread = new Thread(this);
-	 * thread.start();
-	 */
-	/*	
-	public void ticking() { // allows for smoother player movement
-		long time = System.nanoTime();
-		double numTicks = 60;
-		double ns = 1000000000 / numTicks;
-		double update = 0; // calculates the time passed (to catch up)
-		int u = 0;
-		int frames = 0;
-		long timer = System.currentTimeMillis();
-		while(run) {
-			long now = System.nanoTime();
-			update += (time - now) / ns;
-			time = now;
-			if(update >= 1 ) {
-				tick();
-				update--;
-			}
-		}
-	}
-	 */
 
 	public void switchToMenu() {
 		switchToScreen(menu);
@@ -175,7 +145,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		}
 		game.moveAllFish();
 		collision();
-		
+
 		int randomGarbage = rgen.nextInt(0, 10000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
 			System.out.println("I added garbage");
@@ -193,14 +163,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		}
 
 	}
-
-	//	public void run(){
-	//		t = new Timer(1000, this);
-	//		t.setInitialDelay(3000);
-	//		t.start();
-	//		
-	//	}
-
 
 
 	public void collision() {

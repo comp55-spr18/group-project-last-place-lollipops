@@ -4,10 +4,6 @@ import java.awt.*;
 import acm.graphics.*;
 public abstract class Entity {
 	public GImage img;
-	public Entity() {
-		img.setVisible(false);
-	}
-	
 	public boolean collideWith(Entity o) {
 		// TODO Auto-generated method stub
 		try {
