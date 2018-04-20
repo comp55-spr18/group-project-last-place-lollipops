@@ -5,7 +5,6 @@ public class Wave {
 	private int wave = 1;
 	private int fontSize = 100;
 	private MainApplication program;
-	private Score s;
 	private GLabel waveLabel;
 	public static final int MAX_ENEMY = 5;
 			//set font size
@@ -47,6 +46,7 @@ public class Wave {
 	
 	public void newWave() {
 		incrementWave();
+		//program.add();
 		System.out.println("new wave: " + getWaveLabel());
 		
 	}

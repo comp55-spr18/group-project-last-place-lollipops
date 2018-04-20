@@ -21,7 +21,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
-	private int spawnTypes = 25;
+	private int spawnTypes = 15;
 	private Wave wave = new Wave();
 	private Garbage garbage;
 	
