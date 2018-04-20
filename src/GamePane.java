@@ -66,7 +66,7 @@ public class GamePane extends GraphicsPane {
 		//1 = you lost
 		//2 = nothing happened
 
-		if (player.collideWith(o) && o.img.isVisible()) {
+		if (player.collideWith(o)) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
 					System.out.println(((Fish) o).getSize() +" vs " +player.getSize());

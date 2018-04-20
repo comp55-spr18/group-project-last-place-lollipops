@@ -27,6 +27,7 @@ public class Fish extends Entity { // Player inherits from this class
 			}
 		} else {
 			img = new GImage("PlainOldFish.png", program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
+			img.setSize(90,90);
 		}
 		
 	}
