@@ -124,6 +124,17 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		audio.pauseSound("", "Lullatone1.mp3");
 	}
 
+	public void playLoseMusic() {
+		if (!volume)
+			return;
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.playSound("", "sadsong.mp3");
+	}
+	
+	public void pauseLoseMusic() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.pauseSound("", "sadsong.mp3");
+	}
 	public void playGameMusic() {
 		if (!volume)
 			return;
@@ -248,6 +259,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		case 1: {
 			lose = new LosePane(this);
 			switchToLose();
+			pauseGameMusic();
+			playLoseMusic();
 			break;
 		}
 		default: {//2 doesn't do anything

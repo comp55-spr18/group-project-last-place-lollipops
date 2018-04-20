@@ -116,20 +116,20 @@ public class LosePane extends GraphicsPane {
 
 		if (obj == back) {
 			program.switchToMenu();
-			program.stopGameMusic();
+			program.pauseLoseMusic();
 			program.playMenuMusic();
 		}
 		if (obj == sound) {
 			if (program.volume) {
 				sound.setLabel("Sound off");
 				program.volume = false;
-				program.pauseMenuMusic();
-				program.pauseGameMusic();
+				
+				program.pauseLoseMusic();
 			}
 			else {
 				program.volume = true;
 				sound.setLabel("Sound on");
-				program.playGameMusic();
+				program.playLoseMusic();
 			}
 		}
 
