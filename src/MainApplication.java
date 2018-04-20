@@ -157,6 +157,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		audio.stopSound("", "Lullatone1.mp3");
 	}
 
+	public void moveGarbage() {
+		garbage.move(1, 0);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (game.playerMove) { // moves the player
@@ -177,12 +181,15 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		}
 		moveAllFish();
 		collision();
-		
+		try {
+			moveGarbage();
+		}catch(NullPointerException ex) {
+			
+		}
 		int randomGarbage = rgen.nextInt(0, 5000);
-		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
+		if (garbage == null && randomGarbage == 7) { // makes garbage spawn at a random time during a wave
 			garbage = new Garbage();
 			add(garbage.getGarbageImage());
-			garbage.moveGarbage();
 		}
 		// *** check if its off the screen => remove (which file should this be in?) ***
 		
@@ -204,9 +211,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	//	}
 
 	public void moveAllFish() {
-		for (Fish f : game.fishLtoR) {
+	/*	for (Fish f : game.fishLtoR) {
 			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
-				f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
+				f.remove());
 			} else {
 				f.fishImage.move(1, 0);
 			}
@@ -214,6 +221,24 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		for (Fish f : game.fishRtoL) {
 			if (f.fishImage.getX() < 0-100) {
 				f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
+			} else {
+				f.fishImage.move(-1, 0);
+			}
+		}*/
+		for (Iterator<Fish> itr = game.fishLtoR.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
+				itr.remove();
+				remove(f.obj);
+			} else {
+				f.fishImage.move(1, 0);
+			}
+		}
+		for (Iterator<Fish> itr = game.fishRtoL.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
+			if (f.fishImage.getX() < -1* f.fishImage.getWidth()) {
+				itr.remove();
+				remove(f.obj);
 			} else {
 				f.fishImage.move(-1, 0);
 			}
