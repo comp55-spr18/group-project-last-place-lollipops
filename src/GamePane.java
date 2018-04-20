@@ -33,7 +33,7 @@ public class GamePane extends GraphicsPane {
 		title.setFont("Century Gothic-bold-30");
 		title.setColor(Color.black);
 		s = new Score();
-		s.setScore(45);
+		s.setScore(0);
 		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),5,60));
 		s.getLabel().setFont("Century Gothic-bold-25");
 		s.getLabel().setColor(Color.black);
@@ -41,7 +41,7 @@ public class GamePane extends GraphicsPane {
 
 		pause = new GButton("||", program.WINDOW_WIDTH, 10, 50, 50);
 		pause.setLocation(pause.getX() - pause.getWidth() - 10, pause.getY());
-		pause.setFillColor(Color.RED);
+		pause.setFillColor(Color.white);
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
@@ -286,6 +286,7 @@ public class GamePane extends GraphicsPane {
 			if ( ((arr[0] == KeyEvent.VK_UP && arr[1] == KeyEvent.VK_RIGHT) || (arr[1] == KeyEvent.VK_UP && arr[0] == KeyEvent.VK_RIGHT)) && (!player.isAtTop()) && (!player.isAtRight())){
 				if(player.getRTL()) {
 					player.getFish().setImage("PlainOldFishFlipped.png");
+					player.getFish().setSize(90,90);
 					player.img.scale(player.getScale());
 					player.setRTL(false);
 				}
@@ -296,6 +297,7 @@ public class GamePane extends GraphicsPane {
 					) {
 				if(!player.getRTL()) {
 					player.getFish().setImage("PlainOldFish.png");
+					player.getFish().setSize(90,90);
 					player.img.scale(player.getScale());
 					player.setRTL(true);
 				}
@@ -306,6 +308,7 @@ public class GamePane extends GraphicsPane {
 					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_RIGHT)) && (!player.isAtBottom()) && (!player.isAtRight()) ) {
 				if(player.getRTL()) {
 					player.getFish().setImage("PlainOldFishFlipped.png");
+					player.getFish().setSize(90,90);
 					player.img.scale(player.getScale());
 					player.setRTL(false);
 				}
@@ -316,6 +319,7 @@ public class GamePane extends GraphicsPane {
 					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)  && (!player.isAtBottom()) && (!player.isAtLeft()) ) {
 				if(!player.getRTL()) {
 					player.getFish().setImage("PlainOldFish.png");
+					player.getFish().setSize(90,90);
 					player.img.scale(player.getScale());
 					player.setRTL(true);
 				}
@@ -342,6 +346,7 @@ public class GamePane extends GraphicsPane {
 				
 				if(!player.getRTL()) {
 					player.getFish().setImage("PlainOldFish.png");
+					player.getFish().setSize(90,90);
 					player.img.scale(player.getScale());
 					player.setRTL(true);
 				}
@@ -353,6 +358,7 @@ public class GamePane extends GraphicsPane {
 				
 				if(player.getRTL()) {
 					player.getFish().setImage("PlainOldFishFlipped.png");
+					player.getFish().setSize(90,90);
 					player.img.scale(player.getScale());
 					player.setRTL(false);
 				}

@@ -29,7 +29,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public int count = 0;
 	public int spawnTypes = 0;
 
-	public boolean volume = false; //remember to change back later
+	public boolean volume = true;
 	public Timer movement;
 	public RandomGenerator rgen;
 	public GamePane game;
@@ -102,8 +102,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	}
 	public void switchToLose() {
 		switchToScreen(lose);
-		pauseGameMusic();
-		playGameMusic();
 		try {
 			remove(garbage.img);
 			garbage = null;
@@ -140,7 +138,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void stopGameMusic() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.stopSound("", "Lullatone1.mp3");
+		audio.stopSound("", "Race Against The Sunset.mp3");
 	}
 
 	public void moveGarbage() {
