@@ -2,9 +2,9 @@ import java.awt.Color;
 import acm.graphics.GImage;
 
 public class Player extends Fish { 
-	private int scale = 1;
+	private double scale = 0.75;
 	
-	public int getScale() {
+	public double getScale() {
 		return scale;
 	}
 	public Player(MainApplication app, int size) { 
@@ -40,7 +40,7 @@ public class Player extends Fish {
 
 	public void grow() {
 		scale+=.25;
-		//this.img.scale(scale);
+		this.img.scale(scale);
 		setSize(getSize() + 2);
 		System.out.println("growing up!\n" + getSize());
 		
