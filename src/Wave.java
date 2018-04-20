@@ -4,7 +4,6 @@ import acm.program.GraphicsProgram;
 public class Wave {
 	private int wave = 1;
 	private int fontSize = 100;
-	private MainApplication program;
 	private GLabel waveLabel;
 	public static final int MAX_ENEMY = 5;
 			//set font size
@@ -17,7 +16,7 @@ public class Wave {
 		waveLabel = new GLabel("Wave ");
 		waveLabel.setFont("Arial-Bold-" + fontSize);
 		waveLabel.setLabel("Wave " + wave);
-		waveLabel.setLocation(program.WINDOW_WIDTH/2 - waveLabel.getWidth()/2, program.WINDOW_HEIGHT/2);
+		waveLabel.setLocation(MainApplication.WINDOW_WIDTH/2 - waveLabel.getWidth()/2, MainApplication.WINDOW_HEIGHT/2);
 	}
 	
 	public GLabel getWaveLabel() {
@@ -48,7 +47,6 @@ public class Wave {
 		incrementWave();
 		//program.add();
 		System.out.println("new wave: " + getWaveLabel());
-		
 	}
 
 	

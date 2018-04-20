@@ -3,28 +3,33 @@ import java.awt.Color;
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.GScalable;
-import acm.util.RandomGenerator;
 
 public class Garbage extends Entity{
-	private RandomGenerator rgen = new RandomGenerator();
-	private GImage garbageImage;
-	private MainApplication program;
 	private int degree = 90;
 	private int x = -50;
-	private int y = program.WINDOW_HEIGHT/2;
+	private int y = MainApplication.WINDOW_HEIGHT/2;
 	private int count = 0;
-	
+
 	public Garbage() {
-		//program = app;
-		garbageImage = new GImage("newsodarings.png", x, y);		
-		garbageImage.scale(0.25);
-		obj = garbageImage;
+
+		img = new GImage("newsodarings.png", x,  y);		
+		img.scale(0.25);
+
 	}
-	
+
 	//getters, don't need setters because image will never change
 	public GImage getGarbageImage() {
-		return garbageImage;
+		return img;
 	}
+
+	public int getDegree() {
+		return degree;
+	}
+
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
 	
 //	public void moveGarbage() {
 //			degree += 5;
@@ -36,7 +41,8 @@ public class Garbage extends Entity{
 	
 	public void move(int i, int j) {
 		count++;
-		garbageImage.move(i, Math.sin(count)*5);
+		img.move(i, Math.sin(count)*5);
 	}
+
 }
 
