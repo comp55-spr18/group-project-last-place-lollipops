@@ -84,7 +84,8 @@ public class GamePane extends GraphicsPane {
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
-		if ((type > 0) && (type < 10)) { // allows for more chances of smaller fish
+		switch(type) {
+		case 0:  // allows for more chances of smaller fish
 			if (fish.RtL) {
 				fish.setFish("SmallFry.png");
 				fish.getFish().scale(0.50);
@@ -97,50 +98,50 @@ public class GamePane extends GraphicsPane {
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(1);
 			}
-		}
-		else if ((type >= 10) && (type < 15)) {
+		
+		break;
+		case 1: 
 			if (fish.RtL) {
 				fish.setFish("Nibbler.png");
-				fish.getFish().scale(1.2);
+				fish.getFish().scale(1.0);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(3);
 			}
 			else {
 				fish.setFish("NibblerFlipped.png");
-				fish.getFish().scale(1.2);
+				fish.getFish().scale(1.0);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(3);
 			}
-		}
-		else if((type >= 15) && (type < 20)) {
+		case 2: 
 			if (fish.RtL) {
 				fish.setFish("TouchyFish.png");
-				fish.getFish().scale(1.5);
+				fish.getFish().scale(1.2);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(5);
 			}
 			else {
 				fish.setFish("TouchyFishFlipped.png");
-				fish.getFish().scale(1.5);
+				fish.getFish().scale(1.2);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(5);
 			}	
-		}
-		else if ((type >= 20) && (type < 25)) {
+		break;
+		case 3:
 			if (fish.RtL) {
 				fish.setFish("MysteryFish.png");
-				fish.getFish().scale(1.25);
+				fish.getFish().scale(1.0);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(7);
 			}
 			else {
 				fish.setFish("MysteryFishFlipped.png");
-				fish.getFish().scale(1.25);
+				fish.getFish().scale(1.0);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(7);
 			}	
-		}
-		else if ((type >= 25) && (type < 30)) {
+		break;
+		case 4:
 			if (fish.RtL) {
 				fish.setFish("KingofthePond.png");
 				fish.getFish().scale(1.25);
@@ -153,8 +154,24 @@ public class GamePane extends GraphicsPane {
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(9);
 			}	
-		}
+		break;
+	}
 		program.add(fish.fishImage);
+}
+	
+	public boolean checkSmallerFish() { //checks for a guaranteed smaller fish in the array
+		boolean check = false;
+		for(Fish f: fishLtoR) {
+			if((f.getSize()/2) + 1 < (program.spawnTypes)) {
+				check = true;
+			}
+		}
+		for(Fish f: fishRtoL) {
+			if((f.getSize()/2) + 1 < (program.spawnTypes)) {
+				check = true;
+			}
+		}
+		return check;
 	}
 
 	public void addAllFish() {

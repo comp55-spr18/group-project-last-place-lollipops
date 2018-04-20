@@ -21,11 +21,11 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
-	private int spawnTypes = 15;
 	private Wave wave = new Wave();
 	private Garbage garbage;
 	
-	public int count;
+	public int count = 0;
+	public int spawnTypes = 2;
 	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
@@ -55,35 +55,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToMenu();
 	}
 
-
-	/*private synchronized void start() {
-	 * if(running)
-	 * 	return;
-	 * 
-	 * running = true;
-	 * thread = new Thread(this);
-	 * thread.start();
-	 */
-	/*	
-	public void ticking() { // allows for smoother player movement
-		long time = System.nanoTime();
-		double numTicks = 60;
-		double ns = 1000000000 / numTicks;
-		double update = 0; // calculates the time passed (to catch up)
-		int u = 0;
-		int frames = 0;
-		long timer = System.currentTimeMillis();
-		while(run) {
-			long now = System.nanoTime();
-			update += (time - now) / ns;
-			time = now;
-			if(update >= 1 ) {
-				tick();
-				update--;
-			}
-		}
-	}
-	 */
 
 	public void switchToMenu() {
 		switchToScreen(menu);
@@ -186,22 +157,16 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		}
 		// *** check if its off the screen => remove (which file should this be in?) ***
 		
-		System.out.println("current score: " + game.s.getScore() + "\n");
 		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= 50) { // when user earns 50 pts, initiate new wave
 			wave.newWave();
-			count = 0;
 			game.removeAllFish();
+			spawnTypes += 1;
+			count = 0;
+			
 			// *** clear screen ***
 		}
 
 	}
-
-	//	public void run(){
-	//		t = new Timer(1000, this);
-	//		t.setInitialDelay(3000);
-	//		t.start();
-	//		
-	//	}
 
 	public void moveAllFish() {
 		for (Fish f : game.fishLtoR) {

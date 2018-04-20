@@ -12,7 +12,6 @@ public class Garbage extends Entity{
 	private int degree = 90;
 	
 	public Garbage() {
-		//program = app;
 		garbageImage = new GImage("newsodarings.png", -20,  program.WINDOW_HEIGHT/2);		
 		garbageImage.scale(0.25);
 		obj = garbageImage;
