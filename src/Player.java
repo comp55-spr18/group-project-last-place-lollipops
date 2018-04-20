@@ -3,6 +3,11 @@ import acm.graphics.GImage;
 
 public class Player extends Fish { 
 
+	private int scale = 1;
+	
+	public int getScale() {
+		return scale;
+	}
 	public Player(MainApplication app, int size) { 
 		super(app);		
 		setSize(size);
@@ -34,11 +39,12 @@ public class Player extends Fish {
 		return true;
 	}
 
-	public int grow(int size) {
-		this.img.scale(1.25);
-		size = getSize() + 2;
-		System.out.println("setting size: " + size + "\n");
-		return size;
+	public void grow() {
+		scale+=.25;
+		//this.img.scale(scale);
+		setSize(getSize() + 2);
+		System.out.println("growing up!\n" + getSize());
+		
 	}
 	public boolean getRTL() {
 		return RtL;

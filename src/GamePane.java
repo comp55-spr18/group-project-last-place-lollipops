@@ -33,6 +33,7 @@ public class GamePane extends GraphicsPane {
 		title.setFont("Century Gothic-bold-30");
 		title.setColor(Color.black);
 		s = new Score();
+		s.setScore(45);
 		s.setScoreTxt(new GLabel(Integer.toString(s.getScore()),5,60));
 		s.getLabel().setFont("Century Gothic-bold-25");
 		s.getLabel().setColor(Color.black);
@@ -50,6 +51,10 @@ public class GamePane extends GraphicsPane {
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
 		
+	}
+	
+	public Player getPlayer() {
+		return player;
 	}
 
 	public Score getScore() {
@@ -83,6 +88,15 @@ public class GamePane extends GraphicsPane {
 		return 2;
 	}
 
+	public void deleteAllFish() {
+		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+			itr.remove();
+		}
+		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+			itr.remove();
+		}
+	}
+	
 	public void moveAllFish() {
 		gameBackground.sendToBack();
 		pause.sendToFront();
@@ -289,6 +303,7 @@ public class GamePane extends GraphicsPane {
 					(arr[1] == KeyEvent.VK_DOWN && arr[0] == KeyEvent.VK_LEFT)  && (!player.isAtBottom()) && (!player.isAtLeft()) ) {
 				if(!player.getRTL()) {
 					player.getFish().setImage("PlainOldFish.png");
+					player.img.scale(player.getScale());
 					player.setRTL(true);
 				}
 				player.getFish().move(-2, 2);
@@ -310,6 +325,7 @@ public class GamePane extends GraphicsPane {
 			case KeyEvent.VK_LEFT:
 				if(!player.getRTL()) {
 					player.getFish().setImage("PlainOldFish.png");
+					player.img.scale(player.getScale());
 					player.setRTL(true);
 				}
 				if(!player.isAtLeft()) {
