@@ -74,6 +74,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void switchToNewGame() {
 		game = new GamePane(this);
+		wave = new Wave();
+		count = 0;
+		spawnTypes = 0;
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
@@ -171,13 +174,12 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			add(garbage.getGarbageImage());
 		}
 
-		// *** check if its off the screen => remove (which file should this be in?) ***
-
-		//	System.out.println("current score: " + game.s.getScore() + "\n");
-		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= nextScore) { // when user earns 50 pts, initiate new wave
+		// Every 50 pts, initiate new Wave
+		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= nextScore) { 
 			wave.incrementWave();
 			add(wave.getWaveLabel());
 			game.removeAllFish();
+			game.grow(); // grows the player fish (doesnt work)\
 			nextScore += 50;
 			spawnTypes += 1;
 			count = 0;

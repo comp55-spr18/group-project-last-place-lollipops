@@ -26,6 +26,7 @@ public class GamePane extends GraphicsPane {
 	private GRect rect1;
 
 	public GamePane(MainApplication app) {
+		super();
 		this.program = app;
 		player = new Player(app, 2); // size 2
 		title = new GParagraph("Something Smells Fishy", 5, 30);
@@ -49,6 +50,10 @@ public class GamePane extends GraphicsPane {
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
 		
+	}
+	public Player grow() {
+		System.out.println("playerSize: " + player.getSize() + "\n");
+		return player;
 	}
 
 	public Score getScore() {
@@ -160,13 +165,13 @@ public class GamePane extends GraphicsPane {
 		case 3:
 			if (fish.RtL) {
 				fish.setFish("MysteryFish.png");
-				fish.getFish().scale(1.0);
+				fish.getFish().scale(0.8);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(7);
 			}
 			else {
 				fish.setFish("MysteryFishFlipped.png");
-				fish.getFish().scale(1.0);
+				fish.getFish().scale(0.8);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(7);
 			}	
@@ -174,13 +179,13 @@ public class GamePane extends GraphicsPane {
 		case 4:
 			if (fish.RtL) {
 				fish.setFish("KingofthePond.png");
-				fish.getFish().scale(1.25);
+				fish.getFish().scale(1);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(9);
 			}
 			else {
 				fish.setFish("KingofthePondFlipped.png");
-				fish.getFish().scale(1.25);
+				fish.getFish().scale(1);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(9);
 			}	
@@ -339,26 +344,5 @@ public class GamePane extends GraphicsPane {
 	public void keyReleased(KeyEvent e) {
 		pressed.remove(Integer.valueOf(e.getKeyCode()));
 		playerMove = false;
-	}
-
-/*	public void moveAllFish() {
-		gameBackground.sendToBack();
-		pause.sendToFront();
-		for (Fish f : fishLtoR) {
-			if (f.img.getX() > program.WINDOW_WIDTH + 50) {
-				f.img.setLocation(0, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
-			} else {
-				f.img.move(1, 0);
-			}
-		}
-		for (Fish f : fishRtoL) {
-			if (f.img.getX() < 0-100) {
-				f.img.setLocation(program.WINDOW_WIDTH, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
-			} else {
-				f.img.move(-1, 0);
-			}
-		}
-	}
-*/
-	
+	}	
 }

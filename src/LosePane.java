@@ -24,6 +24,7 @@ public class LosePane extends GraphicsPane {
 
 
 	public LosePane(MainApplication app) {
+		super();
 		this.program = app;
 
 

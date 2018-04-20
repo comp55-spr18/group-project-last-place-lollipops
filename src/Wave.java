@@ -36,6 +36,7 @@ public class Wave {
 	
 	public void incrementWave() {
 		wave++;
+		waveLabel.setLabel("Wave " + wave);
 		System.out.println("new wave: " + getWaveLabel());
 	}
 	
