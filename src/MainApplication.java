@@ -12,8 +12,8 @@ import acm.util.RandomGenerator;
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-	public static final int MS = 1;
-	public static final int MAX_ENEMY = 4; //gets doubled because of two arrays
+	public static final int MS = 10;
+	public static final int MAX_ENEMY = 5; //gets doubled because of two arrays
 
 	private MenuPane menu;
 	private PausePane pause;
@@ -26,6 +26,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	
 	public int count = 0;
 	public int spawnTypes = 2;
+
 	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
@@ -55,7 +56,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToMenu();
 	}
 
-
 	public void switchToMenu() {
 		switchToScreen(menu);
 		playMenuMusic();
@@ -69,11 +69,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void switchToNewGame() {
 		game = new GamePane(this);
+		count = 0;
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
-		add(wave.getWaveLabel());
-
 	}
 
 	public void switchToSettings() {
@@ -87,7 +86,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void switchToLeaderboards() {
 		switchToScreen(leaderboards);
 	}
-	
+
 	public void switchToPause() {
 		switchToScreen(pause);
 		movement.stop();
@@ -130,57 +129,61 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(count);
 		if (game.playerMove) { // moves the player
 			game.playerMovement();
 		}
 		
-		if(count == 1000) { // after 1000 ms, take off Wave Label
-			remove(wave.getWaveLabel());
+		if(count == 100) { // after 1000 ms, take off Wave Label
+			System.out.println("removing wave label!");
+			remove(game.getWave().getWaveLabel());
 		}
-		
+
 		count++;
 		if((game.fishLtoR.size() + game.fishRtoL.size() <= MAX_ENEMY)) {
-			if (count % 1000 == 0 && count > 0) {
+			if (count % 100 == 0 && count > 0) {
 				int num = rgen.nextInt(0, spawnTypes);
 				//System.out.println("num: " + num + "\n");
 				game.addEnemy(num);
 			}
 		}
-		moveAllFish();
+		game.moveAllFish();
 		collision();
-		
+
 		int randomGarbage = rgen.nextInt(0, 5000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
 			garbage = new Garbage();
+			System.out.println("I made garbage!");
 			add(garbage.getGarbageImage());
-			garbage.moveGarbage();
 		}
+
 		// *** check if its off the screen => remove (which file should this be in?) ***
-		
+
+		//	System.out.println("current score: " + game.s.getScore() + "\n");
 		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= 50) { // when user earns 50 pts, initiate new wave
 			wave.newWave();
+			game.getWave().newWave();
+			count = 0;
 			game.removeAllFish();
 			spawnTypes += 1;
 			count = 0;
-			
 			// *** clear screen ***
 		}
-
 	}
 
 	public void moveAllFish() {
 		for (Fish f : game.fishLtoR) {
-			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
-				f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
+			if (f.img.getX() > WINDOW_WIDTH + 50) {
+				f.img.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(1, 0);
+				f.img.move(1, 0);
 			}
 		}
 		for (Fish f : game.fishRtoL) {
-			if (f.fishImage.getX() < 0-100) {
-				f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
+			if (f.img.getX() < 0-100) {
+				f.img.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
 			} else {
-				f.fishImage.move(-1, 0);
+				f.img.move(-1, 0);
 			}
 		}
 	}
@@ -201,7 +204,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			default: {//2 doesn't do anything
-				
+
 				break;
 			}
 			}
@@ -221,12 +224,11 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			default: {//2 doesn't do anything
-				
+
 				break;
 			}
 			}
 		}
-		
 		switch(game.collisionInteractions(garbage)) {
 		case 0: { //you should never eat the garbage
 			//this should never happen
@@ -238,7 +240,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			break;
 		}
 		default: {//2 doesn't do anything
-			
 			break;
 		}
 		}
