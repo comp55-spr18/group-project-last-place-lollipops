@@ -25,7 +25,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private Wave wave;
 	private Garbage garbage;
 	private int nextScore = 50;
-	
+
 	public int count = 0;
 	public int spawnTypes = 0;
 
@@ -104,8 +104,13 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToScreen(lose);
 		pauseGameMusic();
 		playGameMusic();
-		remove(garbage.img);
-		garbage = null;
+		try {
+			remove(garbage.img);
+			garbage = null;
+		}
+		catch(NullPointerException e) {
+			System.out.println("garbage is already null!");
+		}
 		movement.stop();
 	}
 
@@ -140,17 +145,17 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void moveGarbage() {
 		garbage.move(1, 1);
-//		if(garbage.img.getX()>WINDOW_WIDTH) {
-//			garbage = null;
-//		}
+		//		if(garbage.img.getX()>WINDOW_WIDTH) {
+		//			garbage = null;
+		//		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (game.playerMove) { // moves the player
 			game.playerMovement();
 		}
-		
+
 		if(count == 100) { // after 1000 ms, take off Wave Label
 			System.out.println("removing wave label!");
 			remove(wave.getWaveLabel());
@@ -188,7 +193,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= nextScore) { 
 			wave.incrementWave();
 			add(wave.getWaveLabel());
-			game.removeAllFish();
+			game.deleteAllFish();
 			game.getPlayer().grow();
 			nextScore += 50;
 			spawnTypes += 1;
