@@ -44,7 +44,6 @@ public class Fish extends Entity { // Player inherits from this class
 
 	public void setFish(String fish) {
 		img.setImage(fish);
-		img.setSize(90, 90);
 	}
 	
 	public boolean getRTL() {

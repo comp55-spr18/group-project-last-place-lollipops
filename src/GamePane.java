@@ -19,11 +19,10 @@ public class GamePane extends GraphicsPane {
 	public int keyPress;
 	double moveX = 0;
 	double moveY = 0;
-
-	public Garbage garbage;
 	public Score s;
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
+	private Wave wave = new Wave();
 
 	private GRect rect1;
 
@@ -45,13 +44,14 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-		garbage = new Garbage(app);
 
+		program.add(wave.getWaveLabel());
 
 		rect1=new GRect(0,3,800,70);
 		rect1.setFillColor(new Color(255,255,255,128));
 		rect1.setFilled(true);
 		rect1.setColor(Color.black);
+		
 	}
 
 	public Score getScore() {
@@ -87,49 +87,81 @@ public class GamePane extends GraphicsPane {
 
 	public void addEnemy(int type) {
 		Fish fish = new Fish(program);
-		switch(type) {
-		case 0: 
+		if ((type > 0) && (type < 10)) { // allows for more chances of smaller fish
 			if (fish.RtL) {
 				fish.setFish("SmallFry.png");
+				fish.img.setSize(90, 90);
 				fish.getFish().scale(0.50);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(1);
 			}
 			else {
 				fish.setFish("SmallFryFlipped.png");
+				fish.img.setSize(90, 90);
 				fish.getFish().scale(0.50);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(1);
 			}
-			break;
-		case 1:
+		}
+		else if ((type >= 10) && (type < 15)) {
 			if (fish.RtL) {
 				fish.setFish("Nibbler.png");
+				fish.img.setSize(90, 90);
 				fish.getFish().scale(1.2);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(3);
 			}
 			else {
 				fish.setFish("NibblerFlipped.png");
+				fish.img.setSize(90, 90);
 				fish.getFish().scale(1.2);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(3);
 			}
-			break;
-		case 2:
+		}
+		else if((type >= 15) && (type < 20)) {
 			if (fish.RtL) {
 				fish.setFish("TouchyFish.png");
+				fish.img.setSize(90, 90);
 				fish.getFish().scale(1.5);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
 				fish.setSize(5);
 			}
 			else {
 				fish.setFish("TouchyFishFlipped.png");
+				fish.img.setSize(90, 90);
 				fish.getFish().scale(1.5);
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(5);
+			}	
+		}
+		else if ((type >= 20) && (type < 25)) {
+			if (fish.RtL) {
+				fish.setFish("MysteryFish.png");
+				fish.getFish().scale(1.25);
+				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
+				fish.setSize(7);
 			}
-			break;
+			else {
+				fish.setFish("MysteryFishFlipped.png");
+				fish.getFish().scale(1.25);
+				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
+				fish.setSize(7);
+			}	
+		}
+		else if ((type >= 25) && (type < 30)) {
+			if (fish.RtL) {
+				fish.setFish("KingofthePond.png");
+				fish.getFish().scale(1.25);
+				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
+				fish.setSize(9);
+			}
+			else {
+				fish.setFish("KingofthePondFlipped.png");
+				fish.getFish().scale(1.25);
+				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
+				fish.setSize(9);
+			}	
 		}
 		program.add(fish.img);
 	}
@@ -285,4 +317,9 @@ public class GamePane extends GraphicsPane {
 			}
 		}
 	}
+
+	public Wave getWave() {
+		return wave;
+	}
+	
 }

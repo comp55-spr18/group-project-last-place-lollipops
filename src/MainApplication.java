@@ -21,9 +21,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
-	public int count;
-	private Wave wave = new Wave();
+	private int spawnTypes = 15;
+	private Garbage garbage;
 
+	public int count;
 	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
@@ -69,8 +70,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
-		add(wave.getWaveLabel());
-
 	}
 
 	public void switchToSettings() {
@@ -127,18 +126,19 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (game.playerMove) {
+		System.out.println(count);
+		if (game.playerMove) { // moves the player
 			game.playerMovement();
 		}
-
-		if(count == 1000) {
-			remove(wave.getWaveLabel());
+		
+		if(count == 1000) { // after 1000 ms, take off Wave Label
+			remove(game.getWave().getWaveLabel());
 		}
 
 		count++;
 		if((game.fishLtoR.size() + game.fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 1000 == 0 && count > 0) {
-				int num = rgen.nextInt(0, 2);
+				int num = rgen.nextInt(0, spawnTypes);
 				//System.out.println("num: " + num + "\n");
 				game.addEnemy(num);
 			}
@@ -146,17 +146,18 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		game.moveAllFish();
 		collision();
 
-		int randomGarbage = rgen.nextInt(0, 10000);
+		int randomGarbage = rgen.nextInt(0, 5000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
-			System.out.println("I added garbage");
-			add(game.garbage.getGarbageImage());
-			game.garbage.moveGarbage();
+			garbage = new Garbage();
+			System.out.println("I made garbage!");
+			add(garbage.getGarbageImage());
 		}
+		
 		// *** check if its off the screen => remove (which file should this be in?) ***
 
 		//	System.out.println("current score: " + game.s.getScore() + "\n");
 		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= 50) { // when user earns 50 pts, initiate new wave
-			wave.newWave();
+			game.getWave().newWave();
 			count = 0;
 			game.removeAllFish();
 			// *** clear screen ***
@@ -206,21 +207,19 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			}
 			}
 		}
-		if (game.garbage.img.isVisible()) {
-			switch(game.collisionInteractions(game.garbage)) {
-			case 0: { //you should never eat the garbage
-				//this should never happen
-				break;
-			}
-			case 1: {
-				lose = new LosePane(this);
-				switchToLose();
-				break;
-			}
-			default: {//2 doesn't do anything
-				break;
-			}
-			}
+		switch(game.collisionInteractions(garbage)) {
+		case 0: { //you should never eat the garbage
+			//this should never happen
+			break;
+		}
+		case 1: {
+			lose = new LosePane(this);
+			switchToLose();
+			break;
+		}
+		default: {//2 doesn't do anything
+			break;
+		}
 		}
 	}
 
