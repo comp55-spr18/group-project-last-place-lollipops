@@ -1,8 +1,8 @@
 Osvaldo 9001
-Dmitrij 50
-Kevin 20
-Silvana 18
-Kyla 12
+Dmitrij 150
+Kevin 100
+Silvana 80
+Kyla 75
 KK 10
 Dmitrij 5
 Adam 5
