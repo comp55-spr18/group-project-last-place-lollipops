@@ -20,7 +20,6 @@ public class LosePane extends GraphicsPane {
 	private GRect rect1;
 	private GLabel yourscore;
 
-	private GObject objects[];
 
 
 	public LosePane(MainApplication app) {
@@ -93,6 +92,8 @@ public class LosePane extends GraphicsPane {
 	}
 	@Override
 	public void hideContents() {
+		program.removeAll();
+		/*	
 		program.remove(background);
 		program.remove(nameEnter);
 		program.remove(loseLabel);
@@ -104,6 +105,7 @@ public class LosePane extends GraphicsPane {
 		program.remove(sound);
 		program.remove(quit);		
 		program.remove(back);
+		*/
 	}
 
 	public Score findScore() {
