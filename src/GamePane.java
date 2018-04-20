@@ -64,12 +64,15 @@ public class GamePane extends GraphicsPane {
 		if (player.collideWith(o) && o.img.isVisible()) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
+					System.out.println(((Fish) o).getSize() +" vs " +player.getSize());
 					System.out.println("you lose! because of bigger fish");
 					program.remove(player.getFish());
 					return 1; 
 				}
 				else {
-					program.remove( ((Fish) o).getFish() );
+					System.out.println("I ate a fish!");
+					System.out.println(((Fish) o).getSize() +" vs " +player.getSize());
+					program.remove(((Fish) o).getFish() );
 					s.increment();
 					return 0; 
 				}
