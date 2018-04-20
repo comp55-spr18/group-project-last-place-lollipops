@@ -7,7 +7,6 @@ public class Fish extends Entity { // Player inherits from this class
 	public boolean RtL = true;
 	private int size;
 	
-	
 	// constructor
 	public Fish(MainApplication program) {
 		int leftOrRight = program.rgen.nextInt(0, 1);

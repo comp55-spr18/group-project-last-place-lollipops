@@ -22,7 +22,6 @@ public class GamePane extends GraphicsPane {
 	public Score s;
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
-	private Wave wave;
 
 	private GRect rect1;
 
@@ -44,7 +43,6 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-		wave = new Wave();
 
 		rect1=new GRect(0,3,800,70);
 		rect1.setFillColor(new Color(255,255,255,128));
@@ -102,8 +100,7 @@ public class GamePane extends GraphicsPane {
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(1);
 			}
-		
-		break;
+			break;
 		case 1: 
 			if (fish.RtL) {
 				fish.setFish("Nibbler.png");
@@ -119,10 +116,10 @@ public class GamePane extends GraphicsPane {
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(3);
 			}
+			break;
 		case 2: 
 			if (fish.RtL) {
 				fish.setFish("TouchyFish.png");
-
 				fish.img.setSize(90, 90);
 				fish.getFish().scale(1.2);
 				fish.getFish().setLocation(program.WINDOW_WIDTH,fish.getFish().getY());
@@ -135,7 +132,7 @@ public class GamePane extends GraphicsPane {
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(5);
 			}	
-		break;
+			break;
 		case 3:
 			if (fish.RtL) {
 				fish.setFish("MysteryFish.png");
@@ -149,7 +146,7 @@ public class GamePane extends GraphicsPane {
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(7);
 			}	
-		break;
+			break;
 		case 4:
 			if (fish.RtL) {
 				fish.setFish("KingofthePond.png");
@@ -163,8 +160,9 @@ public class GamePane extends GraphicsPane {
 				fish.getFish().setLocation(0-fish.getFish().getWidth(),fish.getFish().getY());
 				fish.setSize(9);
 			}	
-		break;
+			break;
 	}
+		System.out.println("type of fish: " + type + "\n");
 		program.add(fish.img);
 }
 	
@@ -208,7 +206,6 @@ public class GamePane extends GraphicsPane {
 		program.add(title);
 		program.add(pause);
 		program.add(s.getScoreTxt());
-		program.add(wave.getWaveLabel());
 		addAllFish();
 		program.add(player.getFish());
 
@@ -336,10 +333,6 @@ public class GamePane extends GraphicsPane {
 				f.img.move(-1, 0);
 			}
 		}
-	}
-
-	public Wave getWave() {
-		return wave;
 	}
 	
 }

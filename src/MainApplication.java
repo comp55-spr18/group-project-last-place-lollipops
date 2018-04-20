@@ -21,11 +21,12 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
-	private Wave wave = new Wave();
+	private Wave wave;
 	private Garbage garbage;
+	private int nextScore = 50;
 	
 	public int count = 0;
-	public int spawnTypes = 2;
+	public int spawnTypes = 0;
 
 	public boolean volume = false; //remember to change back later
 	public Timer movement;
@@ -53,6 +54,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		leaderboards = new LeaderboardsPane(this);
 		menu = new MenuPane(this);
 		lose = new LosePane(this);
+		wave = new Wave();
 		switchToMenu();
 	}
 
@@ -69,10 +71,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void switchToNewGame() {
 		game = new GamePane(this);
-		count = 0;
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
+		add(wave.getWaveLabel());
 	}
 
 	public void switchToSettings() {
@@ -129,14 +131,13 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(count);
 		if (game.playerMove) { // moves the player
 			game.playerMovement();
 		}
 		
 		if(count == 100) { // after 1000 ms, take off Wave Label
 			System.out.println("removing wave label!");
-			remove(game.getWave().getWaveLabel());
+			remove(wave.getWaveLabel());
 		}
 
 		count++;
@@ -160,14 +161,13 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		// *** check if its off the screen => remove (which file should this be in?) ***
 
 		//	System.out.println("current score: " + game.s.getScore() + "\n");
-		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= 50) { // when user earns 50 pts, initiate new wave
-			wave.newWave();
-			game.getWave().newWave();
-			count = 0;
+		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= nextScore) { // when user earns 50 pts, initiate new wave
+			wave.incrementWave();
+			add(wave.getWaveLabel());
 			game.removeAllFish();
+			nextScore += 50;
 			spawnTypes += 1;
 			count = 0;
-			// *** clear screen ***
 		}
 	}
 

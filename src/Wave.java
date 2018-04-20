@@ -6,12 +6,7 @@ public class Wave {
 	private int fontSize = 100;
 	private GLabel waveLabel;
 	public static final int MAX_ENEMY = 5;
-			//set font size
-			//set the position
-			// after windowWidth shit subtract font size
 	
-	//gRectangle.getBounds => returns GREctangle
-	//getimage.getbounds (intersects) other getimage.getbounds
 	public Wave () {
 		waveLabel = new GLabel("Wave ");
 		waveLabel.setFont("Arial-Bold-" + fontSize);
@@ -41,25 +36,9 @@ public class Wave {
 	
 	public void incrementWave() {
 		wave++;
-	}
-	
-	public void newWave() {
-		incrementWave();
-		getWaveLabel();
 		System.out.println("new wave: " + getWaveLabel());
 	}
+	
 
-	
-	//destroy fish when the sprite bounds are out of bounds
-		//if x or y < 0 (max width)
-		//get rid of the fish from the array and everything about it
-		// new fish will be spawn because maxSize < max enemies
-	
-	//if garbage gets triggered (random num genereator)
-	// trigger garbage
-	
-	
-	//check if lose
-	
-	//** need delay so all fish dont spawn at the same time*** until you hit the max size
-	}
+
+}
