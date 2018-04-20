@@ -77,6 +77,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		wave = new Wave();
 		count = 0;
 		spawnTypes = 0;
+		nextScore = 50;
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
