@@ -136,7 +136,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	}
 
 	public void moveGarbage() {
-		garbage.move(1, 0);
+		garbage.move(1, 1);
 	}
 	
 	@Override
@@ -163,12 +163,15 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 		try {
 			moveGarbage();
+			if(garbage.img.getX() > MainApplication.WINDOW_WIDTH) {
+				remove(garbage.img);		
+			}
 		}catch(NullPointerException ex) {
 			
 		}
 
 		int randomGarbage = rgen.nextInt(0, 5000);
-		if (garbage == null && randomGarbage == 7) { // makes garbage spawn at a random time during a wave
+		if (garbage == null && randomGarbage <= 7) { // makes garbage spawn at a random time during a wave
 			garbage = new Garbage();
 			System.out.println("I made garbage!");
 			add(garbage.getGarbageImage());

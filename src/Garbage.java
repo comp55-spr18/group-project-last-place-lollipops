@@ -6,7 +6,7 @@ import acm.graphics.GScalable;
 
 public class Garbage extends Entity{
 	private int degree = 90;
-	private int x = -50;
+	private int x = -150;
 	private int y = MainApplication.WINDOW_HEIGHT/2;
 	private int count = 0;
 
@@ -40,7 +40,12 @@ public class Garbage extends Entity{
 	
 	public void move(int i, int j) {
 		count++;
-		img.move(i, Math.sin(count)*5);
+		if(Math.sin(count/20)<0) {
+			img.move((double)i/2, (double)-j/2);
+			return;
+		}
+		img.move((double)i/2, (double)j/2);
+
 	}
 
 }
