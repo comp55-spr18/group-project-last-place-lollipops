@@ -103,6 +103,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToScreen(lose);
 		pauseGameMusic();
 		playGameMusic();
+		remove(garbage.img);
+		garbage = null;
 		movement.stop();
 	}
 
