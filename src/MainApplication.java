@@ -21,9 +21,11 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
-	public int count;
+	private int spawnTypes = 25;
 	private Wave wave = new Wave();
-
+	private Garbage garbage;
+	
+	public int count;
 	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
@@ -157,18 +159,18 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (game.playerMove) {
+		if (game.playerMove) { // moves the player
 			game.playerMovement();
 		}
 		
-		if(count == 1000) {
+		if(count == 1000) { // after 1000 ms, take off Wave Label
 			remove(wave.getWaveLabel());
 		}
 		
 		count++;
 		if((game.fishLtoR.size() + game.fishRtoL.size() <= MAX_ENEMY)) {
 			if (count % 1000 == 0 && count > 0) {
-				int num = rgen.nextInt(0, 2);
+				int num = rgen.nextInt(0, spawnTypes);
 				//System.out.println("num: " + num + "\n");
 				game.addEnemy(num);
 			}
@@ -178,8 +180,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		
 		int randomGarbage = rgen.nextInt(0, 10000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
-			add(game.garbage.getGarbageImage());
-			game.garbage.moveGarbage();
+			garbage = new Garbage();
+			add(garbage.getGarbageImage());
+			garbage.moveGarbage();
 		}
 		// *** check if its off the screen => remove (which file should this be in?) ***
 		
@@ -259,7 +262,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			}
 		}
 		
-		switch(game.collisionInteractions(game.garbage)) {
+		switch(game.collisionInteractions(garbage)) {
 		case 0: { //you should never eat the garbage
 			//this should never happen
 			break;
