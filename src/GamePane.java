@@ -51,10 +51,6 @@ public class GamePane extends GraphicsPane {
 		rect1.setColor(Color.black);
 		
 	}
-	public Player grow() {
-		System.out.println("playerSize: " + player.getSize() + "\n");
-		return player;
-	}
 
 	public Score getScore() {
 		return s;

@@ -36,7 +36,8 @@ public class Player extends Fish {
 
 	public int grow(int size) {
 		this.img.scale(1.25);
-		size = getSize() + 1;
+		size = getSize() + 2;
+		System.out.println("setting size: " + size + "\n");
 		return size;
 	}
 	public boolean getRTL() {
