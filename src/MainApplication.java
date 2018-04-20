@@ -137,6 +137,9 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void moveGarbage() {
 		garbage.move(1, 1);
+//		if(garbage.img.getX()>WINDOW_WIDTH) {
+//			garbage = null;
+//		}
 	}
 	
 	@Override
@@ -164,7 +167,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		try {
 			moveGarbage();
 			if(garbage.img.getX() > MainApplication.WINDOW_WIDTH) {
-				remove(garbage.img);		
+				remove(garbage.img);
+				garbage=null;
 			}
 		}catch(NullPointerException ex) {
 			

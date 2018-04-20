@@ -45,7 +45,9 @@ public class Garbage extends Entity{
 			return;
 		}
 		img.move((double)i/2, (double)j/2);
-
+		if(img.getX()<0) {
+			
+		}
 	}
 
 }
