@@ -93,10 +93,14 @@ public class GamePane extends GraphicsPane {
 
 	public void deleteAllFish() {
 		for (Iterator<Fish> itr = fishLtoR.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
 			itr.remove();
+			program.remove(f.img);
 		}
 		for (Iterator<Fish> itr = fishRtoL.iterator(); itr.hasNext();) {
+			Fish f = itr.next();
 			itr.remove();
+			program.remove(f.img);
 		}
 	}
 	
