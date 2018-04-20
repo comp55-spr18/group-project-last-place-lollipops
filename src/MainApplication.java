@@ -179,7 +179,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				garbage=null;
 			}
 		}catch(NullPointerException ex) {
-
+			
 		}
 
 		int randomGarbage = rgen.nextInt(0, 5000);
@@ -193,7 +193,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= nextScore) { 
 			wave.incrementWave();
 			add(wave.getWaveLabel());
-			game.removeAllFish();
+			game.deleteAllFish();
 			game.getPlayer().grow();
 			nextScore += 50;
 			spawnTypes += 1;
