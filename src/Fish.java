@@ -4,9 +4,9 @@ import acm.graphics.GImage;
 import acm.graphics.GScalable;
 
 public class Fish extends Entity { // Player inherits from this class
-	public boolean RtL;
+	public boolean RtL = true;
 	private int size;
-	public GImage fishImage;
+	
 	
 	// constructor
 	public Fish(MainApplication program) {
@@ -15,16 +15,16 @@ public class Fish extends Entity { // Player inherits from this class
 		
 		if(!(this instanceof Player)) {
 			if (leftOrRight == 0) {
-				fishImage = new GImage("SmallFryFlipped.png", 0, topOrBottom);
+				img = new GImage("SmallFryFlipped.png", 0, topOrBottom);
 				program.getGame().fishLtoR.add(this);
 				RtL = false;
 			} else {
-				fishImage = new GImage("SmallFry.png", 630 ,topOrBottom);
+				img = new GImage("SmallFry.png", 630 ,topOrBottom);
 				program.getGame().fishRtoL.add(this);
 				RtL = true;
 			}
 		} else {
-			fishImage = new GImage("PlainOldFish.png", program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
+			img = new GImage("PlainOldFish.png", program.WINDOW_WIDTH/2, program.WINDOW_HEIGHT/2);
 		}
 		
 	}
@@ -39,13 +39,11 @@ public class Fish extends Entity { // Player inherits from this class
 	}
 
 	public GImage getFish() {
-		return fishImage;
+		return img;
 	}
 
 	public void setFish(String fish) {
-		fishImage.setImage(fish);
-		fishImage.setSize(90, 90);
-		obj = fishImage;
+		img.setImage(fish);
 	}
 	
 	public boolean getRTL() {

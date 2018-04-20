@@ -13,8 +13,8 @@ import acm.util.RandomGenerator;
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-	public static final int MS = 1;
-	public static final int MAX_ENEMY = 4; //gets doubled because of two arrays
+	public static final int MS = 10;
+	public static final int MAX_ENEMY = 5; //gets doubled because of two arrays
 
 	private MenuPane menu;
 	private PausePane pause;
@@ -22,10 +22,15 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private InstructionsPane instructions;
 	private LeaderboardsPane leaderboards;
 	private LosePane lose;
-	public int count;
+
 	private Wave wave = new Wave();
 	
 	
+
+	private int spawnTypes = 15;
+	private Garbage garbage;
+
+	public int count;
 	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
@@ -57,36 +62,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		switchToMenu();
 	}
 
-
-	/*private synchronized void start() {
-	 * if(running)
-	 * 	return;
-	 * 
-	 * running = true;
-	 * thread = new Thread(this);
-	 * thread.start();
-	 */
-	/*	
-	public void ticking() { // allows for smoother player movement
-		long time = System.nanoTime();
-		double numTicks = 60;
-		double ns = 1000000000 / numTicks;
-		double update = 0; // calculates the time passed (to catch up)
-		int u = 0;
-		int frames = 0;
-		long timer = System.currentTimeMillis();
-		while(run) {
-			long now = System.nanoTime();
-			update += (time - now) / ns;
-			time = now;
-			if(update >= 1 ) {
-				tick();
-				update--;
-			}
-		}
-	}
-	 */
-
 	public void switchToMenu() {
 		switchToScreen(menu);
 		playMenuMusic();
@@ -100,11 +75,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void switchToNewGame() {
 		game = new GamePane(this);
+		count = 0;
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
-		add(wave.getWaveLabel());
-
 	}
 
 	public void switchToSettings() {
@@ -118,7 +92,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void switchToLeaderboards() {
 		switchToScreen(leaderboards);
 	}
-	
+
 	public void switchToPause() {
 		switchToScreen(pause);
 		movement.stop();
@@ -161,35 +135,39 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (game.playerMove) {
+		System.out.println(count);
+		if (game.playerMove) { // moves the player
 			game.playerMovement();
 		}
 		
-		if(count == 1000) {
-			remove(wave.getWaveLabel());
+		if(count == 100) { // after 1000 ms, take off Wave Label
+			System.out.println("removing wave label!");
+			remove(game.getWave().getWaveLabel());
 		}
-		
+
 		count++;
 		if((game.fishLtoR.size() + game.fishRtoL.size() <= MAX_ENEMY)) {
-			if (count % 1000 == 0 && count > 0) {
-				int num = rgen.nextInt(0, 2);
+			if (count % 100 == 0 && count > 0) {
+				int num = rgen.nextInt(0, spawnTypes);
 				//System.out.println("num: " + num + "\n");
 				game.addEnemy(num);
 			}
 		}
-		moveAllFish();
+		game.moveAllFish();
 		collision();
-		
-		int randomGarbage = rgen.nextInt(0, 10000);
+
+		int randomGarbage = rgen.nextInt(0, 5000);
 		if (randomGarbage == 7) { // makes garbage spawn at a random time during a wave
-			add(game.garbage.getGarbageImage());
-			game.garbage.moveGarbage();
+			garbage = new Garbage();
+			System.out.println("I made garbage!");
+			add(garbage.getGarbageImage());
 		}
-		// *** check if its off the screen => remove (which file should this be in?) ***
 		
-		System.out.println("current score: " + game.s.getScore() + "\n");
+		// *** check if its off the screen => remove (which file should this be in?) ***
+
+		//	System.out.println("current score: " + game.s.getScore() + "\n");
 		if(game.s.getScore() % 50 == 0 && game.s.getScore() >= 50) { // when user earns 50 pts, initiate new wave
-			wave.newWave();
+			game.getWave().newWave();
 			count = 0;
 			game.removeAllFish();
 			// *** clear screen ***
@@ -197,29 +175,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	}
 
-	//	public void run(){
-	//		t = new Timer(1000, this);
-	//		t.setInitialDelay(3000);
-	//		t.start();
-	//		
-	//	}
-
-	public void moveAllFish() {
-		for (Fish f : game.fishLtoR) {
-			if (f.fishImage.getX() > WINDOW_WIDTH + 50) {
-				f.fishImage.setLocation(0, rgen.nextInt(0, WINDOW_HEIGHT));
-			} else {
-				f.fishImage.move(1, 0);
-			}
-		}
-		for (Fish f : game.fishRtoL) {
-			if (f.fishImage.getX() < 0-100) {
-				f.fishImage.setLocation(WINDOW_WIDTH, rgen.nextInt(0, WINDOW_HEIGHT));
-			} else {
-				f.fishImage.move(-1, 0);
-			}
-		}
-	}
 
 	public void collision() {
 		int interactionOutcome = 0;
@@ -237,7 +192,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			default: {//2 doesn't do anything
-				
+
 				break;
 			}
 			}
@@ -257,13 +212,12 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			default: {//2 doesn't do anything
-				
+
 				break;
 			}
 			}
 		}
-		
-		switch(game.collisionInteractions(game.garbage)) {
+		switch(game.collisionInteractions(garbage)) {
 		case 0: { //you should never eat the garbage
 			//this should never happen
 			break;
@@ -274,7 +228,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			break;
 		}
 		default: {//2 doesn't do anything
-			
 			break;
 		}
 		}
