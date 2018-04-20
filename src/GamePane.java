@@ -46,7 +46,8 @@ public class GamePane extends GraphicsPane {
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
 		garbage = new Garbage(app);
-
+		
+		
 		rect1=new GRect(0,3,800,70);
 		rect1.setFillColor(new Color(255,255,255,128));
 		rect1.setFilled(true);
@@ -62,7 +63,7 @@ public class GamePane extends GraphicsPane {
 		//1 = you lost
 		//2 = nothing happened
 
-		if (player.collideWith(o)) {
+		if (player.collideWith(o) && o.img.isVisible()) {
 			if (o instanceof Fish) {
 				if (((Fish) o).getSize() > player.getSize()) {
 					System.out.println("you lose! because of bigger fish");
@@ -130,23 +131,23 @@ public class GamePane extends GraphicsPane {
 			}
 			break;
 		}
-		program.add(fish.fishImage);
+		program.add(fish.img);
 	}
 
 	public void addAllFish() {
 		for(Fish f: fishLtoR) {
-			program.add(f.fishImage);
+			program.add(f.img);
 		}
 		for(Fish f: fishRtoL) {
-			program.add(f.fishImage);
+			program.add(f.img);
 		}
 	}
 	public void removeAllFish() {
 		for(Fish f: fishLtoR) {
-			program.remove(f.fishImage);
+			program.remove(f.img);
 		}
 		for(Fish f: fishRtoL) {
-			program.remove(f.fishImage);
+			program.remove(f.img);
 		}
 	}
 	@Override
@@ -260,6 +261,25 @@ public class GamePane extends GraphicsPane {
 		playerMove = false;
 	}
 
+	public void moveAllFish() {
+		gameBackground.sendToBack();
+		pause.sendToFront();
+		for (Fish f : fishLtoR) {
+			if (f.img.getX() > program.WINDOW_WIDTH + 50) {
+				f.img.setLocation(0, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+			} else {
+				f.img.move(1, 0);
+			}
+		}
+		for (Fish f : fishRtoL) {
+			if (f.img.getX() < 0-100) {
+				f.img.setLocation(program.WINDOW_WIDTH, program.rgen.nextInt(0, program.WINDOW_HEIGHT));
+			} else {
+				f.img.move(-1, 0);
+			}
+		}
+	}
+	
 	private void tick() {
 		player.tick();
 	}
