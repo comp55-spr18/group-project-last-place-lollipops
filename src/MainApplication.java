@@ -189,7 +189,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			wave.incrementWave();
 			add(wave.getWaveLabel());
 			game.removeAllFish();
-			//game.player.grow(); // grows the player fish (doesnt work)\
+			// game.player.grow(); // grows the player fish (doesnt work)\
 			nextScore += 50;
 			spawnTypes += 1;
 			count = 0;
