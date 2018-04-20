@@ -1,4 +1,5 @@
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,7 +24,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	private LosePane lose;
 	public int count;
 	private Wave wave = new Wave();
-
+	
+	
 	public boolean volume = false; //remember to change back later
 	public Timer movement;
 	public RandomGenerator rgen;
@@ -33,6 +35,8 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
+
+
 
 	public void updateLeaderboards() {
 		leaderboards = new LeaderboardsPane(this);
