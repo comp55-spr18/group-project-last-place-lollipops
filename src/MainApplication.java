@@ -218,7 +218,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 				break;
 			}
 			default: {//2 doesn't do anything
-
 				break;
 			}
 			}
