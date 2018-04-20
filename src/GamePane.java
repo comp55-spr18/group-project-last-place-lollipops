@@ -22,7 +22,7 @@ public class GamePane extends GraphicsPane {
 	public Score s;
 	public ArrayList<Fish> fishLtoR = new ArrayList<Fish>();
 	public ArrayList<Fish> fishRtoL = new ArrayList<Fish>();
-	private Wave wave = new Wave();
+	private Wave wave;
 
 	private GRect rect1;
 
@@ -44,8 +44,7 @@ public class GamePane extends GraphicsPane {
 
 		gameBackground = new GImage("GamePane.jpg", 0, 0);
 		gameBackground.setBounds(0, 0, program.WINDOW_WIDTH, program.WINDOW_HEIGHT);
-
-		program.add(wave.getWaveLabel());
+		wave = new Wave();
 
 		rect1=new GRect(0,3,800,70);
 		rect1.setFillColor(new Color(255,255,255,128));
@@ -186,12 +185,14 @@ public class GamePane extends GraphicsPane {
 	public void showContents() {
 		program.add(gameBackground);
 		program.add(rect1);
-		program.add(pause);
+		program.movement.start();
 		program.add(title);
+		program.add(pause);
 		program.add(s.getScoreTxt());
+		program.add(wave.getWaveLabel());
 		addAllFish();
 		program.add(player.getFish());
-		program.movement.start();
+
 	}
 
 	@Override

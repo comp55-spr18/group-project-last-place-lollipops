@@ -12,7 +12,7 @@ import acm.util.RandomGenerator;
 public class MainApplication extends GraphicsApplication implements ActionListener {
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
-	public static final int MS = 1;
+	public static final int MS = 10;
 	public static final int MAX_ENEMY = 5; //gets doubled because of two arrays
 
 	private MenuPane menu;
@@ -67,6 +67,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 
 	public void switchToNewGame() {
 		game = new GamePane(this);
+		count = 0;
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
@@ -131,13 +132,14 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			game.playerMovement();
 		}
 		
-		if(count == 1000) { // after 1000 ms, take off Wave Label
+		if(count == 100) { // after 1000 ms, take off Wave Label
+			System.out.println("removing wave label!");
 			remove(game.getWave().getWaveLabel());
 		}
 
 		count++;
 		if((game.fishLtoR.size() + game.fishRtoL.size() <= MAX_ENEMY)) {
-			if (count % 1000 == 0 && count > 0) {
+			if (count % 100 == 0 && count > 0) {
 				int num = rgen.nextInt(0, spawnTypes);
 				//System.out.println("num: " + num + "\n");
 				game.addEnemy(num);
