@@ -78,6 +78,13 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		count = 0;
 		spawnTypes = 0;
 		nextScore = 50;
+		try {
+			remove(garbage.img);
+			garbage = null;
+		}
+		catch(NullPointerException e) {
+			System.out.println("garbage is already null!");
+		}
 		switchToScreen(game);
 		pauseMenuMusic();
 		playGameMusic();
@@ -208,7 +215,6 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			add(wave.getWaveLabel());
 			game.deleteAllFish();
 			game.getPlayer().grow();
-			game.getPlayer().img.scale(game.getPlayer().getScale());
 			nextScore += 50;
 			spawnTypes += 1;
 			count = 0;
