@@ -41,6 +41,12 @@ public class Player extends Fish {
 
 	public void grow() {
 		scale+=.2;
+		if (RtL) {
+			img.setImage("PlainOldFish.png");
+		}else {
+			img.setImage("PlainOldFishFlipped.png");
+		}
+		img.setSize(90,90);
 		this.img.scale(scale);
 		setSize(getSize() + 2);
 		System.out.println("growing up!\n" + getSize());
