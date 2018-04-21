@@ -167,6 +167,7 @@ public class LeaderboardsPane extends GraphicsPane {
 		if (obj == back) {
 			program.switchToMenu();
 			program.stopLoseMusic();
+			program.stopGameMusic();
 		}
 
 	}
