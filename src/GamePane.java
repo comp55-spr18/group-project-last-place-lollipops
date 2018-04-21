@@ -27,6 +27,7 @@ public class GamePane extends GraphicsPane {
 		super();
 		this.program = app;
 		player = new Player(app, 0); // size 2
+		player.img.scale(player.getScale());
 		title = new GParagraph("Something Smells Fishy", 5, 30);
 		title.setFont("Century Gothic-bold-30");
 		title.setColor(Color.black);

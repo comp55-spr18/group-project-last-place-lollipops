@@ -4,6 +4,7 @@ import acm.graphics.GImage;
 public class Player extends Fish { 
 	private double scale = 0.7;
 	
+
 	public double getScale() {
 		return scale;
 	}

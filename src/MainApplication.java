@@ -135,6 +135,10 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.pauseSound("", "sadsong.mp3");
 	}
+	public void stopLoseMusic() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.stopSound("", "sadsong.mp3");
+	}
 	public void playGameMusic() {
 		if (!volume)
 			return;
@@ -204,6 +208,7 @@ public class MainApplication extends GraphicsApplication implements ActionListen
 			add(wave.getWaveLabel());
 			game.deleteAllFish();
 			game.getPlayer().grow();
+			game.getPlayer().img.scale(game.getPlayer().getScale());
 			nextScore += 50;
 			spawnTypes += 1;
 			count = 0;
