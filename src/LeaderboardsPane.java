@@ -166,6 +166,7 @@ public class LeaderboardsPane extends GraphicsPane {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == back) {
 			program.switchToMenu();
+			program.stopLoseMusic();
 		}
 
 	}
